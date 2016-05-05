@@ -10,4 +10,4 @@ $AssemblyInfoFile = Join-Path $SourceDir "AssemblyInfoShared.cs"
 $TestAssemblies   = @() | %{ Join-Path $SourceDir "$_\bin\$Configuration\$_.dll" }
 
 [array] `
-$NuSpecFiles      = @("TestLinker.nuspec") | %{ Join-Path $NuSpecDir $_ }
+$NuSpecFiles      = @("TestFx.TestLinker.nuspec") | %{ Join-Path $NuSpecDir $_ }

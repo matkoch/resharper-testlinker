@@ -45,9 +45,9 @@ limitations under the License.</s:String>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E2CAB526A167D447BB84C309E757EEE6/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E2CAB526A167D447BB84C309E757EEE6/AbsolutePath/@EntryValue">C:\Development\TestFx\shared\dotsettings\Environment.DotSettings</s:String>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E2CAB526A167D447BB84C309E757EEE6/RelativePath/@EntryValue">..\shared\dotsettings\Environment.DotSettings</s:String>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=F67E063383095941A8734E4A08830146/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=F67E063383095941A8734E4A08830146/AbsolutePath/@EntryValue">C:\TestFx\src\TestFx.ReSharper\LiveTemplates.DotSettings</s:String>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=F67E063383095941A8734E4A08830146/RelativePath/@EntryValue">..\src\TestFx.ReSharper\LiveTemplates.DotSettings</s:String>
+	
+	
+	
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=FADA33DD9EC0684CB067835878FBAD1F/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=FADA33DD9EC0684CB067835878FBAD1F/AbsolutePath/@EntryValue">C:\TestFx\shared\dotsettings\LiveTemplates.DotSettings</s:String>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=FADA33DD9EC0684CB067835878FBAD1F/RelativePath/@EntryValue">..\shared\dotsettings\LiveTemplates.DotSettings</s:String>
@@ -71,13 +71,13 @@ limitations under the License.</s:String>
 	
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE2CAB526A167D447BB84C309E757EEE6/@KeyIndexDefined">True</s:Boolean>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE2CAB526A167D447BB84C309E757EEE6/RelativePriority/@EntryValue">4</s:Double>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileF67E063383095941A8734E4A08830146/@KeyIndexDefined">True</s:Boolean>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileF67E063383095941A8734E4A08830146/RelativePriority/@EntryValue">7</s:Double>
+	
+	
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileFADA33DD9EC0684CB067835878FBAD1F/@KeyIndexDefined">True</s:Boolean>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileFADA33DD9EC0684CB067835878FBAD1F/RelativePriority/@EntryValue">6</s:Double>
 	<s:String x:Key="/Default/RunConfigs/Active/@EntryValue">E1D62D10D8E2E24085EF1F6A4CFB691A</s:String>
 	<s:Boolean x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Exe/Arguments/@EntryValue">/rootSuffix ReSharper10.0 /ReSharper.Internal .\src\TestFx.ReSharper.Debug\TestFx.ReSharper.Debug.sln</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Exe/Arguments/@EntryValue">/rootSuffix TestLinker /ReSharper.Internal .\src\TestLinker.Test\TestLinker.Test.sln</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Exe/Executable/@EntryValue">C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</s:String>
-	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Name/@EntryValue">Vs12ReSharper10.0</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Name/@EntryValue">TestLinker</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Type/@EntryValue">exe</s:String></wpf:ResourceDictionary>

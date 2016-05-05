@@ -1,4 +1,4 @@
-﻿// Copyright 2016, 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,8 +13,18 @@
 // limitations under the License.
 
 using System;
-using System.Reflection;
-using System.Runtime.InteropServices;
+using System.Linq;
+using JetBrains.Annotations;
+using JetBrains.ReSharper.Feature.Services.Occurences;
+using JetBrains.ReSharper.Psi;
 
-[assembly: AssemblyTitle ("TestFx.TestLinker")]
-[assembly: Guid ("20e4f47d-f0c5-494b-a83b-3dc98e9e2b06")]
+namespace TestFx.TestLinker
+{
+  public class LinkedTypesOccurrence : DeclaredElementOccurence
+  {
+    public LinkedTypesOccurrence ([NotNull] IDeclaredElement element, OccurenceType occurenceKind)
+        : base(element, occurenceKind)
+    {
+    }
+  }
+}

@@ -8,12 +8,14 @@
     <ProjectGuid>{68456E60-C7A1-4B54-BB14-00063A03B7A3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestFx</RootNamespace>
-    <AssemblyName>TestFx.Core</AssemblyName>
+    <RootNamespace>TestFx.TestLinker</RootNamespace>
+    <AssemblyName>TestFx.TestLinker</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <NuGetPackageImportStamp>29e1e2bf</NuGetPackageImportStamp>
+    <Hive>TestLinker</Hive>
+    <BaseInstallationPath>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs12$(Hive)</BaseInstallationPath>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -21,10 +23,11 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;JET_MODE_ASSERT;JETBRAINS_ANNOTATIONS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>0436</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -162,52 +165,26 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
+    <Compile Include="GotoLinkedTypesAction.cs" />
+    <Compile Include="LinkedNamesData.cs" />
+    <Compile Include="LinkedTypesOccurrenceBrowserDescriptor.cs" />
+    <Compile Include="LinkedTypesOccurrenceSectionProvider.cs" />
+    <Compile Include="LinkedTypesOccurrence.cs" />
+    <Compile Include="LinkedTypesService.cs" />
+    <Compile Include="LinkedTypesRelatedFilesProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LinkedNamesCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>if exist "$(BaseInstallationPath)"        xcopy /Y "$(TargetDir)TestFx.TestLinker.*" "$(BaseInstallationPath)"
+if exist "$(BaseInstallationPath)_000" xcopy /Y "$(TargetDir)TestFx.TestLinker.*" "$(BaseInstallationPath)_000"
+if exist "$(BaseInstallationPath)_001" xcopy /Y "$(TargetDir)TestFx.TestLinker.*" "$(BaseInstallationPath)_001"
+</PostBuildEvent>
   </PropertyGroup>
-  <UsingTask TaskName="CosturaCleanup" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
-    <ParameterGroup>
-      <Config Output="false" Required="true" ParameterType="Microsoft.Build.Framework.ITaskItem" />
-      <Files Output="false" Required="true" ParameterType="Microsoft.Build.Framework.ITaskItem[]" />
-    </ParameterGroup>
-    <Task Evaluate="true">
-      <Reference xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Include="System.Xml" />
-      <Reference xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Include="System.Xml.Linq" />
-      <Using xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Namespace="System" />
-      <Using xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Namespace="System.IO" />
-      <Using xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Namespace="System.Xml.Linq" />
-      <Code xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Type="Fragment" Language="cs"><![CDATA[
-var config = XElement.Load(Config.ItemSpec).Elements("Costura").FirstOrDefault();
-
-if (config == null) return true;
-
-var excludedAssemblies = new List<string>();
-var attribute = config.Attribute("ExcludeAssemblies");
-if (attribute != null)
-    foreach (var item in attribute.Value.Split('|').Select(x => x.Trim()).Where(x => x != string.Empty))
-        excludedAssemblies.Add(item);
-var element = config.Element("ExcludeAssemblies");
-if (element != null)
-    foreach (var item in element.Value.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).Where(x => x != string.Empty))
-        excludedAssemblies.Add(item);
-
-var filesToCleanup = Files.Select(f => f.ItemSpec).Where(f => !excludedAssemblies.Contains(Path.GetFileNameWithoutExtension(f), StringComparer.InvariantCultureIgnoreCase));
-
-foreach (var item in filesToCleanup)
-  File.Delete(item);
-]]></Code>
-    </Task>
-  </UsingTask>
-  <Target Name="CleanReferenceCopyLocalPaths" AfterTargets="AfterBuild;NonWinFodyTarget">
-    <CosturaCleanup Config="FodyWeavers.xml" Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
-  </Target>
   <Import Project="..\..\packages\JetBrains.Platform.Core.Shell.105.0.20160414.95726\build\JetBrains.Platform.Core.Shell.Targets" Condition="Exists('..\..\packages\JetBrains.Platform.Core.Shell.105.0.20160414.95726\build\JetBrains.Platform.Core.Shell.Targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

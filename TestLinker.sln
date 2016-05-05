@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E1B03E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{38E0FF06-BB58-4322-97AE-ABAC49317E3B}"
 	ProjectSection(SolutionItems) = preProject
-		nuspec\TestLinker.nuspec = nuspec\TestLinker.nuspec
+		nuspec\TestFx.TestLinker.nuspec = nuspec\TestFx.TestLinker.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".misc", ".misc", "{1439387A-18D3-4058-88B6-C58AD853C80D}"

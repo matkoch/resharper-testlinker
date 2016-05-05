@@ -16,9 +16,9 @@ using System;
 using System.Reflection;
 
 [assembly: AssemblyCompany ("Matthias Koch")]
-[assembly: AssemblyProduct ("TestFx")]
-[assembly: AssemblyDescription ("Next Level Testing")]
-[assembly: AssemblyCopyright ("Copyright © Matthias Koch, 2015 - Licensed under APACHE 2.0")]
+[assembly: AssemblyProduct ("TestFx.TestLinker")]
+[assembly: AssemblyDescription("Linking subject entities and tests through attributes.")]
+[assembly: AssemblyCopyright ("Copyright © Matthias Koch, 2016 - Licensed under APACHE 2.0")]
 [assembly: AssemblyTrademark ("")]
 
 [assembly: AssemblyConfiguration ("DEBUG")]

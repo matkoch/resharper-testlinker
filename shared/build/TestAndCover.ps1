@@ -13,6 +13,7 @@ Param(
 Set-StrictMode -Version 2.0; $ErrorActionPreference = "Stop"; $ConfirmPreference = "None"; trap { $host.SetShouldExit(1) }
 Import-Module $PSScriptRoot\_Import.ps1
 
+exit
 if ($SkipTests) { exit }
 
 Write-Step "Test And Cover"

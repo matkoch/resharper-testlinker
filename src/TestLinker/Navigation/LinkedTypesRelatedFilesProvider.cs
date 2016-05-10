@@ -19,7 +19,7 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Navigation;
 using JetBrains.ReSharper.Psi;
 
-namespace TestFx.TestLinker
+namespace TestFx.TestLinker.Navigation
 {
   [RelatedFilesProvider (typeof(KnownProjectFileType))]
   public class LinkedTypesRelatedFilesProvider : IRelatedFilesProvider

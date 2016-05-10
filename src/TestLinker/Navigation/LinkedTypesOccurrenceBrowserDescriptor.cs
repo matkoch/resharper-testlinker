@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Application.Progress;
-using JetBrains.CommonControls;
 using JetBrains.IDE.TreeBrowser;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Occurences;
@@ -24,10 +23,9 @@ using JetBrains.ReSharper.Feature.Services.Tree;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.TreeModels;
-using JetBrains.UI.TreeView;
 using JetBrains.Util;
 
-namespace TestFx.TestLinker
+namespace TestFx.TestLinker.Navigation
 {
   public class LinkedTypesOccurrenceBrowserDescriptor : OccurenceBrowserDescriptor
   {

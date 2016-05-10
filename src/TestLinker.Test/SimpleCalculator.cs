@@ -5,5 +5,19 @@ namespace TestLinker.Test
 {
   public class SimpleCalculator : ICalculator
   {
+
+
+
+
+
+
+
+    public SimpleCalculator ()
+    {
+      
+    }
+
+
+
   }
 }

@@ -17,49 +17,45 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Application.Progress;
 using JetBrains.DataFlow;
-using JetBrains.DocumentManagers.impl;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Caches;
 using JetBrains.ReSharper.Psi.CSharp;
-using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Files;
 using JetBrains.ReSharper.Psi.Tree;
-using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.Util;
-using JetBrains.Util.PersistentMap;
 
-namespace TestFx.TestLinker
+namespace TestFx.TestLinker.Caching
 {
   [PsiComponent]
   public class LinkedNamesCache : SimpleICache<LinkedNamesData>
   {
-    private MergeData _mergeData;
+    private readonly IReadOnlyList<ILinkedTypesProvider> _linkedTypesProviders;
 
-    public LinkedNamesCache (Lifetime lifetime, IPersistentIndexManager persistentIndexManager)
-        : base(lifetime, persistentIndexManager, new Marshaller())
+    private LinkedNamesMergeData _mergeData;
+
+    public LinkedNamesCache (
+        Lifetime lifetime,
+        IPersistentIndexManager persistentIndexManager,
+        IEnumerable<ILinkedTypesProvider> linkedTypesProviders)
+        : base(lifetime, persistentIndexManager, new LinkedNamesDataMarshaller())
     {
+      _linkedTypesProviders = linkedTypesProviders.ToList();
     }
 
-    public override string Version
-    {
-      get { return "6"; }
-    }
+    public override string Version => "6";
 
-    public OneToSetMap<string, Pair<IPsiSourceFile, string>> LinkedNamesMap
-    {
-      get { return _mergeData.LinkedNamesMap; }
-    }
+    public OneToSetMap<string, Pair<IPsiSourceFile, string>> LinkedNamesMap => _mergeData.LinkedNamesMap;
 
     public override object Load (IProgressIndicator progress, bool enablePersistence)
     {
-      var data = new MergeData();
+      var data = new LinkedNamesMergeData();
       Map.ForEach(x => LoadFile(data, x.Key, x.Value));
       return data;
     }
 
     public override void MergeLoaded (object data)
     {
-      _mergeData = (MergeData) data;
+      _mergeData = (LinkedNamesMergeData) data;
 
       base.MergeLoaded(data);
     }
@@ -98,7 +94,9 @@ namespace TestFx.TestLinker
       return sourceFile.GetDominantPsiFile<CSharpLanguage>() != null;
     }
 
-    private void LoadFile (MergeData data, IPsiSourceFile sourceFile, LinkedNamesData linkedNamesData)
+    #region Privates
+
+    private void LoadFile (LinkedNamesMergeData data, IPsiSourceFile sourceFile, LinkedNamesData linkedNamesData)
     {
       var sourceNames = linkedNamesData.Keys;
       data.PreviousNamesMap.AddRange(sourceFile, sourceNames);
@@ -129,21 +127,10 @@ namespace TestFx.TestLinker
       var linkedNamesData = new LinkedNamesData();
       foreach (var sourceType in GetTypeDeclarations(sourceFile.GetPrimaryPsiFile()))
       {
-        // TODO: extension
-        var attributesOwnerDeclaration = sourceType as IAttributesOwnerDeclaration;
-        if (attributesOwnerDeclaration == null)
-          continue;
-
-        foreach (var attribute in attributesOwnerDeclaration.Attributes)
+        for (var i = 0; i < _linkedTypesProviders.Count; i++)
         {
-          if (attribute.Name.ShortName != "Subject" && attribute.Name.ShortName != "SubjectAttribute")
-            continue;
-
-          foreach (var typeArgument in attribute.Arguments.Select(x => x.Value).OfType<ITypeofExpression>())
-          {
-            var linkedType = typeArgument.ArgumentType.GetPresentableName(sourceFile.PrimaryPsiLanguage);
-            linkedNamesData.Add(sourceType.DeclaredName, linkedType);
-          }
+          var linkedNames = _linkedTypesProviders[i].GetLinkedNames(sourceType);
+          linkedNames.ForEach(x => linkedNamesData.Add(sourceType.DeclaredName, x));
         }
       }
 
@@ -163,38 +150,6 @@ namespace TestFx.TestLinker
           yield return typeDeclaration;
     }
 
-    private class MergeData
-    {
-      public readonly OneToSetMap<string, Pair<IPsiSourceFile, string>> LinkedNamesMap = new OneToSetMap<string, Pair<IPsiSourceFile, string>>();
-      public readonly OneToSetMap<IPsiSourceFile, string> PreviousNamesMap = new OneToSetMap<IPsiSourceFile, string>();
-    }
-
-    private class Marshaller : IUnsafeMarshaller<LinkedNamesData>
-    {
-      public void Marshal (UnsafeWriter writer, LinkedNamesData value)
-      {
-        writer.Write(value.Count);
-        foreach (var map in value)
-        {
-          writer.Write(map.Key);
-          writer.Write(map.Value.Count);
-          map.Value.ForEach(writer.Write);
-        }
-      }
-
-      public LinkedNamesData Unmarshal (UnsafeReader reader)
-      {
-        var linkData = new LinkedNamesData();
-        var count = reader.ReadInt();
-        for (var i = 0; i < count; i++)
-        {
-          var sourceType = reader.ReadString();
-          var listCount = reader.ReadInt();
-          var linkedTypes = Enumerable.Range(0, listCount).Select(x => reader.ReadString());
-          linkData.AddValueRange(sourceType, linkedTypes);
-        }
-        return linkData;
-      }
-    }
+    #endregion
   }
 }

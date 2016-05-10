@@ -165,19 +165,27 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
-    <Compile Include="GotoLinkedTypesAction.cs" />
-    <Compile Include="LinkedNamesData.cs" />
-    <Compile Include="LinkedTypesOccurrenceBrowserDescriptor.cs" />
-    <Compile Include="LinkedTypesOccurrenceSectionProvider.cs" />
-    <Compile Include="LinkedTypesOccurrence.cs" />
+    <Compile Include="Actions\GotoLinkedTypesAction.cs" />
+    <Compile Include="Caching\LinkedNamesData.cs" />
+    <Compile Include="Caching\LinkedNamesDataMarshaller.cs" />
+    <Compile Include="Caching\LinkedNamesMergeData.cs" />
+    <Compile Include="ILinkedTypesProvider.cs" />
+    <Compile Include="LinkedTestInvalidator.cs" />
+    <Compile Include="LinkedTypesProvider\NameLinkedTypesProvider.cs" />
+    <Compile Include="Navigation\LinkedTypesOccurrenceBrowserDescriptor.cs" />
+    <Compile Include="Navigation\LinkedTypesOccurrenceSectionProvider.cs" />
+    <Compile Include="Navigation\LinkedTypesOccurrence.cs" />
     <Compile Include="LinkedTypesService.cs" />
-    <Compile Include="LinkedTypesRelatedFilesProvider.cs" />
+    <Compile Include="Navigation\LinkedTypesRelatedFilesProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LinkedNamesCache.cs" />
+    <Compile Include="Caching\LinkedNamesCache.cs" />
+    <Compile Include="LinkedTypesProvider\SubjectAttributeLinkedTypesProvider.cs" />
+    <Compile Include="ChangedTypesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if exist "$(BaseInstallationPath)"        xcopy /Y "$(TargetDir)TestFx.TestLinker.*" "$(BaseInstallationPath)"

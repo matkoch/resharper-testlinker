@@ -24,7 +24,6 @@ using JetBrains.ReSharper.Feature.Services.Occurences;
 using JetBrains.ReSharper.Feature.Services.Tree;
 using JetBrains.ReSharper.Feature.Services.Util;
 using JetBrains.ReSharper.Psi;
-using JetBrains.ReSharper.Psi.Caches;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.TextControl;
@@ -32,24 +31,31 @@ using JetBrains.TextControl.DataContext;
 using JetBrains.UI.ActionsRevised;
 using JetBrains.UI.PopupWindowManager;
 using JetBrains.Util;
+using TestFx.TestLinker.Navigation;
 
-namespace TestFx.TestLinker
+namespace TestFx.TestLinker.Actions
 {
-  [Action("Goto_LinkedTypes", "Goto Linked Types", Id = 9854, VsShortcuts = new[] { "Ctrl+Shift+^" })]
+  [Action ("Goto_LinkedTypes", "Goto Linked Types", Id = 9854, VsShortcuts = new[] { "Ctrl+Shift+^" })]
   public class GotoLinkedTypesAction : IActionWithExecuteRequirement, IExecutableAction
   {
-    public IActionRequirement GetRequirement(IDataContext dataContext)
+    #region IActionWithExecuteRequirement
+
+    public IActionRequirement GetRequirement (IDataContext dataContext)
     {
       return CurrentPsiFileRequirement.FromDataContext(dataContext);
     }
 
-    public bool Update(IDataContext context, ActionPresentation presentation, DelegateUpdate nextUpdate)
+    #endregion
+
+    #region IExecutableAction
+
+    public bool Update (IDataContext context, ActionPresentation presentation, DelegateUpdate nextUpdate)
     {
       var solution = context.GetData(ProjectModelDataConstants.SOLUTION);
       return solution != null;
     }
 
-    public void Execute(IDataContext context, DelegateExecute nextExecute)
+    public void Execute (IDataContext context, DelegateExecute nextExecute)
     {
       var solution = context.GetData(ProjectModelDataConstants.SOLUTION).NotNull();
       var textControl = context.GetData(TextControlDataConstants.TEXT_CONTROL).NotNull();
@@ -63,7 +69,7 @@ namespace TestFx.TestLinker
       var occurrences = linkedTypes.Select(x => new LinkedTypesOccurrence(x, OccurenceType.Occurence)).ToList<IOccurence>();
       if (occurrences.Count == 1)
       {
-        occurrences.Single().Navigate(solution, Shell.Instance.GetComponent<MainWindowPopupWindowContext>().Source, transferFocus: true);
+        occurrences.Single().Navigate(solution, Shell.Instance.GetComponent<MainWindowPopupWindowContext>().Source, true);
       }
       else
       {
@@ -73,7 +79,11 @@ namespace TestFx.TestLinker
       }
     }
 
-    private IEnumerable<ITypeElement> GetTypesInContext(ITextControl textControl, ISolution solution)
+    #endregion
+
+    #region Privates
+
+    private IEnumerable<ITypeElement> GetTypesInContext (ITextControl textControl, ISolution solution)
     {
       var classDeclaration = TextControlToPsi.GetElementFromCaretPosition<ITypeDeclaration>(solution, textControl);
       if (classDeclaration != null)
@@ -93,5 +103,7 @@ namespace TestFx.TestLinker
 
       return Enumerable.Empty<ITypeElement>();
     }
+
+    #endregion
   }
 }

@@ -8,5 +8,20 @@ namespace TestLinker.Test
   [Subject(typeof(AdvancedCalculator), typeof(SimpleCalculator))]
   public class IntegrationTest
   {
+    [Test]
+    public void Test()
+    {
+
+    }
+  }
+
+  [TestFixture]
+  public class UnrelatedTest
+  {
+    [Test]
+    public void Test()
+    {
+
+    }
   }
 }

@@ -14,17 +14,14 @@
 
 using System;
 using System.Linq;
-using JetBrains.Annotations;
-using JetBrains.ReSharper.Feature.Services.Occurences;
 using JetBrains.ReSharper.Psi;
+using JetBrains.Util;
 
-namespace TestFx.TestLinker
+namespace TestFx.TestLinker.Caching
 {
-  public class LinkedTypesOccurrence : DeclaredElementOccurence
+  public class LinkedNamesMergeData
   {
-    public LinkedTypesOccurrence ([NotNull] IDeclaredElement element, OccurenceType occurenceKind)
-        : base(element, occurenceKind)
-    {
-    }
+    public readonly OneToSetMap<string, Pair<IPsiSourceFile, string>> LinkedNamesMap = new OneToSetMap<string, Pair<IPsiSourceFile, string>>();
+    public readonly OneToSetMap<IPsiSourceFile, string> PreviousNamesMap = new OneToSetMap<IPsiSourceFile, string>();
   }
 }

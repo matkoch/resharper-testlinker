@@ -18,9 +18,11 @@ using System.Linq;
 using JetBrains.Application.Progress;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Caches;
+using JetBrains.ReSharper.Psi.Modules;
 using JetBrains.ReSharper.Psi.Search;
 using JetBrains.ReSharper.Psi.Util;
 using JetBrains.Util;
+using TestFx.TestLinker.Caching;
 
 namespace TestFx.TestLinker
 {
@@ -28,10 +30,12 @@ namespace TestFx.TestLinker
   public class LinkedTypesService
   {
     private readonly LinkedNamesCache _linkedNamesCache;
+    private readonly IReadOnlyList<ILinkedTypesProvider> _linkedTypesProviders;
 
-    public LinkedTypesService (LinkedNamesCache linkedNamesCache)
+    public LinkedTypesService (LinkedNamesCache linkedNamesCache, IEnumerable<ILinkedTypesProvider> linkedTypesProviders)
     {
       _linkedNamesCache = linkedNamesCache;
+      _linkedTypesProviders = linkedTypesProviders.ToList();
     }
 
     public IEnumerable<ITypeElement> GetLinkedTypes (ITypeElement sourceType)
@@ -42,11 +46,13 @@ namespace TestFx.TestLinker
       var services = sourceType.GetPsiServices();
       var linkedTypes = GetLinkedTypes(services, allSourceTypes).ToList();
       var linkedDerivedTypes = linkedTypes.SelectMany(x => services.Finder.FindInheritors(x, NullProgressIndicator.Instance));
-      
+
       var allLinkedTypes = new HashSet<ITypeElement>(linkedTypes);
       allLinkedTypes.AddRange(linkedDerivedTypes);
       return allLinkedTypes;
     }
+
+    #region Privates
 
     private IEnumerable<ITypeElement> GetLinkedTypes (IPsiServices services, IEnumerable<ITypeElement> sourceTypes)
     {
@@ -55,52 +61,16 @@ namespace TestFx.TestLinker
       {
         var linkedNames = _linkedNamesCache.LinkedNamesMap[sourceType.ShortName];
         var possibleLinkedTypes = linkedNames.SelectMany(x => symbolScope.GetElementsByShortName(x.Second).OfType<ITypeElement>());
-        var actualLinkedTypes = possibleLinkedTypes.Where(x => IsLink(sourceType, x) || IsLink(x, sourceType));
-        foreach (var linkedType in actualLinkedTypes)
-          yield return linkedType;
-      }
-    }
 
-    // TODO: extension
-    private bool IsLink (ITypeElement type1, ITypeElement type2)
-    {
-      var typeArguments = GetSubjectAttributeTypeArguments(type1);
-      return typeArguments.Any(x => x.Equals(type2));
-    }
-
-    private IEnumerable<ITypeElement> GetSubjectAttributeTypeArguments (IAttributesSet attributeSet)
-    {
-      return attributeSet.GetAttributeInstances(true)
-          .Where(x => x.GetClrName().ShortName == "SubjectAttribute")
-          .SelectMany(GetTypeArguments);
-    }
-
-    private IEnumerable<ITypeElement> GetTypeArguments (IAttributeInstance subjectAttribute)
-    {
-      var namedArguments = subjectAttribute.NamedParameters().Select(x => x.Second);
-      var positionalArguments = subjectAttribute.PositionParameters();
-      var flattenedArguments = FlattenArguments(namedArguments.Concat(positionalArguments));
-
-      return flattenedArguments
-          .Where(x => x.IsType && !x.IsBadValue)
-          .Select(x => x.TypeValue.GetTypeElement())
-          .WhereNotNull();
-    }
-
-    private IEnumerable<AttributeValue> FlattenArguments (IEnumerable<AttributeValue> attributeValues)
-    {
-      foreach (var attributeValue in attributeValues)
-      {
-        if (!attributeValue.IsArray)
+        foreach (var possibleLinkedType in possibleLinkedTypes)
         {
-          yield return attributeValue;
-        }
-        else
-        {
-          foreach (var innerAttributeValue in FlattenArguments(attributeValue.ArrayValue.NotNull()))
-            yield return innerAttributeValue;
+          if (_linkedTypesProviders.Any(x => x.IsLinkedType(sourceType, possibleLinkedType)) ||
+              _linkedTypesProviders.Any(x => x.IsLinkedType(possibleLinkedType, sourceType)))
+            yield return possibleLinkedType;
         }
       }
     }
+
+    #endregion
   }
 }

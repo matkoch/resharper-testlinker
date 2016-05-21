@@ -24,7 +24,6 @@ using JetBrains.DocumentManagers;
 using JetBrains.DocumentManagers.impl;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
-using JetBrains.ReSharper.Psi.Files;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Threading;
 using JetBrains.Util;
@@ -39,7 +38,6 @@ namespace TestLinker
     private readonly Lifetime _myLifetime;
     private readonly IPsiServices _myServices;
     private readonly IShellLocks _myShellLocks;
-    private readonly IPsiFiles _myPsiFiles;
     private readonly DocumentManager _myDocumentManager;
 
     private readonly ConcurrentDictionary<IProjectFile, TextRange> _myChangedRanges;
@@ -48,7 +46,6 @@ namespace TestLinker
     public ChangedTypesProvider (
         Lifetime lifetime,
         IShellLocks shellLocks,
-        IPsiFiles psiFiles,
         ChangeManager changeManager,
         DocumentManager documentManager,
         IPsiServices services)
@@ -56,7 +53,6 @@ namespace TestLinker
       _myServices = services;
       _myLifetime = lifetime;
       _myShellLocks = shellLocks;
-      _myPsiFiles = psiFiles;
       _myDocumentManager = documentManager;
       _myChangedRanges = new ConcurrentDictionary<IProjectFile, TextRange>();
 
@@ -70,7 +66,7 @@ namespace TestLinker
       TypesChanged = new Signal<IReadOnlyCollection<ITypeElement>>(lifetime, "ChangedTypesProvider");
     }
 
-    public ISignal<IReadOnlyCollection<ITypeElement>> TypesChanged { get; set; }
+    public ISignal<IReadOnlyCollection<ITypeElement>> TypesChanged { get; }
 
     #region Privates
 

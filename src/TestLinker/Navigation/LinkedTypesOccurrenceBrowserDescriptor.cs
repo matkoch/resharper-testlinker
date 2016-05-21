@@ -46,6 +46,7 @@ namespace TestLinker.Navigation
 
       using (ReadLockCookie.Create())
       {
+        // ReSharper disable once VirtualMemberCallInConstructor
         SetResults(linkedTypeOccurrences, indicator);
       }
     }

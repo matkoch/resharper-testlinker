@@ -62,7 +62,7 @@ namespace TestFx.TestLinker.Actions
       var typesInContext = GetTypesInContext(textControl, solution).ToList();
 
       var linkedTypesProvider = solution.GetComponent<LinkedTypesService>();
-      var linkedTypes = typesInContext.SelectMany(x => linkedTypesProvider.GetLinkedTypes(x)).ToList();
+      var linkedTypes = typesInContext.SelectMany(x => linkedTypesProvider.GetLinkedTypes(x)).ToHashSet();
       if (linkedTypes.IsEmpty())
         return;
 

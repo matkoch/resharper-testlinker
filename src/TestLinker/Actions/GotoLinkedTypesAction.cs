@@ -35,7 +35,7 @@ using TestFx.TestLinker.Navigation;
 
 namespace TestFx.TestLinker.Actions
 {
-  [Action ("Goto_LinkedTypes", "Goto Linked Types", Id = 9854, VsShortcuts = new[] { "Ctrl+Shift+^" })]
+  [Action ("Goto_LinkedTypes", "Goto Linked Types", Id = 9854)]
   public class GotoLinkedTypesAction : IActionWithExecuteRequirement, IExecutableAction
   {
     #region IActionWithExecuteRequirement

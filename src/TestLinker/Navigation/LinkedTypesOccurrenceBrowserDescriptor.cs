@@ -25,7 +25,7 @@ using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.TreeModels;
 using JetBrains.Util;
 
-namespace TestFx.TestLinker.Navigation
+namespace TestLinker.Navigation
 {
   public class LinkedTypesOccurrenceBrowserDescriptor : OccurenceBrowserDescriptor
   {

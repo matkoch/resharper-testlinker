@@ -8,14 +8,15 @@
     <ProjectGuid>{68456E60-C7A1-4B54-BB14-00063A03B7A3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestFx.TestLinker</RootNamespace>
-    <AssemblyName>TestFx.TestLinker</AssemblyName>
+    <RootNamespace>TestLinker</RootNamespace>
+    <AssemblyName>TestLinker</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <NuGetPackageImportStamp>29e1e2bf</NuGetPackageImportStamp>
     <Hive>TestLinker</Hive>
-    <BaseInstallationPath>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs12$(Hive)</BaseInstallationPath>
+    <Vs12Installation>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs12$(Hive)</Vs12Installation>
+    <Vs14Installation>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs14$(Hive)</Vs14Installation>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -188,9 +189,12 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if exist "$(BaseInstallationPath)"        xcopy /Y "$(TargetDir)TestFx.TestLinker.*" "$(BaseInstallationPath)"
-if exist "$(BaseInstallationPath)_000" xcopy /Y "$(TargetDir)TestFx.TestLinker.*" "$(BaseInstallationPath)_000"
-if exist "$(BaseInstallationPath)_001" xcopy /Y "$(TargetDir)TestFx.TestLinker.*" "$(BaseInstallationPath)_001"
+    <PostBuildEvent>if exist "$(Vs12Installation)"        xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs12Installation)"
+if exist "$(Vs12Installation)_000" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs12Installation)_000"
+if exist "$(Vs12Installation)_001" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs12Installation)_001"
+if exist "$(Vs14Installation)"        xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs14Installation)"
+if exist "$(Vs14Installation)_000" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs14Installation)_000"
+if exist "$(Vs14Installation)_001" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs14Installation)_001"
 </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\JetBrains.Platform.Core.Shell.105.0.20160414.95726\build\JetBrains.Platform.Core.Shell.Targets" Condition="Exists('..\..\packages\JetBrains.Platform.Core.Shell.105.0.20160414.95726\build\JetBrains.Platform.Core.Shell.Targets')" />

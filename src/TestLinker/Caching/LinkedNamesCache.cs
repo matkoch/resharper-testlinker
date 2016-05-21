@@ -24,7 +24,7 @@ using JetBrains.ReSharper.Psi.Files;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
 
-namespace TestFx.TestLinker.Caching
+namespace TestLinker.Caching
 {
   [PsiComponent]
   public class LinkedNamesCache : SimpleICache<LinkedNamesData>

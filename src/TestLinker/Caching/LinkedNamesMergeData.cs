@@ -17,7 +17,7 @@ using System.Linq;
 using JetBrains.ReSharper.Psi;
 using JetBrains.Util;
 
-namespace TestFx.TestLinker.Caching
+namespace TestLinker.Caching
 {
   public class LinkedNamesMergeData
   {

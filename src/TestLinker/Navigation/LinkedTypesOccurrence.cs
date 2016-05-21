@@ -18,7 +18,7 @@ using JetBrains.Annotations;
 using JetBrains.ReSharper.Feature.Services.Occurences;
 using JetBrains.ReSharper.Psi;
 
-namespace TestFx.TestLinker.Navigation
+namespace TestLinker.Navigation
 {
   public class LinkedTypesOccurrence : DeclaredElementOccurence
   {

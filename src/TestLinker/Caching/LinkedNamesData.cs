@@ -16,7 +16,7 @@ using System;
 using System.Linq;
 using JetBrains.Util;
 
-namespace TestFx.TestLinker.Caching
+namespace TestLinker.Caching
 {
   public class LinkedNamesData : OneToListMap<string, string>
   {

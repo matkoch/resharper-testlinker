@@ -18,7 +18,7 @@ using System.Linq;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Tree;
 
-namespace TestFx.TestLinker
+namespace TestLinker
 {
   public interface ILinkedTypesProvider
   {

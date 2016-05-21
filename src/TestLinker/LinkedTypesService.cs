@@ -18,13 +18,12 @@ using System.Linq;
 using JetBrains.Application.Progress;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Caches;
-using JetBrains.ReSharper.Psi.Modules;
 using JetBrains.ReSharper.Psi.Search;
 using JetBrains.ReSharper.Psi.Util;
 using JetBrains.Util;
-using TestFx.TestLinker.Caching;
+using TestLinker.Caching;
 
-namespace TestFx.TestLinker
+namespace TestLinker
 {
   [PsiComponent]
   public class LinkedTypesService

@@ -21,7 +21,7 @@ using JetBrains.ReSharper.Feature.Services.Tree.SectionsManagement;
 using JetBrains.TreeModels;
 using JetBrains.Util;
 
-namespace TestFx.TestLinker.Navigation
+namespace TestLinker.Navigation
 {
   [ShellFeaturePart]
   public class LinkedTypesOccurrenceSectionProvider : OccurenceSectionProvider

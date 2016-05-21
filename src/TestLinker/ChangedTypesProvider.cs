@@ -29,7 +29,7 @@ using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Threading;
 using JetBrains.Util;
 
-namespace TestFx.TestLinker
+namespace TestLinker
 {
   [PsiComponent]
   internal class ChangedTypesProvider

@@ -31,9 +31,9 @@ using JetBrains.TextControl.DataContext;
 using JetBrains.UI.ActionsRevised;
 using JetBrains.UI.PopupWindowManager;
 using JetBrains.Util;
-using TestFx.TestLinker.Navigation;
+using TestLinker.Navigation;
 
-namespace TestFx.TestLinker.Actions
+namespace TestLinker.Actions
 {
   [Action ("Goto_LinkedTypes", "Goto Linked Types", Id = 9854)]
   public class GotoLinkedTypesAction : IActionWithExecuteRequirement, IExecutableAction

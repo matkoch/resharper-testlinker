@@ -21,7 +21,7 @@ using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Psi.Util;
 using JetBrains.Util;
 
-namespace TestFx.TestLinker.LinkedTypesProvider
+namespace TestLinker.LinkedTypesProvider
 {
   [PsiComponent]
   internal class SubjectAttributeLinkedTypesProvider : ILinkedTypesProvider

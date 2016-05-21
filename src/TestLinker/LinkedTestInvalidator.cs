@@ -20,7 +20,7 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.Util;
 
-namespace TestFx.TestLinker
+namespace TestLinker
 {
   [PsiComponent]
   internal class LinkedTestInvalidator

@@ -16,5 +16,5 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle ("TestFx.TestLinker")]
+[assembly: AssemblyTitle ("TestLinker")]
 [assembly: Guid ("20e4f47d-f0c5-494b-a83b-3dc98e9e2b06")]

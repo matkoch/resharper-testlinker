@@ -17,7 +17,7 @@ using System.Linq;
 using JetBrains.Util;
 using JetBrains.Util.PersistentMap;
 
-namespace TestFx.TestLinker.Caching
+namespace TestLinker.Caching
 {
   public class LinkedNamesDataMarshaller : IUnsafeMarshaller<LinkedNamesData>
   {

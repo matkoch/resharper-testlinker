@@ -6,7 +6,7 @@
     <title>TestLinker</title>
     <authors>Matthias Koch</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Linking subject entities and tests.</description>
+    <description>Linking production and test code.</description>
     <iconUrl>https://raw.githubusercontent.com/matkoch/TestLinker/master/TestLinker.ico</iconUrl>
     <projectUrl>https://github.com/matkoch/TestLinker</projectUrl>
     <licenseUrl>https://raw.github.com/matkoch/TestLinker/master/LICENSE</licenseUrl>

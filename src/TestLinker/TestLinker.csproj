@@ -186,7 +186,7 @@
     <Compile Include="ContinuousTesting\ZoneMarker.cs" />
     <Compile Include="ILinkedTypesProvider.cs" />
     <Compile Include="ContinuousTesting\LinkedTestInvalidator.cs" />
-    <Compile Include="LinkedTypesProvider\NameLinkedTypesProvider.cs" />
+    <Compile Include="LinkedTypesProvider\NameSuffixLinkedTypesProvider.cs" />
     <Compile Include="Navigation\LinkedTypesOccurrenceBrowserDescriptor.cs" />
     <Compile Include="Navigation\LinkedTypesOccurrenceSectionProvider.cs" />
     <Compile Include="Navigation\LinkedTypesOccurrence.cs" />
@@ -195,7 +195,7 @@
     <Compile Include="Navigation\ZoneMarker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Caching\LinkedNamesCache.cs" />
-    <Compile Include="LinkedTypesProvider\SubjectAttributeLinkedTypesProvider.cs" />
+    <Compile Include="LinkedTypesProvider\TypeofAttributeLinkedTypesProvider.cs" />
     <Compile Include="ChangedTypesProvider.cs" />
     <Compile Include="Options\NamingStyle.cs" />
     <Compile Include="Options\NavigationMode.cs" />

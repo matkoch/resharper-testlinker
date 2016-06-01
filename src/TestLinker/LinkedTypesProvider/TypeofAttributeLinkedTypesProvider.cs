@@ -15,17 +15,37 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Application.Settings;
+using JetBrains.ProjectModel;
+using JetBrains.ProjectModel.DataContext;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Psi.Util;
 using JetBrains.Util;
+using TestLinker.Options;
 
 namespace TestLinker.LinkedTypesProvider
 {
   [PsiComponent]
-  internal class SubjectAttributeLinkedTypesProvider : ILinkedTypesProvider
+  internal class TypeofAttributeLinkedTypesProvider : ILinkedTypesProvider
   {
+    private readonly string _attributeNameShort;
+    private readonly string _attributeNameLong;
+
+    public TypeofAttributeLinkedTypesProvider (ISolution solution, ISettingsStore settingsStore, ISettingsOptimization settingsOptimization)
+    {
+      var contextBoundSettingsStore = settingsStore.BindToContextTransient(ContextRange.Smart(solution.ToDataContext()));
+      var settings = contextBoundSettingsStore.GetKey<TestLinkerSettings>(settingsOptimization);
+
+      var attributeNameLong = settings.TypeofAttributeName;
+      if (!attributeNameLong.EndsWith("Attribute"))
+        attributeNameLong += "Attribute";
+
+      _attributeNameLong = attributeNameLong;
+      _attributeNameShort = attributeNameLong.Substring(startIndex: 0, length: attributeNameLong.Length - "Attribute".Length);
+    }
+
     #region ILinkedTypesProvider
 
     public IEnumerable<string> GetLinkedNames (ITypeDeclaration typeDeclaration)
@@ -36,7 +56,7 @@ namespace TestLinker.LinkedTypesProvider
 
       foreach (var attribute in attributesOwnerDeclaration.Attributes)
       {
-        if (attribute.Name.ShortName != "Subject" && attribute.Name.ShortName != "SubjectAttribute")
+        if (attribute.Name.ShortName != _attributeNameShort && attribute.Name.ShortName != _attributeNameLong)
           continue;
 
         foreach (var typeArgument in attribute.Arguments.Select(x => x.Value).OfType<ITypeofExpression>())
@@ -46,7 +66,7 @@ namespace TestLinker.LinkedTypesProvider
 
     public bool IsLinkedType (ITypeElement type1, ITypeElement type2)
     {
-      var typeArguments = GetSubjectAttributeTypeArguments(type1);
+      var typeArguments = GetTypeArguments(type1);
       return typeArguments.Any(x => x.Equals(type2));
     }
 
@@ -54,17 +74,17 @@ namespace TestLinker.LinkedTypesProvider
 
     #region Privates
 
-    private IEnumerable<ITypeElement> GetSubjectAttributeTypeArguments (IAttributesSet attributeSet)
+    private IEnumerable<ITypeElement> GetTypeArguments (IAttributesSet attributeSet)
     {
-      return attributeSet.GetAttributeInstances(true)
-          .Where(x => x.GetClrName().ShortName == "SubjectAttribute")
-          .SelectMany(GetTypeArguments);
-    }
+      var attributeInstance = attributeSet.GetAttributeInstances(inherit: true)
+          .Where(x => x.GetClrName().ShortName == _attributeNameLong)
+          .FirstOrDefault();
 
-    private IEnumerable<ITypeElement> GetTypeArguments (IAttributeInstance subjectAttribute)
-    {
-      var namedArguments = subjectAttribute.NamedParameters().Select(x => x.Second);
-      var positionalArguments = subjectAttribute.PositionParameters();
+      if (attributeInstance == null)
+        return EmptyList<ITypeElement>.InstanceList;
+
+      var namedArguments = attributeInstance.NamedParameters().Select(x => x.Second);
+      var positionalArguments = attributeInstance.PositionParameters();
       var flattenedArguments = FlattenArguments(namedArguments.Concat(positionalArguments));
 
       return flattenedArguments

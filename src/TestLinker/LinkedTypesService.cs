@@ -40,33 +40,42 @@ namespace TestLinker
     public IEnumerable<ITypeElement> GetLinkedTypes (ITypeElement sourceType)
     {
       var sourceSuperTypes = sourceType.GetAllSuperTypes().Select(x => x.GetTypeElement()).WhereNotNull().Where(x => !x.IsObjectClass());
-      var allSourceTypes = new[] { sourceType }.Concat(sourceSuperTypes);
+      var allSourceTypes = new[] { sourceType }.Concat(sourceSuperTypes).ToList();
 
       var services = sourceType.GetPsiServices();
-      var linkedTypes = GetLinkedTypes(services, allSourceTypes).ToList();
-      var linkedDerivedTypes = linkedTypes.SelectMany(x => services.Finder.FindInheritors(x, NullProgressIndicator.Instance));
-
-      var allLinkedTypes = new HashSet<ITypeElement>(linkedTypes);
-      allLinkedTypes.AddRange(linkedDerivedTypes);
-      return allLinkedTypes;
+      return GetLinkedTypes(allSourceTypes, services);
     }
 
     #region Privates
 
-    private IEnumerable<ITypeElement> GetLinkedTypes (IPsiServices services, IEnumerable<ITypeElement> sourceTypes)
+    private IEnumerable<ITypeElement> GetLinkedTypes (IReadOnlyList<ITypeElement> allSourceTypes, IPsiServices services)
     {
-      var symbolScope = services.Symbols.GetSymbolScope(LibrarySymbolScope.FULL, false);
-      foreach (var sourceType in sourceTypes)
+      var allLinkedTypes = new HashSet<ITypeElement>();
+      foreach (var sourceType in allSourceTypes)
       {
-        var linkedNames = _linkedNamesCache.LinkedNamesMap[sourceType.ShortName];
-        var possibleLinkedTypes = linkedNames.SelectMany(x => symbolScope.GetElementsByShortName(x.Second).OfType<ITypeElement>());
+        var linkedTypes = GetLinkedTypes(services, sourceType).ToList();
+        allLinkedTypes.AddRange(linkedTypes);
 
-        foreach (var possibleLinkedType in possibleLinkedTypes)
+        if (ReferenceEquals(sourceType, allSourceTypes[index: 0]))
         {
-          if (_linkedTypesProviders.Any(x => x.IsLinkedType(sourceType, possibleLinkedType)) ||
-              _linkedTypesProviders.Any(x => x.IsLinkedType(possibleLinkedType, sourceType)))
-            yield return possibleLinkedType;
+          var derivedLinkedTypes = linkedTypes.SelectMany(x => services.Finder.FindInheritors(x, NullProgressIndicator.Instance));
+          allLinkedTypes.AddRange(derivedLinkedTypes);
         }
+      }
+      return allLinkedTypes;
+    }
+
+    private IEnumerable<ITypeElement> GetLinkedTypes (IPsiServices services, ITypeElement sourceType)
+    {
+      var symbolScope = services.Symbols.GetSymbolScope(LibrarySymbolScope.FULL, caseSensitive: false);
+      var linkedNames = _linkedNamesCache.LinkedNamesMap[sourceType.ShortName];
+      var possibleLinkedTypes = linkedNames.SelectMany(x => symbolScope.GetElementsByShortName(x.Second).OfType<ITypeElement>());
+
+      foreach (var possibleLinkedType in possibleLinkedTypes)
+      {
+        if (_linkedTypesProviders.Any(x => x.IsLinkedType(sourceType, possibleLinkedType)) ||
+            _linkedTypesProviders.Any(x => x.IsLinkedType(possibleLinkedType, sourceType)))
+          yield return possibleLinkedType;
       }
     }
 

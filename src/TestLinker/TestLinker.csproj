@@ -182,14 +182,16 @@
     <Compile Include="Caching\LinkedNamesData.cs" />
     <Compile Include="Caching\LinkedNamesDataMarshaller.cs" />
     <Compile Include="Caching\LinkedNamesMergeData.cs" />
+    <Compile Include="ContinuousTesting\ZoneMarker.cs" />
     <Compile Include="ILinkedTypesProvider.cs" />
-    <Compile Include="LinkedTestInvalidator.cs" />
+    <Compile Include="ContinuousTesting\LinkedTestInvalidator.cs" />
     <Compile Include="LinkedTypesProvider\NameLinkedTypesProvider.cs" />
     <Compile Include="Navigation\LinkedTypesOccurrenceBrowserDescriptor.cs" />
     <Compile Include="Navigation\LinkedTypesOccurrenceSectionProvider.cs" />
     <Compile Include="Navigation\LinkedTypesOccurrence.cs" />
     <Compile Include="LinkedTypesService.cs" />
     <Compile Include="Navigation\LinkedTypesRelatedFilesProvider.cs" />
+    <Compile Include="Navigation\ZoneMarker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Caching\LinkedNamesCache.cs" />
     <Compile Include="LinkedTypesProvider\SubjectAttributeLinkedTypesProvider.cs" />

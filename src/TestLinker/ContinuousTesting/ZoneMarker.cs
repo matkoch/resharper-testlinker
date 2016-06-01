@@ -15,14 +15,12 @@
 using System;
 using System.Linq;
 using JetBrains.Application.BuildScript.Application.Zones;
-using JetBrains.ReSharper.Feature.Services.Daemon;
-using JetBrains.ReSharper.Psi.CSharp;
-using JetBrains.ReSharper.UnitTestFramework;
+using JetBrains.dotCover.Zones;
 
-namespace TestLinker
+namespace TestLinker.ContinuousTesting
 {
   [ZoneMarker]
-  public class ZoneMarker : IRequire<IUnitTestingZone>, IRequire<ILanguageCSharpZone>, IRequire<DaemonEngineZone>
+  public class ZoneMarker : IRequire<IContinuousTestingZone>
   {
   }
 }

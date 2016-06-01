@@ -21,7 +21,7 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.Util;
 
-namespace TestLinker
+namespace TestLinker.ContinuousTesting
 {
   [PsiComponent]
   internal class LinkedTestInvalidator

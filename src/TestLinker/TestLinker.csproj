@@ -154,6 +154,7 @@
       <HintPath>..\..\packages\Vestris.ResourceLib.JetBrains.1.4.20150303.0\lib\Net\Vestris.ResourceLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WindowsBase" />
     <Reference Include="WpfContrib, Version=1.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\..\packages\JetBrains.Platform.Lib.WpfContrib.2.0.20150225.0\lib\Net\WpfContrib.dll</HintPath>
       <Private>True</Private>
@@ -196,6 +197,11 @@
     <Compile Include="Caching\LinkedNamesCache.cs" />
     <Compile Include="LinkedTypesProvider\SubjectAttributeLinkedTypesProvider.cs" />
     <Compile Include="ChangedTypesProvider.cs" />
+    <Compile Include="Options\NamingStyle.cs" />
+    <Compile Include="Options\NavigationMode.cs" />
+    <Compile Include="Options\TestLinkerOptionsPage.cs" />
+    <Compile Include="Options\TestLinkerSettings.cs" />
+    <Compile Include="Options\ZoneMarker.cs" />
     <Compile Include="ZoneMarker.cs" />
   </ItemGroup>
   <ItemGroup>

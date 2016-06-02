@@ -37,7 +37,7 @@ namespace TestLinker.Navigation
       foreach (var targetElement in targetElements)
       {
         var targetFile = targetElement.GetSingleOrDefaultSourceFile().ToProjectFile();
-        yield return Tuple.Create(targetFile, "Linked Type", projectFile);
+        yield return Tuple.Create(targetFile, "Linked", projectFile);
       }
     }
   }

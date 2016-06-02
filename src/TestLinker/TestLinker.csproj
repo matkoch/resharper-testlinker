@@ -136,6 +136,8 @@
       <HintPath>..\..\packages\NVelocity.1.0.3\lib\NVelocity.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\..\packages\JetBrains.Timeline.Protobuf-net.2.0.20150514.0\lib\protobuf-net.dll</HintPath>
       <Private>True</Private>
@@ -150,6 +152,7 @@
       <HintPath>..\..\packages\JetBrains.Platform.Lib.System.Windows.Interactivity.2.0.20140318.0\lib\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xaml" />
     <Reference Include="Vestris.ResourceLib, Version=1.4.33.0, Culture=neutral, PublicKeyToken=ec632d8ba5e5750d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Vestris.ResourceLib.JetBrains.1.4.20150303.0\lib\Net\Vestris.ResourceLib.dll</HintPath>
       <Private>True</Private>
@@ -202,12 +205,24 @@
     <Compile Include="Options\TestLinkerOptionsPage.cs" />
     <Compile Include="Options\TestLinkerSettings.cs" />
     <Compile Include="Options\ZoneMarker.cs" />
+    <Compile Include="TestLinkerIcons\ThemedIcons.TestLinker.Generated.cs" />
     <Compile Include="ZoneMarker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ThemedIconsXamlV3 Include="TestLinkerIcons\TestLinker.xaml">
+      <ThemeColumns>Color</ThemeColumns>
+      <RemoveBackgroundElement>True</RemoveBackgroundElement>
+    </ThemedIconsXamlV3>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="TestLinkerIcons\ThemedIcons.TestLinker.Generated.Xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if exist "$(Vs12Installation)"        xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs12Installation)"

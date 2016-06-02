@@ -19,11 +19,10 @@ using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.UI.Options;
 using JetBrains.UI.Options.OptionsDialog2.SimpleOptions;
 using JetBrains.UI.Options.OptionsDialog2.SimpleOptions.ViewModel;
-using JetBrains.UI.Resources;
 
 namespace TestLinker.Options
 {
-  [OptionsPage (c_pageId, c_pageTitle, typeof(CommonThemedIcons.Bulb), ParentId = UnitTestingOptionsPageIdHolder.PID)]
+  [OptionsPage (c_pageId, c_pageTitle, typeof(TestLinkerThemedIcons.TestLinker), ParentId = UnitTestingOptionsPageIdHolder.PID, Sequence = 0.1d)]
   public class TestLinkerOptionsPage : SimpleOptionsPage
   {
     private const string c_pageId = "TestLinkerOptions";

@@ -182,6 +182,7 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
+    <Compile Include="DataContext\LinkedTypeUnitTestsDataRuleRegistrar.cs" />
     <Compile Include="Actions\GotoLinkedTypesAction.cs" />
     <Compile Include="Utils\TypesInContextProvider.cs" />
     <Compile Include="Caching\LinkedNamesData.cs" />

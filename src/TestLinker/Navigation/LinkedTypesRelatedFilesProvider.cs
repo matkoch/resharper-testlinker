@@ -31,13 +31,13 @@ namespace TestLinker.Navigation
         yield break;
 
       var services = sourceFile.GetPsiServices();
-      var linkedTypesProvider = services.GetComponent<LinkedTypesService>();
-      var sourceElements = services.Symbols.GetTypesAndNamespacesInFile(sourceFile).OfType<ITypeElement>();
-      var targetElements = sourceElements.SelectMany(x => linkedTypesProvider.GetLinkedTypes(x));
-      foreach (var targetElement in targetElements)
+      var linkedTypesService = services.GetComponent<LinkedTypesService>();
+      var sourceTypes = services.Symbols.GetTypesAndNamespacesInFile(sourceFile).OfType<ITypeElement>();
+      var linkedTypes = linkedTypesService.GetLinkedTypes(sourceTypes);
+      foreach (var linkedType in linkedTypes)
       {
-        var targetFile = targetElement.GetSingleOrDefaultSourceFile().ToProjectFile();
-        yield return Tuple.Create(targetFile, "Linked", projectFile);
+        var linkedFile = linkedType.GetSingleOrDefaultSourceFile().ToProjectFile();
+        yield return Tuple.Create(linkedFile, "Linked", projectFile);
       }
     }
   }

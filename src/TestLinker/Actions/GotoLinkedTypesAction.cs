@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using JetBrains.ActionManagement;
 using JetBrains.Application;
@@ -25,9 +24,6 @@ using JetBrains.ReSharper.Feature.Services.Actions;
 using JetBrains.ReSharper.Feature.Services.Navigation.ExecutionHosting;
 using JetBrains.ReSharper.Feature.Services.Occurences;
 using JetBrains.ReSharper.Feature.Services.Tree;
-using JetBrains.ReSharper.Feature.Services.Util;
-using JetBrains.ReSharper.Psi;
-using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl;
 using JetBrains.TextControl.DataContext;
 using JetBrains.Threading;
@@ -36,6 +32,7 @@ using JetBrains.UI.DataContext;
 using JetBrains.UI.PopupWindowManager;
 using JetBrains.Util;
 using TestLinker.Navigation;
+using TestLinker.Utils;
 
 namespace TestLinker.Actions
 {
@@ -44,9 +41,10 @@ namespace TestLinker.Actions
   {
     private GroupingEvent _executionGroupingEvent;
 
+    private ITypesInContextProvider _typesInContextProvider;
     private ISolution _solution;
     private ITextControl _textControl;
-    private LinkedTypesService _linkedTypesProvider;
+    private LinkedTypesService _linkedTypesService;
     private PopupWindowContextSource _popupWindowContextSource;
 
     #region IActionWithExecuteRequirement
@@ -69,9 +67,10 @@ namespace TestLinker.Actions
 
     public void Execute (IDataContext context, DelegateExecute nextExecute)
     {
+      _typesInContextProvider = context.GetComponent<ITypesInContextProvider>().NotNull();
       _solution = context.GetData(ProjectModelDataConstants.SOLUTION).NotNull();
       _textControl = context.GetData(TextControlDataConstants.TEXT_CONTROL).NotNull();
-      _linkedTypesProvider = _solution.GetComponent<LinkedTypesService>();
+      _linkedTypesService = _solution.GetComponent<LinkedTypesService>();
       _popupWindowContextSource = context.GetData(UIDataConstants.PopupWindowContextSource);
 
       //_executionGroupingEvent.FireIncoming();
@@ -84,8 +83,8 @@ namespace TestLinker.Actions
 
     private void ExecuteProlongated ()
     {
-      var typesInContext = GetTypesInContext(_textControl, _solution).ToList();
-      var linkedTypes = typesInContext.SelectMany(x => _linkedTypesProvider.GetLinkedTypes(x)).ToHashSet();
+      var typesInContext = _typesInContextProvider.GetTypesInContext(_textControl, _solution).ToList();
+      var linkedTypes = _linkedTypesService.GetLinkedTypes(typesInContext);
       if (linkedTypes.IsEmpty())
         return;
 
@@ -102,33 +101,12 @@ namespace TestLinker.Actions
             _solution,
             occurrences,
             activate: true,
-            windowContext: _popupWindowContextSource, 
+            windowContext: _popupWindowContextSource,
             descriptorBuilder: descriptorBuilder,
             options: new OccurencePresentationOptions(),
             skipMenuIfSingleEnabled: true,
             title: "Go to linked types ");
       }
-    }
-
-    private IEnumerable<ITypeElement> GetTypesInContext (ITextControl textControl, ISolution solution)
-    {
-      var classDeclaration = TextControlToPsi.GetElementFromCaretPosition<ITypeDeclaration>(solution, textControl);
-      if (classDeclaration != null)
-        return new[] { classDeclaration.DeclaredElement };
-
-      var symbolCache = solution.GetPsiServices().Symbols;
-      //var namespaceDeclaration = TextControlToPsi.GetElementFromCaretPosition<INamespaceDeclaration>(solution, textControl);
-      //if (namespaceDeclaration != null && namespaceDeclaration.DeclaredElement != null)
-      //{
-      //  var symbolScope = symbolCache.GetSymbolScope(LibrarySymbolScope.FULL, caseSensitive: true);
-      //  return namespaceDeclaration.DeclaredElement.GetNestedTypeElements(symbolScope);
-      //}
-
-      var psiSourceFile = textControl.Document.GetPsiSourceFile(solution);
-      if (psiSourceFile != null)
-        return symbolCache.GetTypesAndNamespacesInFile(psiSourceFile).OfType<ITypeElement>();
-
-      return Enumerable.Empty<ITypeElement>();
     }
 
     private GroupingEvent CreateExecuteGroupingEvent (IDataContext dataContext)

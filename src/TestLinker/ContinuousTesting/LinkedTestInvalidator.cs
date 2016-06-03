@@ -51,12 +51,7 @@ namespace TestLinker.ContinuousTesting
 
     private void OnChanged (IReadOnlyCollection<ITypeElement> changedTypes)
     {
-      var linkedTypes = changedTypes.SelectMany(x => _linkedTypesService.GetLinkedTypes(x));
-      var afftectedTypeElements = changedTypes.Concat(linkedTypes);
-
-      var testElements = afftectedTypeElements.Select(x => _unitTestElementStuff.GetElement(x))
-          .WhereNotNull()
-          .SelectMany(GetChildrenAndSelf);
+      var testElements = _linkedTypesService.GetUnitTestElementsFrom(changedTypes).SelectMany(GetChildrenAndSelf);
       testElements.ForEach(x => _unitTestResultManager.MarkOutdated(x, _continuousTestingUnitTestSessionHolder.Session.Value));
     }
 

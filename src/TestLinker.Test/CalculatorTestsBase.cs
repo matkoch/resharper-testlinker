@@ -2,13 +2,13 @@
 
 namespace TestLinker.Test
 {
-  [Subject(typeof(ICalculator))]
   [TestFixture]
-  public abstract class CalculatorTestBase
+  public abstract class CalculatorTestsBase
   {
     [Test]
     public void BaseTest()
     {
+
     }
   }
 }

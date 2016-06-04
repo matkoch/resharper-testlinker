@@ -50,15 +50,15 @@
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
     <Compile Include="AdvancedCalculator.cs" />
-    <Compile Include="AdvancedCalculatorTest.cs" />
-    <Compile Include="CalculatorSpecBase.cs" />
+    <Compile Include="AdvancedCalculatorTests.cs" />
     <Compile Include="IntegrationTest.cs" />
     <Compile Include="ICalculator.cs" />
     <Compile Include="SimpleCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubjectAttribute.cs" />
-    <Compile Include="SimpleCalculatorTest.cs" />
-    <Compile Include="CalculatorTestBase.cs" />
+    <Compile Include="SimpleCalculatorTests.cs" />
+    <Compile Include="CalculatorTestsBase.cs" />
+    <Compile Include="UnrelatedTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestLinker\TestLinker.csproj">

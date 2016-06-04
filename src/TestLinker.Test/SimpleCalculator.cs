@@ -3,21 +3,7 @@ using System.Linq;
 
 namespace TestLinker.Test
 {
-  public class SimpleCalculator : ICalculator
-  {
-
-
-
-
-
-
-
-    public SimpleCalculator ()
+    public class SimpleCalculator : ICalculator
     {
-      
     }
-
-
-
-  }
 }

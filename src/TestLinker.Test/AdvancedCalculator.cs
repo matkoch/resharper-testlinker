@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace TestLinker.Test
 {
-  public class AdvancedCalculator : ICalculator
-  {
-  }
+    public class AdvancedCalculator : ICalculator
+    {
+    }
 }

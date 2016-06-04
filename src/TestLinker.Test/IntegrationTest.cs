@@ -6,22 +6,11 @@ namespace TestLinker.Test
 {
   [TestFixture]
   [Subject(typeof(AdvancedCalculator), typeof(SimpleCalculator))]
-  public class IntegrationTest
+  public class IntegrationTests
   {
     [Test]
     public void Test()
     {
-
-    }
-  }
-
-  [TestFixture]
-  public class UnrelatedTest
-  {
-    [Test]
-    public void Test()
-    {
-
     }
   }
 }

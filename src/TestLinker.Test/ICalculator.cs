@@ -5,5 +5,6 @@ namespace TestLinker.Test
 {
   public interface ICalculator
   {
+
   }
 }

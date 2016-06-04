@@ -18,40 +18,49 @@ using System.Linq;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Util;
 using JetBrains.ReSharper.Psi;
+using JetBrains.ReSharper.Psi.Caches;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl;
+using JetBrains.Util;
 
 namespace TestLinker.Utils
 {
-  public interface ITypesInContextProvider
+  public interface IDeclaredElementsFromTextControlService
   {
-    IEnumerable<ITypeElement> GetTypesInContext (ITextControl textControl, ISolution solution);
+    IEnumerable<ITypeElement> GetTypesFromCaretOrFile (ITextControl textControl, ISolution solution);
+    IEnumerable<ITypeElement> GetTypesFromSameNamespace (ITextControl textControl, ISolution solution);
   }
 
   [PsiComponent]
-  public class TypesInContextProvider : ITypesInContextProvider
+  public class TypesFromTextControlService : IDeclaredElementsFromTextControlService
   {
-    #region ITypesInContextProvider
+    #region IDeclaredElementsFromTextControlService
 
-    public IEnumerable<ITypeElement> GetTypesInContext (ITextControl textControl, ISolution solution)
+    public IEnumerable<ITypeElement> GetTypesFromCaretOrFile (ITextControl textControl, ISolution solution)
     {
       var classDeclaration = TextControlToPsi.GetElementFromCaretPosition<ITypeDeclaration>(solution, textControl);
       if (classDeclaration != null)
         return new[] { classDeclaration.DeclaredElement };
 
       var symbolCache = solution.GetPsiServices().Symbols;
-      //var namespaceDeclaration = TextControlToPsi.GetElementFromCaretPosition<INamespaceDeclaration>(solution, textControl);
-      //if (namespaceDeclaration != null && namespaceDeclaration.DeclaredElement != null)
-      //{
-      //  var symbolScope = symbolCache.GetSymbolScope(LibrarySymbolScope.FULL, caseSensitive: true);
-      //  return namespaceDeclaration.DeclaredElement.GetNestedTypeElements(symbolScope);
-      //}
-
       var psiSourceFile = textControl.Document.GetPsiSourceFile(solution);
       if (psiSourceFile != null)
         return symbolCache.GetTypesAndNamespacesInFile(psiSourceFile).OfType<ITypeElement>();
 
-      return Enumerable.Empty<ITypeElement>();
+      return EmptyList<ITypeElement>.InstanceList;
+    }
+
+    public IEnumerable<ITypeElement> GetTypesFromSameNamespace (ITextControl textControl, ISolution solution)
+    {
+      var symbolCache = solution.GetPsiServices().Symbols;
+      var namespaceDeclaration = TextControlToPsi.GetElementFromCaretPosition<INamespaceDeclaration>(solution, textControl);
+      if (namespaceDeclaration?.DeclaredElement != null)
+      {
+        var symbolScope = symbolCache.GetSymbolScope(LibrarySymbolScope.FULL, caseSensitive: true);
+        return namespaceDeclaration.DeclaredElement.GetNestedTypeElements(symbolScope);
+      }
+
+      return EmptyList<ITypeElement>.InstanceList;
     }
 
     #endregion

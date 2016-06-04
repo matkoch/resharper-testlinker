@@ -41,7 +41,7 @@ namespace TestLinker.Actions
   {
     private GroupingEvent _executionGroupingEvent;
 
-    private ITypesInContextProvider _typesInContextProvider;
+    private IDeclaredElementsFromTextControlService _declaredElementsFromTextControlService;
     private ISolution _solution;
     private ITextControl _textControl;
     private LinkedTypesService _linkedTypesService;
@@ -67,7 +67,7 @@ namespace TestLinker.Actions
 
     public void Execute (IDataContext context, DelegateExecute nextExecute)
     {
-      _typesInContextProvider = context.GetComponent<ITypesInContextProvider>().NotNull();
+      _declaredElementsFromTextControlService = context.GetComponent<IDeclaredElementsFromTextControlService>().NotNull();
       _solution = context.GetData(ProjectModelDataConstants.SOLUTION).NotNull();
       _textControl = context.GetData(TextControlDataConstants.TEXT_CONTROL).NotNull();
       _linkedTypesService = _solution.GetComponent<LinkedTypesService>();
@@ -83,7 +83,7 @@ namespace TestLinker.Actions
 
     private void ExecuteProlongated ()
     {
-      var typesInContext = _typesInContextProvider.GetTypesInContext(_textControl, _solution).ToList();
+      var typesInContext = _declaredElementsFromTextControlService.GetTypesFromCaretOrFile(_textControl, _solution).ToList();
       var linkedTypes = _linkedTypesService.GetLinkedTypes(typesInContext);
       if (linkedTypes.IsEmpty())
         return;

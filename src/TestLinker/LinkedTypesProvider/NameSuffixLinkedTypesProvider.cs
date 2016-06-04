@@ -46,41 +46,50 @@ namespace TestLinker.LinkedTypesProvider
 
     public IEnumerable<string> GetLinkedNames (ITypeDeclaration typeDeclaration)
     {
+      var linkedName = GetLinkedName(typeDeclaration.DeclaredName);
+      return linkedName != null
+          ? new[] { linkedName }
+          : EmptyList<string>.InstanceList;
+    }
+
+    [CanBeNull]
+    private string GetLinkedName (string name)
+    {
       var isBase = false;
-      var baseName = typeDeclaration.DeclaredName;
+      var baseName = name;
       if (baseName.EndsWith("Base"))
       {
         isBase = true;
         baseName = baseName.Substring(startIndex: 0, length: baseName.Length - 4);
       }
 
-      var linkedName = GetLinkedName(baseName);
-      if (linkedName == null)
-        return EmptyList<string>.InstanceList;
-
-      if (isBase)
-        linkedName = "I" + linkedName;
-
-      return new[] { linkedName };
-    }
-
-    [CanBeNull]
-    private string GetLinkedName (string baseName)
-    {
+      var linkedName = default(string);
       foreach (var namingSuffix in _namingSuffixes)
       {
         if (_namingStyle == NamingStyle.Prefix && baseName.StartsWith(namingSuffix.First))
-          return baseName.Substring(namingSuffix.Second);
+        {
+          linkedName = baseName.Substring(namingSuffix.Second);
+          break;
+        }
 
         if (_namingStyle == NamingStyle.Postfix && baseName.EndsWith(namingSuffix.First))
-          return baseName.Substring(startIndex: 0, length: baseName.Length - namingSuffix.Second);
+        {
+          linkedName = baseName.Substring(startIndex: 0, length: baseName.Length - namingSuffix.Second);
+          break;
+        }
       }
-      return null;
+
+      if (linkedName == null)
+        return null;
+
+      if (isBase)
+        linkedName = "I" + linkedName;
+      return linkedName;
     }
 
     public bool IsLinkedType (ITypeElement type1, ITypeElement type2)
     {
-      return type1.ShortName.StartsWith(type2.ShortName);
+      return type1.ShortName.Equals(GetLinkedName(type2.ShortName), StringComparison.InvariantCultureIgnoreCase);
     }
 
     #endregion

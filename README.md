@@ -18,7 +18,7 @@ Link data is currently maintained via:
 
 ## Test Execution
 
-- Tests can be executed from their linked production code. This feature integrates with all test execution modes like *run*, *debug*, *profile*, and *cover* and their respective shortcuts
+- Tests can be executed from their linked production code. This feature automatically integrates with the shortcuts for executing unit tests in *run*, *debug*, *profile*, and *cover* mode.
 
 ## Roadmap
 

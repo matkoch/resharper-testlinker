@@ -16,14 +16,17 @@ Link data is currently maintained via:
 - [Goto Related Files](https://www.jetbrains.com/help/resharper/2016.1/Navigation_and_Search__Go_to_Related_Files.html) is extended with navigation points to production/test classes
 - New shortcut `ReSharper_GotoLinkedTypes` (assignable via keyboard options) that jumps between linked types. For multiple linked types, a dedicated popmenu is shown, which can also be displayed in [Find Results](https://www.jetbrains.com/help/resharper/2016.1/Reference__Windows__Find_Results_Window.html) window
 
+## Test Execution
+
+- Tests can be executed from their linked production code. This feature integrates with all test execution modes like *run*, *debug*, *profile*, and *cover* and their respective shortcuts
+
 ## Roadmap
 
-- Execute relevant tests from production code using the `UnitTestRunContext` shortcut (default on <kbd>Ctrl</kbd>+<kbd>U</kbd>,<kbd>R</kbd>)
 - Support for [Continuous Testing](https://blog.jetbrains.com/dotnet/2015/11/19/continuous-testing-in-dotcover-and-resharper-ultimate/) as alternative to initial coverage run
 - Create production/test class if it doesn't exist
 
 ## Installation
 
-Open ReSharper`s Extension Manager (<kbd>Alt</kbd>+<kbd>R</kbd>,<kbd>X</kbd>) and search for **TestLinker**.
+Open ReSharper`s Extension Manager (<kbd>Alt</kbd>+<kbd>R</kbd>,<kbd>X</kbd>) and search for [TestLinker](https://resharper-plugins.jetbrains.com/packages/TestLinker.ReSharper/).
 
 <img src=https://raw.githubusercontent.com/matkoch/TestLinker/master/misc/ExtensionManager.png />

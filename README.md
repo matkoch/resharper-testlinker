@@ -6,15 +6,15 @@
 TestLinker collects link data between types (i.e., production and test code) based on various [mechanisms](https://github.com/matkoch/TestLinker/blob/master/src/TestLinker/LinkedTypesProvider) and provides various features based on that. For your convenience, TestLinker automatically takes base/derived types into account.
 
 Link data is currently maintained via:
-- **Derived names**, as with `Calculator` and `CalculatorTest`. Other supported postfixes are `Tests`, `Spec`, `Specs`, `TestBase`, and `SpecBase`.
-- **Usages of SubjectAttribute**, as in `[Subject (typeof (FirstComponent), typeof(SecondComponent)]`, which are applied to test classes. This attribute is especially useful for integration test. If not available, it can be declared in your own codebase.
+- **Derived names**, as with `Calculator` and `CalculatorTest`. Pre-/Postfixes can be configured in the options page.
+- **Usages of TypeofAttributes**, as in `[Subject (typeof (FirstComponent), typeof(SecondComponent)]`, which are applied to test classes. This custom attribute is especially useful for integration test and can be configured through the options page.
 
 ## Navigation
 
 <img src=https://raw.githubusercontent.com/matkoch/TestLinker/master/misc/Demo.gif />
 
-- [Goto Related Files](https://www.jetbrains.com/help/resharper/2016.1/Navigation_and_Search__Go_to_Related_Files.html) is extended with navigation points to production/test classes
-- New shortcut `ReSharper_GotoLinkedTypes` (assignable via keyboard options) that jumps between linked types. For multiple linked types, a dedicated popmenu is shown, which can also be displayed in [Find Results](https://www.jetbrains.com/help/resharper/2016.1/Reference__Windows__Find_Results_Window.html) window
+- [Goto Related Files](https://www.jetbrains.com/help/resharper/2016.1/Navigation_and_Search__Go_to_Related_Files.html) is extended with navigation points to production/test classes.
+- New shortcut `ReSharper_GotoLinkedTypes` (assignable via keyboard options) that jumps between linked types. For multiple linked types, a dedicated popmenu is shown, which can also be displayed in [Find Results](https://www.jetbrains.com/help/resharper/2016.1/Reference__Windows__Find_Results_Window.html) window.
 
 ## Test Execution
 

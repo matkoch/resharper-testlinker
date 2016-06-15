@@ -2,11 +2,10 @@
 using System.Linq;
 using NUnit.Framework;
 
-namespace TestLinker.Test
+namespace Core.Tests
 {
   [TestFixture]
-  [Subject(typeof(AdvancedCalculator), typeof(SimpleCalculator))]
-  public class IntegrationTests
+  public class SecondCoreClassTests
   {
     [Test]
     public void Test()

@@ -80,10 +80,6 @@ namespace TestLinker.Caching
 
     public override void Drop (IPsiSourceFile sourceFile)
     {
-      var linkedNamesData = GetLinkData(sourceFile);
-      if (linkedNamesData == null)
-        return;
-
       RemoveData(sourceFile);
 
       base.Drop(sourceFile);

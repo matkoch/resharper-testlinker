@@ -49,7 +49,7 @@ namespace TestLinker.Caching
     public override object Load (IProgressIndicator progress, bool enablePersistence)
     {
       var data = new LinkedNamesMergeData();
-      Map.ForEach(x => LoadFile(data, x.Key, x.Value));
+      Map.Where(x => x.Key != null).ForEach(x => LoadFile(data, x.Key, x.Value));
       return data;
     }
 

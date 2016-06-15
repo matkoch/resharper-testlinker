@@ -43,38 +43,11 @@ namespace TestLinker
       _linkedTypesProviders = linkedTypesProviders.ToList();
     }
 
-    public ISet<ITypeElement> GetLinkedTypes (IEnumerable<ITypeElement> sourceTypes)
-    {
-      var set = new HashSet<ITypeElement>();
-
-      foreach (var sourceType in sourceTypes)
-      {
-        var sourceSuperTypes = sourceType.GetAllSuperTypes().Select(x => x.GetTypeElement()).WhereNotNull().Where(x => !x.IsObjectClass());
-        var allSourceTypes = new[] { sourceType }.Concat(sourceSuperTypes).ToList();
-
-        var services = sourceType.GetPsiServices();
-        var linkedTypes = GetLinkedTypes(allSourceTypes, services);
-        set.AddRange(linkedTypes);
-      }
-
-      return set;
-    }
-
-    public ISet<IUnitTestElement> GetUnitTestElementsFrom(IEnumerable<ITypeElement> sourceTypes)
-    {
-      var sourceTypesList = sourceTypes.ToList();
-      var linkedTypes = GetLinkedTypes(sourceTypesList);
-      var affectedTypes = sourceTypesList.Concat(linkedTypes);
-      return affectedTypes.Select(x => _unitTestElementStuff.GetElement(x)).WhereNotNull().ToHashSet();
-    }
-
-    #region Privates
-
-    private IEnumerable<ITypeElement> GetLinkedTypes (IReadOnlyList<ITypeElement> allSourceTypes, IPsiServices services)
+    public IEnumerable<ITypeElement> GetLinkedTypes (IReadOnlyList<ITypeElement> allSourceTypes, IPsiServices services)
     {
       foreach (var sourceType in allSourceTypes)
       {
-        foreach (var linkedType in GetLinkedTypes(services, sourceType))
+        foreach (var linkedType in GetLinkedTypes(sourceType))
         {
           yield return linkedType;
 
@@ -87,8 +60,38 @@ namespace TestLinker
       }
     }
 
-    private IEnumerable<ITypeElement> GetLinkedTypes (IPsiServices services, ITypeElement sourceType)
+    public ISet<ITypeElement> GetLinkedTypes (IEnumerable<ITypeElement> sourceTypes)
     {
+      return GetLinkedTypesEnumerable(sourceTypes).ToSet();
+    }
+
+    public IEnumerable<ITypeElement> GetLinkedTypesEnumerable (IEnumerable<ITypeElement> sourceTypes)
+    {
+      foreach (var sourceType in sourceTypes)
+      {
+        var sourceSuperTypes = sourceType.GetAllSuperTypes().Select(x => x.GetTypeElement()).WhereNotNull().Where(x => !x.IsObjectClass());
+        var allSourceTypes = new[] { sourceType }.Concat(sourceSuperTypes).ToList();
+
+        var services = sourceType.GetPsiServices();
+        var linkedTypes = GetLinkedTypes(allSourceTypes, services);
+        foreach (var linkedType in linkedTypes)
+          yield return linkedType;
+      }
+    }
+
+    public ISet<IUnitTestElement> GetUnitTestElementsFrom(IEnumerable<ITypeElement> sourceTypes)
+    {
+      var sourceTypesList = sourceTypes.ToList();
+      var linkedTypes = GetLinkedTypes(sourceTypesList);
+      var affectedTypes = sourceTypesList.Concat(linkedTypes);
+      return affectedTypes.Select(x => _unitTestElementStuff.GetElement(x)).WhereNotNull().ToHashSet();
+    }
+
+    #region Privates
+
+    public IEnumerable<ITypeElement> GetLinkedTypes (ITypeElement sourceType)
+    {
+      var services = sourceType.GetPsiServices();
       var symbolScope = services.Symbols.GetSymbolScope(LibrarySymbolScope.FULL, caseSensitive: false);
       var linkedNames = _linkedNamesCache.LinkedNamesMap[sourceType.ShortName];
       var possibleLinkedTypes = linkedNames.SelectMany(x => symbolScope.GetElementsByShortName(x.Second).OfType<ITypeElement>());

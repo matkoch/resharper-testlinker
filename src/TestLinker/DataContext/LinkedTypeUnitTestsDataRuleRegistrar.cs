@@ -47,7 +47,7 @@ namespace TestLinker.DataContext
       var textControl = context.GetData(TextControlDataConstants.TEXT_CONTROL).NotNull();
       var solution = context.GetData(ProjectModelDataConstants.SOLUTION).NotNull();
 
-      var typesInContextProvider = context.GetComponent<IDeclaredElementsFromTextControlService>().NotNull();
+      var typesInContextProvider = context.GetComponent<ITypesFromTextControlService>().NotNull();
       var typesInContext = typesInContextProvider.GetTypesFromCaretOrFile(textControl, solution);
 
       var linkedTypesService = context.GetComponent<LinkedTypesService>().NotNull();

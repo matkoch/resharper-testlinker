@@ -182,9 +182,15 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
-    <Compile Include="Actions\CreateProductionOrTestClassAction.cs" />
+    <Compile Include="Actions\GotoLinkedTypesActionBase.cs" />
+    <Compile Include="Actions\GotoLinkedTypesWithDerivedNamesAction.cs" />
+    <Compile Include="Utils\Object.DescendantsAndSelf.cs" />
+    <Compile Include="Utils\TypeKind.cs" />
+    <Compile Include="Utils\DerivedNameUtility.cs" />
+    <Compile Include="Utils\ModificationUtility.cs" />
+    <Compile Include="Refactorings\LinkedTypesDerivedNameEvaluator.cs" />
     <Compile Include="DataContext\LinkedTypeUnitTestsDataRuleRegistrar.cs" />
-    <Compile Include="Actions\GotoLinkedTypesAction.cs" />
+    <Compile Include="Actions\GotoAllLinkedTypesAction.cs" />
     <Compile Include="Utils\TypesFromTextControlService.cs" />
     <Compile Include="Caching\LinkedNamesData.cs" />
     <Compile Include="Caching\LinkedNamesDataMarshaller.cs" />

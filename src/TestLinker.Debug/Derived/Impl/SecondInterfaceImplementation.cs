@@ -2,7 +2,7 @@
 using System.Linq;
 using Core;
 
-namespace Derived
+namespace Derived.Impl
 {
   public class SecondInterfaceImplementation : ICoreInterface
   {

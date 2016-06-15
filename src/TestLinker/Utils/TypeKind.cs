@@ -14,13 +14,12 @@
 
 using System;
 using System.Linq;
-using JetBrains.Application.BuildScript.Application.Zones;
-using JetBrains.Common.ViewModels.FindResultsNavigator;
 
-namespace TestLinker.Navigation
+namespace TestLinker.Utils
 {
-  //[ZoneMarker]
-  //public class ZoneMarker : IRequire<IFindResultsNavigatorZone>
-  //{
-  //}
+  public enum TypeKind
+  {
+    Production,
+    Test
+  }
 }

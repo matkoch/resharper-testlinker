@@ -40,9 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntryClass.cs" />
-    <Compile Include="FirstInterfaceImplementation.cs" />
+    <Compile Include="Impl\FirstInterfaceImplementation.cs" />
+    <Compile Include="NestedNamespace\NestedUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SecondInterfaceImplementation.cs" />
+    <Compile Include="Impl\SecondInterfaceImplementation.cs" />
     <Compile Include="UtilityClass.cs" />
   </ItemGroup>
   <ItemGroup>

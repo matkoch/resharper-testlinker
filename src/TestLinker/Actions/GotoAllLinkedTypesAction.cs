@@ -13,14 +13,19 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Application.BuildScript.Application.Zones;
-using JetBrains.Common.ViewModels.FindResultsNavigator;
+using JetBrains.ReSharper.Psi;
+using JetBrains.UI.ActionsRevised;
 
-namespace TestLinker.Navigation
+namespace TestLinker.Actions
 {
-  //[ZoneMarker]
-  //public class ZoneMarker : IRequire<IFindResultsNavigatorZone>
-  //{
-  //}
+  [Action ("Goto_AllLinkedTypes", "Goto All Linked Types", Id = 9854)]
+  public class GotoAllLinkedTypesAction : GotoLinkedTypesActionBase
+  {
+    protected override ISet<ITypeElement> GetLinkedTypes (LinkedTypesService linkedTypesService, List<ITypeElement> typesInContext)
+    {
+      return linkedTypesService.GetLinkedTypes(typesInContext);
+    }
+  }
 }

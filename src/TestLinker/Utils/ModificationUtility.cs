@@ -56,13 +56,13 @@ namespace TestLinker.Utils
       var linkedTypeName = DerivedNameUtility.GetDerivedName(sourceType.ShortName, templateSourceType.ShortName, templateLinkedType.ShortName);
       var linkedTypeNamespace = DerivedNameUtility.GetDerivedNamespace(sourceType, templateLinkedType);
       var linkedTypeProject = templateLinkedType.GetSingleOrDefaultSourceFile().GetProject().NotNull();
-      var linkedTypeKind = solution.GetComponent<IUnitTestElementStuff>().GetElement(templateLinkedType) == null
+      var linkedTypeKind = !solution.GetComponent<IUnitTestElementStuff>().IsElementOfKind(templateLinkedType, UnitTestElementKind.TestContainer)
           ? TypeKind.Production
           : TypeKind.Test;
 
       if (!MessageBox.ShowYesNo(
           $"Class: {linkedTypeName}\r\nProject: {linkedTypeProject.Name}\r\nNamespace: {linkedTypeNamespace}\r\n",
-          $"Create {linkedTypeKind} class {linkedTypeName}?"))
+          $"Create {linkedTypeKind} Class for {sourceType.ShortName}?"))
       {
         return;
       }

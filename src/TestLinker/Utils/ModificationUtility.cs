@@ -46,7 +46,8 @@ namespace TestLinker.Utils
 
       if (templateTypes == null)
       {
-        MessageBox.ShowInfo("Could not find a template to create production/test class from.");
+        MessageBox.ShowInfo("Could not find a template to create production/test class from.\r\n" +
+                            "There must exist at least one pair of production+test classes for this project.");
         return;
       }
 

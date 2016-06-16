@@ -46,7 +46,7 @@ namespace TestLinker.Utils
 
       if (templateTypes == null)
       {
-        solution.GetComponent<IStatusBar>().SetText("Could not find a template to create production/test class from.", isEmphisized: true);
+        MessageBox.ShowInfo("Could not find a template to create production/test class from.");
         return;
       }
 

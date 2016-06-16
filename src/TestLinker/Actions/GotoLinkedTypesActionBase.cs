@@ -89,7 +89,7 @@ namespace TestLinker.Actions
     {
       if (typesInContext.Count != 1)
       {
-        _solution.GetComponent<IStatusBar>().SetText("There is no single class in context to create production/test class from.", isEmphisized: true);
+        MessageBox.ShowInfo("There is no single class in context to create production/test class from.");
         return;
       }
 

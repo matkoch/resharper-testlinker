@@ -7,10 +7,17 @@ TestLinker collects link data between types (i.e., production and test code) bas
 
 ## Navigation
 
-<img src=https://raw.githubusercontent.com/matkoch/TestLinker/master/misc/Demo.gif />
+<img src=https://raw.githubusercontent.com/matkoch/TestLinker/master/misc/Demon_Navigate.gif />
 
 - [Goto Related Files](https://www.jetbrains.com/help/resharper/2016.1/Navigation_and_Search__Go_to_Related_Files.html) is extended with navigation points to production/test classes.
 - New shortcut `ReSharper_GotoLinkedTypes` (assignable via keyboard options) that jumps between linked types. For multiple linked types, a dedicated popmenu is shown, which can also be displayed in [Find Results](https://www.jetbrains.com/help/resharper/2016.1/Reference__Windows__Find_Results_Window.html) window.
+
+## Test Creation
+
+<img src=https://raw.githubusercontent.com/matkoch/TestLinker/master/misc/Demo_Create.gif />
+
+- Create production/test class if they don't exist
+- Requires at least one matching pair of test and production class in the project
 
 ## Test Execution
 
@@ -19,7 +26,6 @@ TestLinker collects link data between types (i.e., production and test code) bas
 ## Roadmap
 
 - Support for [Continuous Testing](https://blog.jetbrains.com/dotnet/2015/11/19/continuous-testing-in-dotcover-and-resharper-ultimate/) as alternative to initial coverage run
-- Create production/test class if it doesn't exist
 
 ## Installation & Details
 

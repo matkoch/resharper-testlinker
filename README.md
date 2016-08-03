@@ -23,18 +23,20 @@ TestLinker collects link data between types (i.e., production and test code) bas
 
 - Tests can be executed from their linked production code. This feature automatically integrates with the shortcuts for executing unit tests in *run*, *debug*, *profile*, and *cover* mode.
 
-## Roadmap
-
-- Support for [Continuous Testing](https://blog.jetbrains.com/dotnet/2015/11/19/continuous-testing-in-dotcover-and-resharper-ultimate/) as alternative to initial coverage run
-
-## Installation & Details
-
-Open ReSharper`s Extension Manager (<kbd>Alt</kbd>+<kbd>R</kbd>,<kbd>X</kbd>) and search for [TestLinker](https://resharper-plugins.jetbrains.com/packages/TestLinker.ReSharper/).
-
-<img src=https://raw.githubusercontent.com/matkoch/TestLinker/master/misc/ExtensionManager.png />
+## Configuration
 
 Link data is currently maintained via:
 - **Derived names**, as with `Calculator` and `CalculatorTest`. Pre-/Postfixes can be configured in the options page.
 - **Usages of TypeofAttributes**, as in `[Subject (typeof (FirstComponent), typeof(SecondComponent)]`, which are applied to test classes. This custom attribute is especially useful for integration test and can be configured through the options page.
 
 <img src=https://raw.githubusercontent.com/matkoch/TestLinker/master/misc/OptionsPage.png width=600px />
+
+## Roadmap
+
+- Support for [Continuous Testing](https://blog.jetbrains.com/dotnet/2015/11/19/continuous-testing-in-dotcover-and-resharper-ultimate/) as alternative to initial coverage run
+
+## Installation
+
+Open ReSharper`s Extension Manager (<kbd>Alt</kbd>+<kbd>R</kbd>,<kbd>X</kbd>) and search for [TestLinker](https://resharper-plugins.jetbrains.com/packages/TestLinker.ReSharper/).
+
+<img src=https://raw.githubusercontent.com/matkoch/TestLinker/master/misc/ExtensionManager.png />

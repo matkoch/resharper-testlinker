@@ -21,7 +21,7 @@ using JetBrains.ProjectModel;
 using JetBrains.ProjectModel.DataContext;
 using JetBrains.ReSharper.Feature.Services.Actions;
 using JetBrains.ReSharper.Feature.Services.Navigation.ExecutionHosting;
-using JetBrains.ReSharper.Feature.Services.Occurences;
+using JetBrains.ReSharper.Feature.Services.Occurrences;
 using JetBrains.ReSharper.Feature.Services.Tree;
 using JetBrains.ReSharper.Psi;
 using JetBrains.TextControl;
@@ -29,7 +29,6 @@ using JetBrains.TextControl.DataContext;
 using JetBrains.UI.ActionsRevised;
 using JetBrains.UI.DataContext;
 using JetBrains.UI.PopupWindowManager;
-using JetBrains.UI.StatusBar;
 using JetBrains.Util;
 using TestLinker.Navigation;
 using TestLinker.Utils;
@@ -75,7 +74,7 @@ namespace TestLinker.Actions
     {
       var typesInContext = _typesFromTextControlService.GetTypesFromCaretOrFile(_textControl, _solution).ToList();
       var linkedTypes = GetLinkedTypes(_linkedTypesService, typesInContext);
-      var occurrences = linkedTypes.Select(x => new LinkedTypesOccurrence(x, OccurenceType.Occurence)).ToList<IOccurence>();
+      var occurrences = linkedTypes.Select(x => new LinkedTypesOccurrence(x, OccurrenceType.Occurrence)).ToList<IOccurrence>();
 
       if (occurrences.Count == 0)
         TryCreateProductionOrTestClass(typesInContext);
@@ -96,14 +95,14 @@ namespace TestLinker.Actions
       ModificationUtility.TryCreateTestOrProductionClass(typesInContext.Single(), _textControl);
     }
 
-    private void NavigateToSingleOccurrence (IOccurence occurence)
+    private void NavigateToSingleOccurrence (IOccurrence occurence)
     {
       occurence.Navigate(_solution, _popupWindowContextSource, transferFocus: true);
     }
 
-    private void ShowOccurrencePopupMenu (List<ITypeElement> typesInContext, List<IOccurence> occurrences)
+    private void ShowOccurrencePopupMenu (List<ITypeElement> typesInContext, List<IOccurrence> occurrences)
     {
-      Func<OccurenceBrowserDescriptor> descriptorBuilder = () => new LinkedTypesOccurrenceBrowserDescriptor(_solution, typesInContext, occurrences);
+      Func<OccurrenceBrowserDescriptor> descriptorBuilder = () => new LinkedTypesOccurrenceBrowserDescriptor(_solution, typesInContext, occurrences);
       var navigationExecutionHost = _solution.GetComponent<DefaultNavigationExecutionHost>();
       navigationExecutionHost.ShowGlobalPopupMenu(
           _solution,
@@ -111,7 +110,7 @@ namespace TestLinker.Actions
           activate: true,
           windowContext: _popupWindowContextSource,
           descriptorBuilder: descriptorBuilder,
-          options: new OccurencePresentationOptions(),
+          options: new OccurrencePresentationOptions(),
           skipMenuIfSingleEnabled: true,
           title: "Go to linked types ");
     }

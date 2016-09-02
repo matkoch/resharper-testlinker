@@ -28,9 +28,9 @@ namespace TestLinker.Refactorings
   {
     public bool SuggestedElementsHaveDerivedName => true;
 
-    public IEnumerable<IDeclaredElement> CreateFromElement (IEnumerable<IDeclaredElement> initialElement, IDeclaredElement declaredElement)
+    public IEnumerable<IDeclaredElement> CreateFromElement (IEnumerable<IDeclaredElement> initialElement, DerivedDeclaredElement derivedElement)
     {
-      return GetRelatedTypesWithDerivedName(declaredElement);
+      return GetRelatedTypesWithDerivedName(derivedElement.DeclaredElement);
     }
 
     public IEnumerable<IDeclaredElement> CreateFromReference (IReference reference, IDeclaredElement declaredElement)

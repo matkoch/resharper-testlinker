@@ -18,7 +18,7 @@ using System.Linq;
 using JetBrains.Application.Progress;
 using JetBrains.IDE.TreeBrowser;
 using JetBrains.ProjectModel;
-using JetBrains.ReSharper.Feature.Services.Occurences;
+using JetBrains.ReSharper.Feature.Services.Occurrences;
 using JetBrains.ReSharper.Feature.Services.Tree;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Resources.Shell;
@@ -27,14 +27,14 @@ using JetBrains.Util;
 
 namespace TestLinker.Navigation
 {
-  public class LinkedTypesOccurrenceBrowserDescriptor : OccurenceBrowserDescriptor
+  public class LinkedTypesOccurrenceBrowserDescriptor : OccurrenceBrowserDescriptor
   {
     private readonly TreeSectionModel _model;
 
     public LinkedTypesOccurrenceBrowserDescriptor (
         ISolution solution,
         ICollection<ITypeElement> typesInContext,
-        ICollection<IOccurence> linkedTypeOccurrences,
+        ICollection<IOccurrence> linkedTypeOccurrences,
         IProgressIndicator indicator = null)
         : base(solution)
     {
@@ -56,7 +56,7 @@ namespace TestLinker.Navigation
       get { return _model; }
     }
 
-    protected override void SetResults (ICollection<IOccurence> items, IProgressIndicator indicator = null, bool mergeItems = true)
+    protected override void SetResults (ICollection<IOccurrence> items, IProgressIndicator indicator = null, bool mergeItems = true)
     {
       base.SetResults(items, indicator, mergeItems);
       RequestUpdate(UpdateKind.Structure, true);

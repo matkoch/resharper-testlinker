@@ -15,14 +15,14 @@
 using System;
 using System.Linq;
 using JetBrains.Annotations;
-using JetBrains.ReSharper.Feature.Services.Occurences;
+using JetBrains.ReSharper.Feature.Services.Occurrences;
 using JetBrains.ReSharper.Psi;
 
 namespace TestLinker.Navigation
 {
-  public class LinkedTypesOccurrence : DeclaredElementOccurence
+  public class LinkedTypesOccurrence : DeclaredElementOccurrence
   {
-    public LinkedTypesOccurrence ([NotNull] IDeclaredElement element, OccurenceType occurenceKind)
+    public LinkedTypesOccurrence ([NotNull] IDeclaredElement element, OccurrenceType occurenceKind)
         : base(element, occurenceKind)
     {
     }

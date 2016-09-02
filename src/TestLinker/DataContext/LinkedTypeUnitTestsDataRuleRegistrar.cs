@@ -18,8 +18,8 @@ using JetBrains.Application.DataContext;
 using JetBrains.DataFlow;
 using JetBrains.ProjectModel;
 using JetBrains.ProjectModel.DataContext;
-using JetBrains.ReSharper.UnitTestExplorer.Common;
 using JetBrains.ReSharper.UnitTestFramework;
+using JetBrains.ReSharper.UnitTestFramework.Common;
 using JetBrains.ReSharper.UnitTestFramework.Criteria;
 using JetBrains.TextControl.DataContext;
 using JetBrains.Util;
@@ -34,7 +34,7 @@ namespace TestLinker.DataContext
     {
       var dataRule = new DataRule<UnitTestElements>.DesperateDataRule(
           "ProjectModelToUnitTestElements",
-          UnitTestDataConstants.UNIT_TEST_ELEMENTS,
+          UnitTestDataConstants.UnitTestElements.SELECTED,
           LinkedTypeUnitTestsDataRule);
 
       dataContexts.RegisterDataRule(lifetime, dataRule);

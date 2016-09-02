@@ -15,7 +15,6 @@
 using System;
 using System.Linq;
 using JetBrains.Application.BuildScript.Application.Zones;
-using JetBrains.Common.ViewModels.FindResultsNavigator;
 
 namespace TestLinker.Navigation
 {

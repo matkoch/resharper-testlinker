@@ -37,6 +37,6 @@ Link data is currently maintained via:
 
 ## Installation
 
-Open ReSharper`s Extension Manager (<kbd>Alt</kbd>+<kbd>R</kbd>,<kbd>X</kbd>) and search for [TestLinker](https://resharper-plugins.jetbrains.com/packages/TestLinker.ReSharper/).
+Open ReSharper`s Extension Manager (<kbd>Alt</kbd>+<kbd>R</kbd>,<kbd>X</kbd>) and search for [TestLinker](https://resharper-plugins.jetbrains.com/packages/ReSharper.TestLinker/).
 
 <img src=https://raw.githubusercontent.com/matkoch/TestLinker/master/misc/ExtensionManager.png />

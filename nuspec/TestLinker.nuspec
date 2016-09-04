@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>TestLinker.ReSharper</id>
+    <id>ReSharper.TestLinker</id>
     <version>$version$</version>
     <title>TestLinker</title>
     <authors>Matthias Koch</authors>
@@ -16,6 +16,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="TestLinker\bin\$configuration$\TestLinker.*" target="DotFiles" />
+    <file src="TestLinker\bin\$configuration$\TestLinker.dll" target="DotFiles" />
   </files>
 </package>

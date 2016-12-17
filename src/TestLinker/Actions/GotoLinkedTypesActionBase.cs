@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.ActionManagement;
+using JetBrains.Annotations;
 using JetBrains.Application.DataContext;
 using JetBrains.ProjectModel;
 using JetBrains.ProjectModel.DataContext;
@@ -52,13 +53,13 @@ namespace TestLinker.Actions
       return CurrentPsiFileRequirement.FromDataContext(dataContext);
     }
 
-    public bool Update (IDataContext context, ActionPresentation presentation, DelegateUpdate nextUpdate)
+    public bool Update (IDataContext context, ActionPresentation presentation, [NotNull] DelegateUpdate nextUpdate)
     {
       var solution = context.GetData(ProjectModelDataConstants.SOLUTION);
       return solution != null;
     }
 
-    public void Execute (IDataContext context, DelegateExecute nextExecute)
+    public void Execute (IDataContext context, [NotNull] DelegateExecute nextExecute)
     {
       _typesFromTextControlService = context.GetComponent<ITypesFromTextControlService>().NotNull();
       _solution = context.GetData(ProjectModelDataConstants.SOLUTION).NotNull();
@@ -100,7 +101,7 @@ namespace TestLinker.Actions
       occurence.Navigate(_solution, _popupWindowContextSource, transferFocus: true);
     }
 
-    private void ShowOccurrencePopupMenu (List<ITypeElement> typesInContext, List<IOccurrence> occurrences)
+    private void ShowOccurrencePopupMenu (ICollection<ITypeElement> typesInContext, ICollection<IOccurrence> occurrences)
     {
       Func<OccurrenceBrowserDescriptor> descriptorBuilder = () => new LinkedTypesOccurrenceBrowserDescriptor(_solution, typesInContext, occurrences);
       var navigationExecutionHost = _solution.GetComponent<DefaultNavigationExecutionHost>();

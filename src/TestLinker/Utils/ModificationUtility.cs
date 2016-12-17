@@ -30,7 +30,6 @@ using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.TextControl;
 using JetBrains.UI.PopupWindowManager;
-using JetBrains.UI.StatusBar;
 using JetBrains.Util;
 
 namespace TestLinker.Utils
@@ -71,7 +70,7 @@ namespace TestLinker.Utils
 
       var linkedTypeProjectFolder = GetLinkedTypeFolder(linkedTypeNamespace, linkedTypeProject);
       var linkedTypeFile = GetLinkedTypeFile(linkedTypeName, linkedTypeNamespace, templateLinkedType);
-      var linkedTypeProjectFile = AddNewItemUtil.AddFile(linkedTypeProjectFolder, linkedTypeName + ".cs", linkedTypeFile.GetText());
+      var linkedTypeProjectFile = AddNewItemHelper.AddFile(linkedTypeProjectFolder, linkedTypeName + ".cs", linkedTypeFile.GetText());
       linkedTypeProjectFile.Navigate(Shell.Instance.GetComponent<MainWindowPopupWindowContext>().Source, transferFocus: true);
     }
 
@@ -99,13 +98,15 @@ namespace TestLinker.Utils
       var linkedType = (IClassDeclaration) typeDeclarations.Single(x => x.DeclaredName == linkedTypeName);
 
       // Remove base types
-      linkedType.SuperTypes.ForEach(x => linkedType.RemoveSuperInterface(x));
+      foreach (var x in linkedType.SuperTypes)
+        linkedType.RemoveSuperInterface(x);
 
       // Clear body
       linkedType.SetBody(((IClassLikeDeclaration) elementFactory.CreateTypeMemberDeclaration("class C{}")).Body);
 
       // Remove unrelated types
-      linkedTypeFile.TypeDeclarations.Where(x => x.DeclaredName != linkedTypeName).ForEach(ModificationUtil.DeleteChild);
+      foreach (var declaration in linkedTypeFile.TypeDeclarations.Where(x => x.DeclaredName != linkedTypeName))
+        ModificationUtil.DeleteChild(declaration);
 
       return linkedTypeFile;
     }

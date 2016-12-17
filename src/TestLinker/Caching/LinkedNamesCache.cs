@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.Application.Progress;
 using JetBrains.DataFlow;
 using JetBrains.ReSharper.Psi;
@@ -23,6 +24,7 @@ using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Files;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
+using NuGet;
 
 namespace TestLinker.Caching
 {
@@ -46,14 +48,15 @@ namespace TestLinker.Caching
 
     public OneToSetMap<string, Pair<IPsiSourceFile, string>> LinkedNamesMap => _mergeData.LinkedNamesMap;
 
-    public override object Load (IProgressIndicator progress, bool enablePersistence)
+    public override object Load ([NotNull] IProgressIndicator progress, bool enablePersistence)
     {
       var data = new LinkedNamesMergeData();
-      Map.Where(x => x.Key != null).ForEach(x => LoadFile(data, x.Key, x.Value));
+      foreach (var x in Map.Where(x => x.Key != null))
+        LoadFile(data, x.Key, x.Value);
       return data;
     }
 
-    public override void MergeLoaded (object data)
+    public override void MergeLoaded ([NotNull] object data)
     {
       _mergeData = (LinkedNamesMergeData) data;
 
@@ -65,7 +68,7 @@ namespace TestLinker.Caching
       return GetLinkData(sourceFile);
     }
 
-    public override void Merge (IPsiSourceFile sourceFile, object builtPart)
+    public override void Merge (IPsiSourceFile sourceFile, [CanBeNull] object builtPart)
     {
       var linkedNamesData = (LinkedNamesData) builtPart;
       if (linkedNamesData == null)
@@ -85,7 +88,7 @@ namespace TestLinker.Caching
       base.Drop(sourceFile);
     }
 
-    protected override bool IsApplicable (IPsiSourceFile sourceFile)
+    protected override bool IsApplicable ([NotNull] IPsiSourceFile sourceFile)
     {
       return sourceFile.GetDominantPsiFile<CSharpLanguage>() != null;
     }
@@ -113,7 +116,7 @@ namespace TestLinker.Caching
     {
       var previousNames = _mergeData.PreviousNamesMap[sourceFile];
       foreach (var previousName in previousNames)
-        _mergeData.LinkedNamesMap.RemoveWhere(previousName, x => x.First == sourceFile);
+        _mergeData.LinkedNamesMap[previousName].RemoveAll(x => x.First == sourceFile);
 
       _mergeData.PreviousNamesMap.RemoveKey(sourceFile);
     }
@@ -121,12 +124,13 @@ namespace TestLinker.Caching
     private LinkedNamesData GetLinkData (IPsiSourceFile sourceFile)
     {
       var linkedNamesData = new LinkedNamesData();
-      foreach (var sourceType in GetTypeDeclarations(sourceFile.GetPrimaryPsiFile()))
+      foreach (var sourceType in GetTypeDeclarations(sourceFile.GetPrimaryPsiFile().NotNull()))
       {
         for (var i = 0; i < _linkedTypesProviders.Count; i++)
         {
           var linkedNames = _linkedTypesProviders[i].GetLinkedNames(sourceType);
-          linkedNames.ForEach(x => linkedNamesData.Add(sourceType.DeclaredName, x));
+          foreach (var x in linkedNames)
+            linkedNamesData.Add(sourceType.DeclaredName, x);
         }
       }
 

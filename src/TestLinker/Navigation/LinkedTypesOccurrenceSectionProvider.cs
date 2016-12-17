@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.Application.ComponentModel;
 using JetBrains.ReSharper.Feature.Services.Tree;
 using JetBrains.ReSharper.Feature.Services.Tree.SectionsManagement;
@@ -26,12 +27,12 @@ namespace TestLinker.Navigation
   [ShellFeaturePart]
   public class LinkedTypesOccurrenceSectionProvider : OccurrenceSectionProvider
   {
-    public override bool IsApplicable (OccurrenceBrowserDescriptor descriptor)
+    public override bool IsApplicable ([NotNull] IOccurrenceBrowserDescriptor descriptor)
     {
       return descriptor is LinkedTypesOccurrenceBrowserDescriptor;
     }
 
-    public override ICollection<TreeSection> GetTreeSections (OccurrenceBrowserDescriptor descriptor)
+    public override ICollection<TreeSection> GetTreeSections ([NotNull] IOccurrenceBrowserDescriptor descriptor)
     {
       return descriptor.OccurrenceSections.Select(
           x =>

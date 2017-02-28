@@ -285,6 +285,10 @@
       <HintPath>..\..\packages\JetBrains.NuGet.Ultimate.3.5.0.3\lib\net45\NuGet.Versioning.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NullGuard, Version=1.4.6.0, Culture=neutral, PublicKeyToken=1958ac8092168428, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NullGuard.Fody.1.4.6\lib\dotnet\NullGuard.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -413,6 +417,9 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if exist "$(Vs12Installation)"        xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs12Installation)"
@@ -445,6 +452,7 @@ if exist "$(Vs14Installation)_001" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs14In
     <Error Condition="!Exists('..\..\packages\JetBrains.Psi.Features.UnitTesting.107.0.20170126.120917\build\JetBrains.Psi.Features.UnitTesting.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.Psi.Features.UnitTesting.107.0.20170126.120917\build\JetBrains.Psi.Features.UnitTesting.Targets'))" />
     <Error Condition="!Exists('..\..\packages\JetBrains.Psi.Features.test.Framework.107.0.20170126.120917\build\JetBrains.Psi.Features.test.Framework.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.Psi.Features.test.Framework.107.0.20170126.120917\build\JetBrains.Psi.Features.test.Framework.Targets'))" />
     <Error Condition="!Exists('..\..\packages\JetBrains.ReSharper.SDK.Internal.107.0.20170126.124206\build\JetBrains.ReSharper.SDK.Internal.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.ReSharper.SDK.Internal.107.0.20170126.124206\build\JetBrains.ReSharper.SDK.Internal.Targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.1.29.2\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.29.2\build\dotnet\Fody.targets'))" />
   </Target>
   <Import Project="..\..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20151217.1\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets" Condition="Exists('..\..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20151217.1\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets')" />
   <Import Project="..\..\packages\JetBrains.Platform.Interop.dotMemoryUnit.Framework.107.0.20170126.120431\build\JetBrains.Platform.Interop.dotMemoryUnit.Framework.Targets" Condition="Exists('..\..\packages\JetBrains.Platform.Interop.dotMemoryUnit.Framework.107.0.20170126.120431\build\JetBrains.Platform.Interop.dotMemoryUnit.Framework.Targets')" />
@@ -462,6 +470,7 @@ if exist "$(Vs14Installation)_001" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs14In
   <Import Project="..\..\packages\JetBrains.Psi.Features.UnitTesting.107.0.20170126.120917\build\JetBrains.Psi.Features.UnitTesting.Targets" Condition="Exists('..\..\packages\JetBrains.Psi.Features.UnitTesting.107.0.20170126.120917\build\JetBrains.Psi.Features.UnitTesting.Targets')" />
   <Import Project="..\..\packages\JetBrains.Psi.Features.test.Framework.107.0.20170126.120917\build\JetBrains.Psi.Features.test.Framework.Targets" Condition="Exists('..\..\packages\JetBrains.Psi.Features.test.Framework.107.0.20170126.120917\build\JetBrains.Psi.Features.test.Framework.Targets')" />
   <Import Project="..\..\packages\JetBrains.ReSharper.SDK.Internal.107.0.20170126.124206\build\JetBrains.ReSharper.SDK.Internal.Targets" Condition="Exists('..\..\packages\JetBrains.ReSharper.SDK.Internal.107.0.20170126.124206\build\JetBrains.ReSharper.SDK.Internal.Targets')" />
+  <Import Project="..\..\packages\Fody.1.29.2\build\dotnet\Fody.targets" Condition="Exists('..\..\packages\Fody.1.29.2\build\dotnet\Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

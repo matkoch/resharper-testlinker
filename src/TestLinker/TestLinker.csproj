@@ -14,7 +14,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <Hive>TestLinker</Hive>
+    <Hive>Exp</Hive>
     <Vs12Installation>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs12$(Hive)</Vs12Installation>
     <Vs14Installation>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs14$(Hive)</Vs14Installation>
     <TargetFrameworkProfile />

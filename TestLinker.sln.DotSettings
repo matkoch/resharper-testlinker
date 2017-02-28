@@ -1,4 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=MissingXmlDoc/@EntryIndexedValue">DO_NOT_SHOW</s:String>
 	<s:String x:Key="/Default/CodeStyle/FileHeader/FileHeaderText/@EntryValue">Copyright 2016, 2015, 2014 Matthias Koch&#xD;
 &#xD;
 Licensed under the Apache License, Version 2.0 (the "License");&#xD;
@@ -112,14 +113,14 @@ limitations under the License.</s:String>
 	
 	<s:String x:Key="/Default/RunConfigs/Active/@EntryValue">E1D62D10D8E2E24085EF1F6A4CFB691A</s:String>
 	<s:Boolean x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Exe/Arguments/@EntryValue">/rootSuffix TestLinker /ReSharper.Internal .\src\TestLinker.Debug\TestLinker.Debug.sln</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Exe/Arguments/@EntryValue">/rootSuffix Exp /ReSharper.Internal .\src\TestLinker.Debug\TestLinker.Debug.sln</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Exe/Executable/@EntryValue">C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Name/@EntryValue">VS2013</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Type/@EntryValue">exe</s:String>
 
 	<s:String x:Key="/Default/RunConfigs/Active/@EntryValue">B6C85E8D675C584CB5A176B1A6BAFBE4</s:String>
 	<s:Boolean x:Key="/Default/RunConfigs/Config/=B6C85E8D675C584CB5A176B1A6BAFBE4/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/RunConfigs/Config/=B6C85E8D675C584CB5A176B1A6BAFBE4/Exe/Arguments/@EntryValue">/rootSuffix TestLinker /ReSharper.Internal .\src\TestLinker.Debug\TestLinker.Debug.sln</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=B6C85E8D675C584CB5A176B1A6BAFBE4/Exe/Arguments/@EntryValue">/rootSuffix Exp /ReSharper.Internal .\src\TestLinker.Debug\TestLinker.Debug.sln</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=B6C85E8D675C584CB5A176B1A6BAFBE4/Exe/Executable/@EntryValue">C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=B6C85E8D675C584CB5A176B1A6BAFBE4/Name/@EntryValue">VS2015</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=B6C85E8D675C584CB5A176B1A6BAFBE4/Type/@EntryValue">exe</s:String></wpf:ResourceDictionary>

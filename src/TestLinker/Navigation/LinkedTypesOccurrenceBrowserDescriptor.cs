@@ -42,7 +42,7 @@ namespace TestLinker.Navigation
 
       DrawElementExtensions = true;
       Title.Value =
-          $"Linked types for {typesInContext.Take(3).Select(x => x.GetClrName().ShortName).Join(", ")}{(typesInContext.Count > 3 ? "..." : string.Empty)}";
+          $"Linked types for {typesInContext.Take(count: 3).Select(x => x.GetClrName().ShortName).Join(", ")}{(typesInContext.Count > 3 ? "..." : string.Empty)}";
 
       using (ReadLockCookie.Create())
       {
@@ -59,7 +59,7 @@ namespace TestLinker.Navigation
     protected override void SetResults (ICollection<IOccurrence> items, IProgressIndicator indicator = null, bool mergeItems = true)
     {
       base.SetResults(items, indicator, mergeItems);
-      RequestUpdate(UpdateKind.Structure, true);
+      RequestUpdate(UpdateKind.Structure, immediate: true);
     }
   }
 }

@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Resolve;
@@ -28,12 +29,14 @@ namespace TestLinker.Refactorings
   {
     public bool SuggestedElementsHaveDerivedName => true;
 
-    public IEnumerable<IDeclaredElement> CreateFromElement (IEnumerable<IDeclaredElement> initialElement, DerivedDeclaredElement derivedElement)
+    public IEnumerable<IDeclaredElement> CreateFromElement (
+      [NotNull] IEnumerable<IDeclaredElement> initialElement,
+      [NotNull] DerivedDeclaredElement derivedElement)
     {
       return GetRelatedTypesWithDerivedName(derivedElement.DeclaredElement);
     }
 
-    public IEnumerable<IDeclaredElement> CreateFromReference (IReference reference, IDeclaredElement declaredElement)
+    public IEnumerable<IDeclaredElement> CreateFromReference ([NotNull] IReference reference, [NotNull] IDeclaredElement declaredElement)
     {
       return GetRelatedTypesWithDerivedName(declaredElement);
     }

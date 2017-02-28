@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.Application.Settings;
 using JetBrains.ProjectModel;
 using JetBrains.ProjectModel.DataContext;
@@ -48,6 +49,8 @@ namespace TestLinker.LinkedTypesProvider
 
     #region ILinkedTypesProvider
 
+    [ItemNotNull]
+    // ReSharper disable once CyclomaticComplexity
     public IEnumerable<string> GetLinkedNames (ITypeDeclaration typeDeclaration)
     {
       var attributesOwnerDeclaration = typeDeclaration as IAttributesOwnerDeclaration;

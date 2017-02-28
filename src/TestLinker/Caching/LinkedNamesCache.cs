@@ -63,6 +63,7 @@ namespace TestLinker.Caching
       base.MergeLoaded(data);
     }
 
+    [NotNull]
     public override object Build (IPsiSourceFile sourceFile, bool isStartup)
     {
       return GetLinkData(sourceFile);

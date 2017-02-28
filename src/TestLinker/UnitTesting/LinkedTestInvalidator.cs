@@ -46,7 +46,8 @@ namespace TestLinker.UnitTesting
     private void OnChanged (IReadOnlyCollection<ITypeElement> changedTypes)
     {
       var testElements = _linkedTypesService.GetUnitTestElementsFrom(changedTypes).SelectMany(x => x.DescendantsAndSelf(y => y.Children));
-      testElements.ForEach(x => _unitTestResultManager.MarkOutdated(x));
+      foreach (var x in testElements)
+        _unitTestResultManager.MarkOutdated(x);
     }
 
     #endregion

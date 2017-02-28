@@ -53,6 +53,7 @@ namespace TestLinker.LinkedTypesProvider
     }
 
     [CanBeNull]
+    // ReSharper disable once CyclomaticComplexity
     private string GetLinkedName (string name)
     {
       var isBase = false;

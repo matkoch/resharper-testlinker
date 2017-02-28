@@ -33,7 +33,7 @@ namespace TestLinker
   [PsiComponent]
   internal class ChangedTypesProvider
   {
-    private static readonly TimeSpan s_updateInterval = TimeSpan.FromMilliseconds(1000);
+    private static readonly TimeSpan s_updateInterval = TimeSpan.FromMilliseconds(value: 1000);
 
     private readonly Lifetime _myLifetime;
     private readonly IPsiServices _myServices;
@@ -101,12 +101,7 @@ namespace TestLinker
 
     private void Invalidate ()
     {
-      KeyValuePair<IProjectFile, TextRange>[] changes;
-      lock (_myChangedRanges)
-      {
-        changes = _myChangedRanges.Where(x => x.Key.IsValid() && x.Value.IsValid).ToArray();
-        _myChangedRanges.Clear();
-      }
+      var changes = GetChanges();
 
       try
       {
@@ -126,11 +121,28 @@ namespace TestLinker
       }
       catch (ProcessCancelledException)
       {
-        lock (_myChangedRanges)
-        {
-          foreach (var pair in changes)
-            _myChangedRanges.AddOrUpdate(pair.Key, pair.Value, (file, range) => pair.Value.Join(range));
-        }
+        ReAddChanges(changes);
+      }
+    }
+
+    private KeyValuePair<IProjectFile, TextRange>[] GetChanges ()
+    {
+      // TODO: try-finally?
+      KeyValuePair<IProjectFile, TextRange>[] changes;
+      lock (_myChangedRanges)
+      {
+        changes = _myChangedRanges.Where(x => x.Key.IsValid() && x.Value.IsValid).ToArray();
+        _myChangedRanges.Clear();
+      }
+      return changes;
+    }
+
+    private void ReAddChanges (KeyValuePair<IProjectFile, TextRange>[] changes)
+    {
+      lock (_myChangedRanges)
+      {
+        foreach (var pair in changes)
+          _myChangedRanges.AddOrUpdate(pair.Key, pair.Value, (file, range) => pair.Value.Join(range));
       }
     }
 

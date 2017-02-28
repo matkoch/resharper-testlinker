@@ -14,7 +14,7 @@
 
 using System;
 using System.Linq;
-using JetBrains.Util;
+using JetBrains.Annotations;
 using JetBrains.Util.PersistentMap;
 
 namespace TestLinker.Caching
@@ -23,18 +23,19 @@ namespace TestLinker.Caching
   {
     #region IUnsafeMarshaller<LinkedNamesData>
 
-    public void Marshal (UnsafeWriter writer, LinkedNamesData value)
+    public void Marshal ([NotNull] UnsafeWriter writer, [NotNull] LinkedNamesData value)
     {
       writer.Write(value.Count);
       foreach (var map in value)
       {
         writer.Write(map.Key);
         writer.Write(map.Value.Count);
-        map.Value.ForEach(writer.Write);
+        foreach (var name in map.Value)
+          writer.Write(name);
       }
     }
 
-    public LinkedNamesData Unmarshal (UnsafeReader reader)
+    public LinkedNamesData Unmarshal ([NotNull] UnsafeReader reader)
     {
       var linkData = new LinkedNamesData();
       var count = reader.ReadInt();
@@ -42,7 +43,7 @@ namespace TestLinker.Caching
       {
         var sourceType = reader.ReadString();
         var listCount = reader.ReadInt();
-        var linkedTypes = Enumerable.Range(0, listCount).Select(x => reader.ReadString());
+        var linkedTypes = Enumerable.Range(start: 0, count: listCount).Select(x => reader.ReadString());
         linkData.AddValueRange(sourceType, linkedTypes);
       }
       return linkData;

@@ -46,3 +46,6 @@ _dotTrace*
 
 # NuGet Packages Directory
 packages
+
+# Cake tools
+tools

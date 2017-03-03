@@ -9,11 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E1B03E
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{38E0FF06-BB58-4322-97AE-ABAC49317E3B}"
-	ProjectSection(SolutionItems) = preProject
-		nuspec\TestLinker.nuspec = nuspec\TestLinker.nuspec
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".misc", ".misc", "{1439387A-18D3-4058-88B6-C58AD853C80D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
@@ -27,14 +22,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".misc", ".misc", "{1439387A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{6B28D570-67CE-4E55-840F-979DCC5B553E}"
 	ProjectSection(SolutionItems) = preProject
-		Build.Shared.ps1 = Build.Shared.ps1
-		Build.User.ps1 = Build.User.ps1
-		shared\build\CleanOutput.ps1 = shared\build\CleanOutput.ps1
-		shared\build\Compile.ps1 = shared\build\Compile.ps1
-		shared\build\FullBuild.ps1 = shared\build\FullBuild.ps1
-		shared\build\Inspect.ps1 = shared\build\Inspect.ps1
-		shared\build\Package.ps1 = shared\build\Package.ps1
-		shared\build\TestAndCover.ps1 = shared\build\TestAndCover.ps1
+		build.cake = build.cake
+		build.ps1 = build.ps1
+		cake.config = cake.config
+		tasks.cake = tasks.cake
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLinker", "src\TestLinker\TestLinker.csproj", "{68456E60-C7A1-4B54-BB14-00063A03B7A3}"

@@ -16,41 +16,46 @@ limitations under the License.</s:String>
 	<s:String x:Key="/Default/CodeInspection/CSharpLanguageProject/LanguageLevel/@EntryValue">CSharp60</s:String>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/UseMsbuildSolutionBuilder/@EntryValue">NewVersion</s:String>
 	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/SolutionBuilderNext/MsbuildVersion/@EntryValue">4294967295</s:Int64>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=024B1CC376064F4B812441C0298D2056/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=024B1CC376064F4B812441C0298D2056/AbsolutePath/@EntryValue">C:\OSS\TestLinker\shared\dotsettings\Inspections.XmlDoc.DotSettings</s:String>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=024B1CC376064F4B812441C0298D2056/RelativePath/@EntryValue">..\shared\dotsettings\Inspections.XmlDoc.DotSettings</s:String>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=4BA5179695962C468E4E453E5D8C1F71/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=4BA5179695962C468E4E453E5D8C1F71/AbsolutePath/@EntryValue">C:\OSS\TestLinker\shared\dotsettings\Inspections.BuiltIn.DotSettings</s:String>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=4BA5179695962C468E4E453E5D8C1F71/RelativePath/@EntryValue">..\shared\dotsettings\Inspections.BuiltIn.DotSettings</s:String>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=9AA5D7070FDA7740BA1CF0AEF21BB92C/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=9AA5D7070FDA7740BA1CF0AEF21BB92C/AbsolutePath/@EntryValue">C:\OSS\TestLinker\shared\dotsettings\Inspections.Serialization.DotSettings</s:String>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=9AA5D7070FDA7740BA1CF0AEF21BB92C/RelativePath/@EntryValue">..\shared\dotsettings\Inspections.Serialization.DotSettings</s:String>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=A988D55F43F0AC42B2B782A1B7CEC2D7/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=A988D55F43F0AC42B2B782A1B7CEC2D7/AbsolutePath/@EntryValue">C:\OSS\TestLinker\shared\dotsettings\Inspections.ReSpeller.DotSettings</s:String>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=A988D55F43F0AC42B2B782A1B7CEC2D7/RelativePath/@EntryValue">..\shared\dotsettings\Inspections.ReSpeller.DotSettings</s:String>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=D31F44401500C042943075D2B7ACF479/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=D31F44401500C042943075D2B7ACF479/AbsolutePath/@EntryValue">C:\OSS\TestLinker\shared\dotsettings\Inspections.Nullability.DotSettings</s:String>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=D31F44401500C042943075D2B7ACF479/RelativePath/@EntryValue">..\shared\dotsettings\Inspections.Nullability.DotSettings</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=DAD7C6859FB2364F90F78715DFFD796D/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=DAD7C6859FB2364F90F78715DFFD796D/AbsolutePath/@EntryValue">C:\OSS\TestLinker\shared\dotsettings\CodeStyle.DotSettings</s:String>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=DAD7C6859FB2364F90F78715DFFD796D/RelativePath/@EntryValue">..\shared\dotsettings\CodeStyle.DotSettings</s:String>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E8348DB93DE4414A8E8007E6E49851CD/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E8348DB93DE4414A8E8007E6E49851CD/AbsolutePath/@EntryValue">C:\OSS\TestLinker\shared\dotsettings\Inspections.CodeComplexity.DotSettings</s:String>
-	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E8348DB93DE4414A8E8007E6E49851CD/RelativePath/@EntryValue">..\shared\dotsettings\Inspections.CodeComplexity.DotSettings</s:String>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File024B1CC376064F4B812441C0298D2056/@KeyIndexDefined">True</s:Boolean>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File024B1CC376064F4B812441C0298D2056/RelativePriority/@EntryValue">6</s:Double>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File4BA5179695962C468E4E453E5D8C1F71/@KeyIndexDefined">True</s:Boolean>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File4BA5179695962C468E4E453E5D8C1F71/RelativePriority/@EntryValue">2</s:Double>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File9AA5D7070FDA7740BA1CF0AEF21BB92C/@KeyIndexDefined">True</s:Boolean>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File9AA5D7070FDA7740BA1CF0AEF21BB92C/RelativePriority/@EntryValue">5</s:Double>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileA988D55F43F0AC42B2B782A1B7CEC2D7/@KeyIndexDefined">True</s:Boolean>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileA988D55F43F0AC42B2B782A1B7CEC2D7/RelativePriority/@EntryValue">7</s:Double>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileD31F44401500C042943075D2B7ACF479/@KeyIndexDefined">True</s:Boolean>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileD31F44401500C042943075D2B7ACF479/RelativePriority/@EntryValue">4</s:Double>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=FC27A693041E8544B42B92DC0CBA10DB/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=FC27A693041E8544B42B92DC0CBA10DB/AbsolutePath/@EntryValue">C:\OSS\shared\dotsettings\Inspections.DotSettings</s:String>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=FC27A693041E8544B42B92DC0CBA10DB/RelativePath/@EntryValue">..\..\shared\dotsettings\Inspections.DotSettings</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileDAD7C6859FB2364F90F78715DFFD796D/@KeyIndexDefined">True</s:Boolean>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileDAD7C6859FB2364F90F78715DFFD796D/RelativePriority/@EntryValue">1</s:Double>
-	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE8348DB93DE4414A8E8007E6E49851CD/@KeyIndexDefined">True</s:Boolean>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE8348DB93DE4414A8E8007E6E49851CD/RelativePriority/@EntryValue">3</s:Double>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileFC27A693041E8544B42B92DC0CBA10DB/@KeyIndexDefined">True</s:Boolean>
+	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileFC27A693041E8544B42B92DC0CBA10DB/RelativePriority/@EntryValue">2</s:Double>
+	
+	
 	
 	
 	

@@ -14,11 +14,12 @@
 
 using System;
 using System.Linq;
+//using JetBrains.Application.BuildScript.Application.Zones;
 
-namespace TestLinker.Navigation
-{
-  //[ZoneMarker]
-  //public class ZoneMarker : IRequire<IFindResultsNavigatorZone>
-  //{
-  //}
-}
+//namespace TestLinker.Navigation
+//{
+//  [ZoneMarker]
+//  public class ZoneMarker : IRequire<IFindResultsNavigatorZone>
+//  {
+//  }
+//}

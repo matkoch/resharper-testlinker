@@ -18,7 +18,6 @@ using System.Linq;
 using JetBrains.DataFlow;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.UnitTestFramework;
-using JetBrains.Util;
 using TestLinker.Utils;
 
 namespace TestLinker.UnitTesting

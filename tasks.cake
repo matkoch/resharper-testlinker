@@ -62,7 +62,8 @@ Task("InspectCode")
 {
   InspectCode(SolutionFile, new InspectCodeSettings {
     SolutionWideAnalysis = true,
-    OutputFile = InspectCodeResultFile
+    OutputFile = InspectCodeResultFile,
+    CachesHome = InspectCodeCacheHome
   });
 
   TeamCity.ImportData("ReSharperInspectCode", InspectCodeResultFile);

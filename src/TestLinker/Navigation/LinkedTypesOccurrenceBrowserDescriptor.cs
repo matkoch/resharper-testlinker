@@ -27,7 +27,7 @@ using JetBrains.Util;
 
 namespace TestLinker.Navigation
 {
-  public class LinkedTypesOccurrenceBrowserDescriptor : OccurrenceBrowserDescriptor
+  public sealed class LinkedTypesOccurrenceBrowserDescriptor : OccurrenceBrowserDescriptor
   {
     private readonly TreeSectionModel _model;
 
@@ -46,7 +46,6 @@ namespace TestLinker.Navigation
 
       using (ReadLockCookie.Create())
       {
-        // ReSharper disable once VirtualMemberCallInConstructor
         SetResults(linkedTypeOccurrences, indicator);
       }
     }

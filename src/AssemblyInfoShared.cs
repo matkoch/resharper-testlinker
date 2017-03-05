@@ -14,6 +14,7 @@
 
 using System;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany ("Matthias Koch")]
 [assembly: AssemblyProduct ("TestLinker.ReSharper")]
@@ -22,3 +23,4 @@ using System.Reflection;
 [assembly: AssemblyTrademark ("")]
 
 [assembly: AssemblyConfiguration ("DEBUG")]
+[assembly: ComVisible(visibility: false)]

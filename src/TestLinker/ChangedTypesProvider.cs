@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Application;
 using JetBrains.Application.changes;
@@ -31,6 +32,7 @@ using JetBrains.Util;
 namespace TestLinker
 {
   [PsiComponent]
+  [SuppressMessage ("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "TypesChanged is disposed via ")]
   internal class ChangedTypesProvider
   {
     private static readonly TimeSpan s_updateInterval = TimeSpan.FromMilliseconds(value: 1000);
@@ -64,6 +66,7 @@ namespace TestLinker
           OnProcessChangesEx);
 
       TypesChanged = new Signal<IReadOnlyCollection<ITypeElement>>(lifetime, "ChangedTypesProvider");
+      _myLifetime.AddDispose(TypesChanged);
     }
 
     public ISignal<IReadOnlyCollection<ITypeElement>> TypesChanged { get; }

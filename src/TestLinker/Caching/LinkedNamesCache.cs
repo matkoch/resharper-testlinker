@@ -24,7 +24,6 @@ using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Files;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
-using NuGet;
 
 namespace TestLinker.Caching
 {

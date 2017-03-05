@@ -21,6 +21,7 @@ using JetBrains.Application.DataContext;
 using JetBrains.ProjectModel;
 using JetBrains.ProjectModel.DataContext;
 using JetBrains.ReSharper.Feature.Services.Actions;
+using JetBrains.ReSharper.Feature.Services.Menu;
 using JetBrains.ReSharper.Feature.Services.Navigation.ExecutionHosting;
 using JetBrains.ReSharper.Feature.Services.Occurrences;
 using JetBrains.ReSharper.Feature.Services.Tree;
@@ -36,7 +37,7 @@ using TestLinker.Utils;
 
 namespace TestLinker.Actions
 {
-  public abstract class GotoLinkedTypesActionBase : IActionWithExecuteRequirement, IExecutableAction
+  public abstract class GotoLinkedTypesActionBase : IActionWithExecuteRequirement, IExecutableAction, IInsertLast<NavigateContextualInMainMenuGroup>
   {
     //private GroupingEvent _executionGroupingEvent;
     private ITypesFromTextControlService _typesFromTextControlService;

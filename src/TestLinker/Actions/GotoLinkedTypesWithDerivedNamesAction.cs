@@ -21,7 +21,7 @@ using TestLinker.Utils;
 
 namespace TestLinker.Actions
 {
-  [Action ("Goto_LinkedTypesWithDerivedNames", "Goto Linked Types with Derived Names", Id = 9855)]
+  [Action ("Goto_LinkedTypesWithDerivedNames", "Go to Derived-Name Linked Types", Id = 9855)]
   public class GotoLinkedTypesWithDerivedNamesAction : GotoLinkedTypesActionBase
   {
     protected override ISet<ITypeElement> GetLinkedTypes (LinkedTypesService linkedTypesService, List<ITypeElement> typesInContext)

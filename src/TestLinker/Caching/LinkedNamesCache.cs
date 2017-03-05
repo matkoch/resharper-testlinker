@@ -117,7 +117,8 @@ namespace TestLinker.Caching
     {
       var previousNames = _mergeData.PreviousNamesMap[sourceFile];
       foreach (var previousName in previousNames)
-        _mergeData.LinkedNamesMap[previousName].RemoveAll(x => x.First == sourceFile);
+      foreach (var link in _mergeData.LinkedNamesMap[previousName].Where(x => x.First == sourceFile).ToList())
+        _mergeData.LinkedNamesMap.Remove(previousName, link);
 
       _mergeData.PreviousNamesMap.RemoveKey(sourceFile);
     }

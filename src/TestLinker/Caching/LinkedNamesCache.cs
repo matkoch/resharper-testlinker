@@ -44,7 +44,7 @@ namespace TestLinker.Caching
       _linkedTypesProviders = linkedTypesProviders.ToList();
     }
 
-    public override string Version => "6";
+    public override string Version => "7";
 
     public OneToSetMap<string, Pair<IPsiSourceFile, string>> LinkedNamesMap => _mergeData.LinkedNamesMap;
 

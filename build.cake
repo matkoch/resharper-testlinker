@@ -82,7 +82,7 @@ var PackageSettings = new[] {
       RequireLicenseAcceptance = false,
 
       Id           = "ReSharper.TestLinker",
-      Summary      = "TestLinker",
+      Title        = "TestLinker",
       Description  = "Linking production and test code.",
       Tags         = new[] { "test", "linker", "nunit", "mspec", "xunit", "mstest" },
       ProjectUrl   = new Uri("https://github.com/matkoch/TestLinker/"),

@@ -28,7 +28,7 @@ namespace TestLinker.Options
     [SettingsEntry (NamingStyle.Postfix, "Naming style for tests")]
     public NamingStyle NamingStyle;
 
-    [SettingsEntry ("Tests,Specs", "Naming Suffixes")]
+    [SettingsEntry ("Test,Spec", "Naming Suffixes")]
     public string NamingSuffixes;
 
     [SettingsEntry (DefaultValue: true, Description: "Use Typeof Search")]

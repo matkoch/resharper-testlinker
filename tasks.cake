@@ -1,4 +1,4 @@
-TeamCity.SetBuildNumber(FullSemVer);
+Setup(context => TeamCity.SetBuildNumber(FullSemVer));
 
 Task("Clean")
   .Does(() => CleanDirectory(OutputDirectory));
@@ -60,8 +60,11 @@ Task("InstallPlugins")
   .Does(() =>
 {
   foreach (var inspectCodePlugin in InspectCodePlugins)
-    DownloadFile(ReSharperSourceUrl + "/" + inspectCodePlugin,
-                 InspectCodeDirectory.CombineWithFilePath(inspectCodePlugin + ".nupkg"));
+  {
+    var outputFile = InspectCodeDirectory.CombineWithFilePath(inspectCodePlugin + ".nupkg");
+    if (!FileExists(outputFile))
+      DownloadFile(ReSharperSourceUrl + "/" + inspectCodePlugin, outputFile);
+  }
 });
 
 Task("InspectCode")

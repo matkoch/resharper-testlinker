@@ -22,9 +22,6 @@ namespace TestLinker.Options
   [SettingsKey (typeof(UnitTestingSettings), "Settings for TestLinker")]
   public class TestLinkerSettings
   {
-    [SettingsEntry (NavigationMode.All, "Use Staged Navigation")]
-    public NavigationMode NavigationMode;
-
     [SettingsEntry (DefaultValue: true, Description: "Use Suffix Search")]
     public bool EnableSuffixSearch;
 

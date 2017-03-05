@@ -394,7 +394,6 @@
     <Compile Include="LinkedTypesProvider\TypeofAttributeLinkedTypesProvider.cs" />
     <Compile Include="ChangedTypesProvider.cs" />
     <Compile Include="Options\NamingStyle.cs" />
-    <Compile Include="Options\NavigationMode.cs" />
     <Compile Include="Options\TestLinkerOptionsPage.cs" />
     <Compile Include="Options\TestLinkerSettings.cs" />
     <Compile Include="Options\ZoneMarker.cs" />

@@ -56,8 +56,16 @@ Task("EnsureBinaries")
 //  .ContinueOnError()
 //  .Does(() => Unzip(ArtifactFile, SolutionDirectory));
 
+Task("InstallPlugins")
+  .Does(() =>
+{
+  foreach (var inspectCodePlugin in InspectCodePlugins)
+    DownloadFile(ReSharperSourceUrl + "/" + inspectCodePlugin,
+                 InspectCodeDirectory.CombineWithFilePath(inspectCodePlugin + ".nupkg"));
+});
 
 Task("InspectCode")
+  .IsDependentOn("InstallPlugins")
   .Does(() =>
 {
   InspectCode(SolutionFile, new InspectCodeSettings {

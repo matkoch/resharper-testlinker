@@ -35,6 +35,15 @@ var InspectCodeCacheHome      = SolutionDirectory.Combine("_ReSharper.Inspection
 var CodeAnalysisResultGlob    = SourceDirectory + "/**/bin/" + Configuration + "/*.CodeAnalysisLog.xml";
 var ArtifactFile              = OutputDirectory.CombineWithFilePath("artifacts.zip");
 var ArtifactGlob              = SourceDirectory + "/**/bin/" + Configuration + "/*";
+var InspectCodeDirectory      = SolutionDirectory.Combine("tools/JetBrains.ReSharper.CommandLineTools/tools");
+var InspectCodePlugins        = new []
+                                {
+                                  "ReSharper.ImplicitNullability",
+                                  "ReSharper.XmlDocInspections",
+                                  "ReSharper.SerializationInspections",
+                                  "PowerToys.CyclomaticComplexity",
+                                  "EtherealCode.ReSpeller"
+                                };
 
 Information("SolutionDirectory          = " + SolutionDirectory);
 Information("SolutionFile               = " + SolutionFile);
@@ -43,6 +52,9 @@ Information("OutputDirectory            = " + OutputDirectory);
 Information("BuildLogFile               = " + BuildLogFile);
 Information("InspectCodeResultFile      = " + InspectCodeResultFile);
 Information("InspectCodeCacheHome       = " + InspectCodeCacheHome);
+Information("InspectCodeDirectory       = " + InspectCodeDirectory);
+for (var i = 0; i < InspectCodePlugins.Length; i++)
+  Information("InspectCodePlugins[" + i + "]      = " + InspectCodePlugins[i]);
 Information("CodeAnalysisResultGlob     = " + CodeAnalysisResultGlob);
 Information("ArtifactFile               = " + ArtifactFile);
 Information("ArtifactGlob               = " + ArtifactGlob);
@@ -105,11 +117,11 @@ Information("WaveVersion                = " + WaveVersion);
 // TOOLS
 ////////////////////////////
 
-//#tool "nuget:?package=NUnit.Runners&version=2.6.4"
 #tool "nuget:?package=JetBrains.ReSharper.CommandLineTools"
+#tool "nuget:?package=GitVersion.CommandLine"
+//#tool "nuget:?package=NUnit.Runners&version=2.6.4"
 //#tool "nuget:?package=JetBrains.dotCover.CommandLineTools"
 //#tool "nuget:?package=OpenCover"
-#tool "nuget:?package=GitVersion.CommandLine"
 
 ////////////////////////////
 // TASKS
@@ -118,10 +130,8 @@ Information("WaveVersion                = " + WaveVersion);
 #load .\tasks.cake
 
 Task("Default")
-  .IsDependentOn("InspectCode")
   .Does(() =>
 {
-  Information("sdf");
 });
 
 

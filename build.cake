@@ -9,12 +9,12 @@ Information("========================================");
 var Target                    = EnvironmentVariable("TEAMCITY_BUILDCONF_NAME")
                                 ?? Argument<string>("target");
 var Configuration             = Argument("configuration", "Release");
-var Version                   = GitVersion(new GitVersionSettings { UpdateAssemblyInfo = true });
+var IsLocalBuild              = BuildSystem.IsLocalBuild;
+var Version                   = GitVersion(new GitVersionSettings { UpdateAssemblyInfo = !IsLocalBuild });
 var BranchName                = Version.BranchName;
 var FullSemVer                = Version.FullSemVer;
 var Sha                       = Version.Sha;
 var IsMasterBranch            = BranchName == "master";
-var IsLocalBuild              = BuildSystem.IsLocalBuild;
 
 Information("Target                     = " + Target);
 Information("Configuration              = " + Configuration);

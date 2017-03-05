@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".misc", ".misc", "{1439387A
 		.gitignore = .gitignore
 		src\Annotations.cs = src\Annotations.cs
 		src\AssemblyInfoShared.cs = src\AssemblyInfoShared.cs
+		CodeStyle.DotSettings = CodeStyle.DotSettings
 		CONTRIBUTING.md = CONTRIBUTING.md
+		Inspections.DotSettings = Inspections.DotSettings
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection

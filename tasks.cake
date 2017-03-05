@@ -68,6 +68,7 @@ Task("InstallPlugins")
 });
 
 Task("InspectCode")
+  .IsDependentOn("Restore")
   .IsDependentOn("InstallPlugins")
   .Does(() =>
 {

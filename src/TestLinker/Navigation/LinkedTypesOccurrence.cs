@@ -22,8 +22,8 @@ namespace TestLinker.Navigation
 {
   public class LinkedTypesOccurrence : DeclaredElementOccurrence
   {
-    public LinkedTypesOccurrence ([NotNull] IDeclaredElement element, OccurrenceType occurenceKind)
-        : base(element, occurenceKind)
+    public LinkedTypesOccurrence ([NotNull] IDeclaredElement element, OccurrenceType occurrenceKind)
+        : base(element, occurrenceKind)
     {
     }
   }

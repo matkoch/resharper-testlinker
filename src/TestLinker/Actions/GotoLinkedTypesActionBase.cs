@@ -69,10 +69,10 @@ namespace TestLinker.Actions
       _popupWindowContextSource = context.GetData(UIDataConstants.PopupWindowContextSource);
 
       //_executionGroupingEvent.FireIncoming();
-      ExecuteProlongated();
+      ExecuteProlonged();
     }
 
-    private void ExecuteProlongated ()
+    private void ExecuteProlonged ()
     {
       var typesInContext = _typesFromTextControlService.GetTypesFromCaretOrFile(_textControl, _solution).ToList();
       var linkedTypes = GetLinkedTypes(_linkedTypesService, typesInContext);
@@ -97,9 +97,9 @@ namespace TestLinker.Actions
       ModificationUtility.TryCreateTestOrProductionClass(typesInContext.Single(), _textControl);
     }
 
-    private void NavigateToSingleOccurrence (IOccurrence occurence)
+    private void NavigateToSingleOccurrence (IOccurrence occurrence)
     {
-      occurence.Navigate(_solution, _popupWindowContextSource, transferFocus: true);
+      occurrence.Navigate(_solution, _popupWindowContextSource, transferFocus: true);
     }
 
     private void ShowOccurrencePopupMenu (ICollection<ITypeElement> typesInContext, ICollection<IOccurrence> occurrences)

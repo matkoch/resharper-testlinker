@@ -1,5 +1,9 @@
 Setup(context => TeamCity.SetBuildNumber(FullSemVer));
 
+
+////////////////////////////
+// COMPILE
+////////////////////////////
 Task("Clean")
   .Does(() => CleanDirectory(OutputDirectory));
 
@@ -56,22 +60,21 @@ Task("EnsureBinaries")
 //  .ContinueOnError()
 //  .Does(() => Unzip(ArtifactFile, SolutionDirectory));
 
-Task("InstallPlugins")
+
+////////////////////////////
+// ANALYSIS
+////////////////////////////
+Task("InspectCode")
+  .IsDependentOn("Restore")
   .Does(() =>
 {
   foreach (var inspectCodePlugin in InspectCodePlugins)
   {
-    var outputFile = InspectCodeDirectory.CombineWithFilePath(inspectCodePlugin + ".nupkg");
-    if (!FileExists(outputFile))
-      DownloadFile(ReSharperSourceUrl + "/" + inspectCodePlugin, outputFile);
+    var packageFile = InspectCodeDirectory.CombineWithFilePath(inspectCodePlugin + ".nupkg");
+    if (!FileExists(packageFile))
+      DownloadFile("https://resharper-plugins.jetbrains.com/api/v2/package/" + inspectCodePlugin, packageFile);
   }
-});
 
-Task("InspectCode")
-  .IsDependentOn("Restore")
-  .IsDependentOn("InstallPlugins")
-  .Does(() =>
-{
   InspectCode(SolutionFile, new InspectCodeSettings {
     SolutionWideAnalysis = true,
     OutputFile = InspectCodeResultFile,
@@ -99,40 +102,133 @@ Task("FxCop")
     TeamCity.ImportData("FxCop", codeAnalysisFile);
 });
 
-Task("Pack")
+
+////////////////////////////
+// PACKAGES
+////////////////////////////
+Task("Packages")
   .IsDependentOn("Clean")
   .IsDependentOn("EnsureBinaries")
+  .ContinueOnError()
   .Does(() =>
 {
   foreach (var packageSetting in PackageSettings)
     NuGetPack(packageSetting);
-});
 
-Task("Publish")
-  .IsDependentOn("Pack")
-  .Does(() =>
-{
   var pushSettings = new NuGetPushSettings { Verbosity = NuGetVerbosity.Detailed };
-  foreach (var nupkgFile in GetFiles(NupkgGlob))
+  foreach (var packageFile in GetFiles(NuGetPackageFileGlob))
   {
-    if (!IsMasterBranch)
+    if (packageFile.Segments.Last().StartsWith("ReSharper"))
     {
-      pushSettings.ApiKey = MyGetApiKey;
-      pushSettings.Source = MyGetSourceUrl;
+      pushSettings.ApiKey = ReSharperGalleryApiKey;
+      pushSettings.Source = ReSharperGallerySource;
     }
-    else if (nupkgFile.Segments.Last().StartsWith("ReSharper"))
+    else if (IsDefaultBranch)
     {
-      pushSettings.ApiKey = ReSharperApiKey;
-      pushSettings.Source = ReSharperSourceUrl;
+      pushSettings.ApiKey = NuGetApiKey;
+      pushSettings.Source = NuGetSource;
     }
     else
     {
-      pushSettings.ApiKey = NuGetApiKey;
-      pushSettings.Source = NuGetSourceUrl;
+      pushSettings.ApiKey = MyGetApiKey;
+      pushSettings.Source = MyGetSource;
     }
-
-	  NuGetPush (nupkgFile, pushSettings);
+    
+    CatchAll(() => NuGetPush (packageFile, pushSettings));
   }
 });
+
+
+////////////////////////////
+// RELEASE
+////////////////////////////
+//Task("Tag")
+//  .ContinueOnError()
+//  .Does(() =>
+//{
+//  CatchAll(() => GitTag(SolutionDirectory, FullSemVer));
+//  CatchAll(() => GitPushRef(SolutionDirectory, GitHubUsername, GitHubPassword, "origin", FullSemVer));
+//});
+//
+//Task("ReleaseNotes")
+//  .ContinueOnError()
+//  .Does(() =>
+//{
+//  GitReleaseNotes(SolutionDirectory.CombineWithFilePath("CHANGELOG.md"),
+//    new GitReleaseNotesSettings {
+//      WorkingDirectory = SolutionDirectory,
+//      Categories       = "breaking, feature, improvement, bug",
+//      Version          = FullSemVer,
+//      AllLabels        = false,
+//      Verbose          = true
+//    });
+//
+//  GitAddAll(SolutionDirectory);
+//  GitCommit(SolutionDirectory, "Botty", "ithrowexceptions@gmail.com", "Update CHANGELOG.md");
+//
+//  GitReleaseManagerCreate(GitHubUsername, GitHubPassword, "matkoch", "TestLinker2",
+//    new GitReleaseManagerCreateSettings {
+//        Name            = FullSemVer,
+//        InputFilePath   = "CHANGELOG.md",
+//        Prerelease      = false,
+//        TargetCommitish = BranchName,
+//        TargetDirectory = SolutionDirectory
+//    });
+//GitReleaseManagerPublish(GitHubUsername, GitHubPassword, "matkoch", "TestLinker2", FullSemVer);
+//  //GitReleaseManagerExport(GitHubUsername, GitHubPassword, "matkoch", "TestLinker2", "releasemanager.md",
+//  //new GitReleaseManagerExportSettings {
+//  //    ArgumentCustomization = Log,
+//  //    TagName           = FullSemVer,
+//  //    TargetDirectory   = SolutionDirectory,
+//  //    WorkingDirectory  = SolutionDirectory,
+//  //    LogFilePath       = SolutionDirectory.CombineWithFilePath("log.log")
+//  //});
+//});
+
+
+
+////////////////////////////
+// BUMP VERSION
+////////////////////////////
+//Task("BumpVersion")
+//  .Does(() =>
+//{
+//  var bump = EnvironmentVariable("bump");
+//  if (bump == null) throw new Exception("Value for 'bump' not set.");
+//
+//  var git = Context.Tools.Resolve("git.exe") ?? "git";
+//
+//  var args = String.Format("commit --allow-empty --author \"Robot <ithrowexceptions+build@gmail.com>\" -m \"+semver: {0}\"", bump);
+//  StartProcess(git, new ProcessSettings { Arguments = args });
+//
+//  args = String.Format("remote set-url origin https://github.com/matkoch/TestLinker2");
+//  StartProcess(git, new ProcessSettings { Arguments = args });
+//  GitPush(SolutionDirectory, GitHubUsername, GitHubPassword);
+//});
+
+
+////////////////////////////
+// HELPER
+////////////////////////////
+
+public void CatchAll(Action action)
+{
+  try
+  {
+    action();
+  }
+  catch (Exception e)
+  {
+    Error(e.Message);
+  }
+}
+
+
+ProcessArgumentBuilder Log(ProcessArgumentBuilder bla)
+{
+  Warning(bla.Render());
+  return bla;
+}
+
 
 Task("Dry");

@@ -1,7 +1,5 @@
 assembly-versioning-scheme: MajorMinor
-mode: ContinuousDeployment
-branches:
-  master:
-    tag: beta
+mode: Mainline
+
 ignore:
   sha: []

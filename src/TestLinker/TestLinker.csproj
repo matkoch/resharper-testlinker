@@ -421,12 +421,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if exist "$(Vs12Installation)"        xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs12Installation)"
-if exist "$(Vs12Installation)_000" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs12Installation)_000"
-if exist "$(Vs12Installation)_001" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs12Installation)_001"
-if exist "$(Vs14Installation)"        xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs14Installation)"
-if exist "$(Vs14Installation)_000" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs14Installation)_000"
-if exist "$(Vs14Installation)_001" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs14Installation)_001"
+    <PostBuildEvent>if exist "$(Vs12Installation)"        xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs12Installation)" || exit /b 1
+if exist "$(Vs12Installation)_000" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs12Installation)_000" || exit /b 1
+if exist "$(Vs12Installation)_001" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs12Installation)_001" || exit /b 1
+if exist "$(Vs14Installation)"        xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs14Installation)" || exit /b 1
+if exist "$(Vs14Installation)_000" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs14Installation)_000" || exit /b 1
+if exist "$(Vs14Installation)_001" xcopy /Y "$(TargetDir)TestLinker.*" "$(Vs14Installation)_001" || exit /b 1
 </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets" Condition="Exists('..\..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets')" />

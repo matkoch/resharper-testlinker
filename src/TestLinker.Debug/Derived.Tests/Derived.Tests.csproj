@@ -43,10 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Impl\FirstInterfaceImplementationTests.cs" />
-    <Compile Include="OtherNestedNamespace\OtherNestedUilityTests.cs" />
+    <Compile Include="Impl\FirstInterfaceImplementationTest.cs" />
+    <Compile Include="OtherNestedNamespace\OtherNestedUilityTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Impl\SecondInterfaceImplementationTests.cs" />
+    <Compile Include="Impl\SecondInterfaceImplementationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

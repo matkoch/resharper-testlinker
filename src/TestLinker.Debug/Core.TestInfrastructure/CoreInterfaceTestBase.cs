@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Core.TestInfrastructure
 {
-    public abstract class CoreInterfaceTestsBase
+    public abstract class CoreInterfaceTestBase
     {
     }
 }

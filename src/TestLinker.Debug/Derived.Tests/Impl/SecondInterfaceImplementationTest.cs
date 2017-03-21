@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace Derived.Tests.Impl
 {
   [TestFixture]
-  public class FirstInterfaceImplementationTests : CoreInterfaceTestsBase
+  public class SecondInterfaceImplementationTest : CoreInterfaceTestBase
   {
     [Test]
     public void SpecificTest()

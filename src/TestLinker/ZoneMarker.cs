@@ -22,13 +22,12 @@ using JetBrains.TextControl;
 
 namespace TestLinker
 {
-  [ZoneMarker]
-  public class ZoneMarker
-      :
-          IRequire<IUnitTestingZone>,
-          IRequire<ILanguageCSharpZone>,
-          IRequire<DaemonEngineZone>,
-          IRequire<ITextControlsZone>
-  {
-  }
+    [ZoneMarker]
+    public class ZoneMarker
+            : IRequire<IUnitTestingZone>,
+                    IRequire<ILanguageCSharpZone>,
+                    IRequire<DaemonEngineZone>,
+                    IRequire<ITextControlsZone>
+    {
+    }
 }

@@ -18,7 +18,7 @@ using JetBrains.Util;
 
 namespace TestLinker.Caching
 {
-  public class LinkedNamesData : OneToListMap<string, string>
-  {
-  }
+    public class LinkedNamesData : OneToListMap<string, string>
+    {
+    }
 }

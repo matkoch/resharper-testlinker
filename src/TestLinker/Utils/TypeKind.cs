@@ -17,9 +17,9 @@ using System.Linq;
 
 namespace TestLinker.Utils
 {
-  public enum TypeKind
-  {
-    Production,
-    Test
-  }
+    public enum TypeKind
+    {
+        Production,
+        Test
+    }
 }

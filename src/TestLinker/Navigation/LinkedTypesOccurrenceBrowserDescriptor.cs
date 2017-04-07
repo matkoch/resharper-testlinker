@@ -27,38 +27,38 @@ using JetBrains.Util;
 
 namespace TestLinker.Navigation
 {
-  public sealed class LinkedTypesOccurrenceBrowserDescriptor : OccurrenceBrowserDescriptor
-  {
-    private readonly TreeSectionModel _model;
-
-    public LinkedTypesOccurrenceBrowserDescriptor (
-        ISolution solution,
-        ICollection<ITypeElement> typesInContext,
-        ICollection<IOccurrence> linkedTypeOccurrences,
-        IProgressIndicator indicator = null)
-        : base(solution)
+    public sealed class LinkedTypesOccurrenceBrowserDescriptor : OccurrenceBrowserDescriptor
     {
-      _model = new TreeSectionModel();
+        private readonly TreeSectionModel _model;
 
-      DrawElementExtensions = true;
-      Title.Value =
-          $"Linked types for {typesInContext.Take(count: 3).Select(x => x.GetClrName().ShortName).Join(", ")}{(typesInContext.Count > 3 ? "..." : string.Empty)}";
+        public LinkedTypesOccurrenceBrowserDescriptor (
+            ISolution solution,
+            ICollection<ITypeElement> typesInContext,
+            ICollection<IOccurrence> linkedTypeOccurrences,
+            IProgressIndicator indicator = null)
+            : base(solution)
+        {
+            _model = new TreeSectionModel();
 
-      using (ReadLockCookie.Create())
-      {
-        SetResults(linkedTypeOccurrences, indicator);
-      }
+            DrawElementExtensions = true;
+            Title.Value =
+                    $"Linked types for {typesInContext.Take(count: 3).Select(x => x.GetClrName().ShortName).Join(", ")}{(typesInContext.Count > 3 ? "..." : string.Empty)}";
+
+            using (ReadLockCookie.Create())
+            {
+                SetResults(linkedTypeOccurrences, indicator);
+            }
+        }
+
+        public override TreeModel Model
+        {
+            get { return _model; }
+        }
+
+        protected override void SetResults (ICollection<IOccurrence> items, IProgressIndicator indicator = null, bool mergeItems = true)
+        {
+            base.SetResults(items, indicator, mergeItems);
+            RequestUpdate(UpdateKind.Structure, immediate: true);
+        }
     }
-
-    public override TreeModel Model
-    {
-      get { return _model; }
-    }
-
-    protected override void SetResults (ICollection<IOccurrence> items, IProgressIndicator indicator = null, bool mergeItems = true)
-    {
-      base.SetResults(items, indicator, mergeItems);
-      RequestUpdate(UpdateKind.Structure, immediate: true);
-    }
-  }
 }

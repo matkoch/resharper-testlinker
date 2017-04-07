@@ -19,8 +19,8 @@ using JetBrains.UI.Options.OptionPages;
 
 namespace TestLinker.Options
 {
-  [ZoneMarker]
-  public class ZoneMarker : IRequire<IToolsOptionsPageImplZone>
-  {
-  }
+    [ZoneMarker]
+    public class ZoneMarker : IRequire<IToolsOptionsPageImplZone>
+    {
+    }
 }

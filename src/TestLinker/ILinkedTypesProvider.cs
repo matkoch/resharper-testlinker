@@ -20,10 +20,10 @@ using JetBrains.ReSharper.Psi.Tree;
 
 namespace TestLinker
 {
-  public interface ILinkedTypesProvider
-  {
-    IEnumerable<string> GetLinkedNames (ITypeDeclaration typeDeclaration);
+    public interface ILinkedTypesProvider
+    {
+        IEnumerable<string> GetLinkedNames (ITypeDeclaration typeDeclaration);
 
-    bool IsLinkedType (ITypeElement type1, ITypeElement type2);
-  }
+        bool IsLinkedType (ITypeElement type1, ITypeElement type2);
+    }
 }

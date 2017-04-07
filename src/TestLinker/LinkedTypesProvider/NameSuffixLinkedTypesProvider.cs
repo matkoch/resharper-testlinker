@@ -26,73 +26,74 @@ using TestLinker.Options;
 
 namespace TestLinker.LinkedTypesProvider
 {
-  [PsiComponent]
-  internal class NameSuffixLinkedTypesProvider : ILinkedTypesProvider
-  {
-    private readonly NamingStyle _namingStyle;
-    private readonly List<Pair<string, int>> _namingSuffixes;
-
-    public NameSuffixLinkedTypesProvider (ISolution solution, ISettingsStore settingsStore, ISettingsOptimization settingsOptimization)
+    [PsiComponent]
+    internal class NameSuffixLinkedTypesProvider : ILinkedTypesProvider
     {
-      var contextBoundSettingsStore = settingsStore.BindToContextTransient(ContextRange.Smart(solution.ToDataContext()));
-      var settings = contextBoundSettingsStore.GetKey<TestLinkerSettings>(settingsOptimization);
+        private readonly NamingStyle _namingStyle;
+        private readonly List<Pair<string, int>> _namingSuffixes;
 
-      _namingStyle = settings.NamingStyle;
-      _namingSuffixes = settings.NamingSuffixes.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-          .Select(x => Pair.Of(x, x.Length)).ToList();
-    }
-
-    #region ILinkedTypesProvider
-
-    public IEnumerable<string> GetLinkedNames (ITypeDeclaration typeDeclaration)
-    {
-      var linkedName = GetLinkedName(typeDeclaration.DeclaredName);
-      return linkedName != null
-          ? new[] { linkedName }
-          : EmptyList<string>.InstanceList;
-    }
-
-    [CanBeNull]
-    // ReSharper disable once CyclomaticComplexity
-    private string GetLinkedName (string name)
-    {
-      var isBase = false;
-      var baseName = name;
-      if (baseName.EndsWith("Base"))
-      {
-        isBase = true;
-        baseName = baseName.Substring(startIndex: 0, length: baseName.Length - 4);
-      }
-
-      var linkedName = default(string);
-      foreach (var namingSuffix in _namingSuffixes)
-      {
-        if (_namingStyle == NamingStyle.Prefix && baseName.StartsWith(namingSuffix.First))
+        public NameSuffixLinkedTypesProvider (ISolution solution, ISettingsStore settingsStore, ISettingsOptimization settingsOptimization)
         {
-          linkedName = baseName.Substring(namingSuffix.Second);
-          break;
+            var contextBoundSettingsStore = settingsStore.BindToContextTransient(ContextRange.Smart(solution.ToDataContext()));
+            var settings = contextBoundSettingsStore.GetKey<TestLinkerSettings>(settingsOptimization);
+
+            _namingStyle = settings.NamingStyle;
+            _namingSuffixes = settings.NamingSuffixes.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => Pair.Of(x, x.Length))
+                    .ToList();
         }
 
-        if (_namingStyle == NamingStyle.Postfix && baseName.EndsWith(namingSuffix.First))
+        #region ILinkedTypesProvider
+
+        public IEnumerable<string> GetLinkedNames (ITypeDeclaration typeDeclaration)
         {
-          linkedName = baseName.Substring(startIndex: 0, length: baseName.Length - namingSuffix.Second);
-          break;
+            var linkedName = GetLinkedName(typeDeclaration.DeclaredName);
+            return linkedName != null
+                ? new[] { linkedName }
+                : EmptyList<string>.InstanceList;
         }
-      }
 
-      if (linkedName == null)
-        return null;
+        [CanBeNull]
+        // ReSharper disable once CyclomaticComplexity
+        private string GetLinkedName (string name)
+        {
+            var isBase = false;
+            var baseName = name;
+            if (baseName.EndsWith("Base"))
+            {
+                isBase = true;
+                baseName = baseName.Substring(startIndex: 0, length: baseName.Length - 4);
+            }
 
-      if (isBase)
-        linkedName = "I" + linkedName;
-      return linkedName;
+            var linkedName = default(string);
+            foreach (var namingSuffix in _namingSuffixes)
+            {
+                if (_namingStyle == NamingStyle.Prefix && baseName.StartsWith(namingSuffix.First))
+                {
+                    linkedName = baseName.Substring(namingSuffix.Second);
+                    break;
+                }
+
+                if (_namingStyle == NamingStyle.Postfix && baseName.EndsWith(namingSuffix.First))
+                {
+                    linkedName = baseName.Substring(startIndex: 0, length: baseName.Length - namingSuffix.Second);
+                    break;
+                }
+            }
+
+            if (linkedName == null)
+                return null;
+
+            if (isBase)
+                linkedName = "I" + linkedName;
+            return linkedName;
+        }
+
+        public bool IsLinkedType (ITypeElement type1, ITypeElement type2)
+        {
+            return type1.ShortName.Equals(GetLinkedName(type2.ShortName), StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        #endregion
     }
-
-    public bool IsLinkedType (ITypeElement type1, ITypeElement type2)
-    {
-      return type1.ShortName.Equals(GetLinkedName(type2.ShortName), StringComparison.InvariantCultureIgnoreCase);
-    }
-
-    #endregion
-  }
 }

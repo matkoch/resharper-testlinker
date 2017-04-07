@@ -22,33 +22,33 @@ using TestLinker.Utils;
 
 namespace TestLinker.UnitTesting
 {
-  [PsiComponent]
-  internal class LinkedTestInvalidator
-  {
-    private readonly LinkedTypesService _linkedTypesService;
-    private readonly IUnitTestResultManager _unitTestResultManager;
-
-    public LinkedTestInvalidator (
-        Lifetime lifetime,
-        ChangedTypesProvider changedTypesProvider,
-        LinkedTypesService linkedTypesService,
-        IUnitTestResultManager unitTestResultManager)
+    [PsiComponent]
+    internal class LinkedTestInvalidator
     {
-      _linkedTypesService = linkedTypesService;
-      _unitTestResultManager = unitTestResultManager;
+        private readonly LinkedTypesService _linkedTypesService;
+        private readonly IUnitTestResultManager _unitTestResultManager;
 
-      changedTypesProvider.TypesChanged.Advise(lifetime, OnChanged);
+        public LinkedTestInvalidator (
+            Lifetime lifetime,
+            ChangedTypesProvider changedTypesProvider,
+            LinkedTypesService linkedTypesService,
+            IUnitTestResultManager unitTestResultManager)
+        {
+            _linkedTypesService = linkedTypesService;
+            _unitTestResultManager = unitTestResultManager;
+
+            changedTypesProvider.TypesChanged.Advise(lifetime, OnChanged);
+        }
+
+        #region Privates
+
+        private void OnChanged (IReadOnlyCollection<ITypeElement> changedTypes)
+        {
+            var testElements = _linkedTypesService.GetUnitTestElementsFrom(changedTypes).SelectMany(x => x.DescendantsAndSelf(y => y.Children));
+            foreach (var x in testElements)
+                _unitTestResultManager.MarkOutdated(x);
+        }
+
+        #endregion
     }
-
-    #region Privates
-
-    private void OnChanged (IReadOnlyCollection<ITypeElement> changedTypes)
-    {
-      var testElements = _linkedTypesService.GetUnitTestElementsFrom(changedTypes).SelectMany(x => x.DescendantsAndSelf(y => y.Children));
-      foreach (var x in testElements)
-        _unitTestResultManager.MarkOutdated(x);
-    }
-
-    #endregion
-  }
 }

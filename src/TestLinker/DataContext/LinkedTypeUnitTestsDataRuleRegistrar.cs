@@ -27,35 +27,35 @@ using TestLinker.Utils;
 
 namespace TestLinker.DataContext
 {
-  [SolutionComponent]
-  public class LinkedTypeUnitTestsDataRuleRegistrar
-  {
-    public LinkedTypeUnitTestsDataRuleRegistrar (Lifetime lifetime, DataContexts dataContexts)
+    [SolutionComponent]
+    public class LinkedTypeUnitTestsDataRuleRegistrar
     {
-      var dataRule = new DataRule<UnitTestElements>.DesperateDataRule(
-          "ProjectModelToUnitTestElements",
-          UnitTestDataConstants.UnitTestElements.SELECTED,
-          LinkedTypeUnitTestsDataRule);
+        public LinkedTypeUnitTestsDataRuleRegistrar (Lifetime lifetime, DataContexts dataContexts)
+        {
+            var dataRule = new DataRule<UnitTestElements>.DesperateDataRule(
+                "ProjectModelToUnitTestElements",
+                UnitTestDataConstants.UnitTestElements.SELECTED,
+                LinkedTypeUnitTestsDataRule);
 
-      dataContexts.RegisterDataRule(lifetime, dataRule);
+            dataContexts.RegisterDataRule(lifetime, dataRule);
+        }
+
+        #region Privates
+
+        private UnitTestElements LinkedTypeUnitTestsDataRule (IDataContext context)
+        {
+            var textControl = context.GetData(TextControlDataConstants.TEXT_CONTROL).NotNull();
+            var solution = context.GetData(ProjectModelDataConstants.SOLUTION).NotNull();
+
+            var typesInContextProvider = context.GetComponent<ITypesFromTextControlService>().NotNull();
+            var typesInContext = typesInContextProvider.GetTypesFromCaretOrFile(textControl, solution);
+
+            var linkedTypesService = context.GetComponent<LinkedTypesService>().NotNull();
+            var testElements = linkedTypesService.GetUnitTestElementsFrom(typesInContext);
+
+            return new UnitTestElements(new TestAncestorCriterion(testElements));
+        }
+
+        #endregion
     }
-
-    #region Privates
-
-    private UnitTestElements LinkedTypeUnitTestsDataRule (IDataContext context)
-    {
-      var textControl = context.GetData(TextControlDataConstants.TEXT_CONTROL).NotNull();
-      var solution = context.GetData(ProjectModelDataConstants.SOLUTION).NotNull();
-
-      var typesInContextProvider = context.GetComponent<ITypesFromTextControlService>().NotNull();
-      var typesInContext = typesInContextProvider.GetTypesFromCaretOrFile(textControl, solution);
-
-      var linkedTypesService = context.GetComponent<LinkedTypesService>().NotNull();
-      var testElements = linkedTypesService.GetUnitTestElementsFrom(typesInContext);
-
-      return new UnitTestElements(new TestAncestorCriterion(testElements));
-    }
-
-    #endregion
-  }
 }

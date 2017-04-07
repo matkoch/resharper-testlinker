@@ -24,22 +24,23 @@ using JetBrains.Util;
 
 namespace TestLinker.Navigation
 {
-  [ShellFeaturePart]
-  public class LinkedTypesOccurrenceSectionProvider : OccurrenceSectionProvider
-  {
-    public override bool IsApplicable ([NotNull] IOccurrenceBrowserDescriptor descriptor)
+    [ShellFeaturePart]
+    public class LinkedTypesOccurrenceSectionProvider : OccurrenceSectionProvider
     {
-      return descriptor is LinkedTypesOccurrenceBrowserDescriptor;
-    }
+        public override bool IsApplicable ([NotNull] IOccurrenceBrowserDescriptor descriptor)
+        {
+            return descriptor is LinkedTypesOccurrenceBrowserDescriptor;
+        }
 
-    public override ICollection<TreeSection> GetTreeSections ([NotNull] IOccurrenceBrowserDescriptor descriptor)
-    {
-      return descriptor.OccurrenceSections.Select(
-          x =>
-          {
-            var caption = $"Found {x.Items.Count} linked {NounUtil.ToPluralOrSingular("type", x.Items.Count)}";
-            return new TreeSection(x.Model, caption);
-          }).ToList();
+        public override ICollection<TreeSection> GetTreeSections ([NotNull] IOccurrenceBrowserDescriptor descriptor)
+        {
+            return descriptor.OccurrenceSections.Select(
+                        x =>
+                        {
+                            var caption = $"Found {x.Items.Count} linked {NounUtil.ToPluralOrSingular("type", x.Items.Count)}";
+                            return new TreeSection(x.Model, caption);
+                        })
+                    .ToList();
+        }
     }
-  }
 }

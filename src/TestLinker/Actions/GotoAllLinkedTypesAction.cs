@@ -20,12 +20,12 @@ using JetBrains.UI.ActionsRevised;
 
 namespace TestLinker.Actions
 {
-  [Action ("Goto_AllLinkedTypes", "Go to All Linked Types", Id = 9854)]
-  public class GotoAllLinkedTypesAction : GotoLinkedTypesActionBase
-  {
-    protected override ISet<ITypeElement> GetLinkedTypes (LinkedTypesService linkedTypesService, List<ITypeElement> typesInContext)
+    [Action("Goto_AllLinkedTypes", "Go to All Linked Types", Id = 9854)]
+    public class GotoAllLinkedTypesAction : GotoLinkedTypesActionBase
     {
-      return linkedTypesService.GetLinkedTypes(typesInContext);
+        protected override ISet<ITypeElement> GetLinkedTypes (LinkedTypesService linkedTypesService, List<ITypeElement> typesInContext)
+        {
+            return linkedTypesService.GetLinkedTypes(typesInContext);
+        }
     }
-  }
 }

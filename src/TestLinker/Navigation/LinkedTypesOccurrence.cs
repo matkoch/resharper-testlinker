@@ -20,11 +20,11 @@ using JetBrains.ReSharper.Psi;
 
 namespace TestLinker.Navigation
 {
-  public class LinkedTypesOccurrence : DeclaredElementOccurrence
-  {
-    public LinkedTypesOccurrence ([NotNull] IDeclaredElement element, OccurrenceType occurrenceKind)
-        : base(element, occurrenceKind)
+    public class LinkedTypesOccurrence : DeclaredElementOccurrence
     {
+        public LinkedTypesOccurrence ([NotNull] IDeclaredElement element, OccurrenceType occurrenceKind)
+            : base(element, occurrenceKind)
+        {
+        }
     }
-  }
 }

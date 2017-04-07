@@ -19,22 +19,22 @@ using JetBrains.ReSharper.UnitTestFramework;
 
 namespace TestLinker.Options
 {
-  [SettingsKey (typeof(UnitTestingSettings), "Settings for TestLinker")]
-  public class TestLinkerSettings
-  {
-    [SettingsEntry (DefaultValue: true, Description: "Use Suffix Search")]
-    public bool EnableSuffixSearch;
+    [SettingsKey(typeof(UnitTestingSettings), "Settings for TestLinker")]
+    public class TestLinkerSettings
+    {
+        [SettingsEntry(DefaultValue: true, Description: "Use Suffix Search")]
+        public bool EnableSuffixSearch;
 
-    [SettingsEntry (NamingStyle.Postfix, "Naming style for tests")]
-    public NamingStyle NamingStyle;
+        [SettingsEntry(NamingStyle.Postfix, "Naming style for tests")]
+        public NamingStyle NamingStyle;
 
-    [SettingsEntry ("Test,Spec,Tests,Specs", "Naming Suffixes")]
-    public string NamingSuffixes;
+        [SettingsEntry("Test,Spec,Tests,Specs", "Naming Suffixes")]
+        public string NamingSuffixes;
 
-    [SettingsEntry (DefaultValue: true, Description: "Use Typeof Search")]
-    public bool EnableTypeofSearch;
+        [SettingsEntry(DefaultValue: true, Description: "Use Typeof Search")]
+        public bool EnableTypeofSearch;
 
-    [SettingsEntry ("SubjectAttribute", "Typeof Attribute")]
-    public string TypeofAttributeName;
-  }
+        [SettingsEntry("SubjectAttribute", "Typeof Attribute")]
+        public string TypeofAttributeName;
+    }
 }

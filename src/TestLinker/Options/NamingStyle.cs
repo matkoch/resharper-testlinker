@@ -17,9 +17,9 @@ using System.Linq;
 
 namespace TestLinker.Options
 {
-  public enum NamingStyle
-  {
-    Prefix,
-    Postfix
-  }
+    public enum NamingStyle
+    {
+        Prefix,
+        Postfix
+    }
 }

@@ -54,7 +54,7 @@ namespace TestLinker
           if (!ReferenceEquals(sourceType, allSourceTypes[index: 0]))
             continue;
 
-          foreach (var derivedLinkedType in services.Finder.FindInheritors(linkedType, NullProgressIndicator.Instance))
+          foreach (var derivedLinkedType in services.Finder.FindInheritors(linkedType, NullProgressIndicator.Create()))
             yield return derivedLinkedType;
         }
       }

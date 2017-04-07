@@ -85,7 +85,7 @@ namespace TestLinker.Utils
 
     private static ICSharpFile GetLinkedTypeFile (string linkedTypeName, string linkedTypeNamespace, ITypeElement templateLinkedType)
     {
-      var elementFactory = CSharpElementFactory.GetInstance(templateLinkedType.Module);
+      var elementFactory = CSharpElementFactory.GetInstance(templateLinkedType.GetFirstDeclaration<IDeclaration>().NotNull());
       var templateFile = templateLinkedType.GetSingleOrDefaultSourceFile().GetPrimaryPsiFile().NotNull();
 
       var fileText = templateFile.GetText()

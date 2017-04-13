@@ -1,7 +1,7 @@
 # TestLinker
 
 [![Build](https://img.shields.io/teamcity/codebetter/Testlinker_CompileFxCopInspectCode.svg?label=master&style=flat-square)](http://teamcity.codebetter.com/project.html?projectId=TestLinker)
-[![License](https://img.shields.io/badge/license-Apache License 2.0-blue.svg?style=flat-square)](https://github.com/matkoch/TestLinker/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/matkoch/TestLinker/blob/master/LICENSE)
 
 TestLinker collects link data between types (i.e., production and test code) based on various [mechanisms](https://github.com/matkoch/TestLinker/blob/master/src/TestLinker/LinkedTypesProvider) and provides various features based on that. For your convenience, TestLinker automatically takes base/derived types into account when meaningful.
 

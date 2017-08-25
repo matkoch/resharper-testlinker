@@ -5,6 +5,7 @@
 using System;
 using System.Linq;
 using JetBrains.Application.BuildScript.Application.Zones;
+using JetBrains.Application.UI.Options.OptionPages;
 using JetBrains.UI.Options.OptionPages;
 
 namespace TestLinker.Options

@@ -10,6 +10,7 @@ using System.Linq;
 using JetBrains.Application;
 using JetBrains.Application.changes;
 using JetBrains.Application.Progress;
+using JetBrains.Application.Threading;
 using JetBrains.DataFlow;
 using JetBrains.DocumentManagers;
 using JetBrains.DocumentManagers.impl;

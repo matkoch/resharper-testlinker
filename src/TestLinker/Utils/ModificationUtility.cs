@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using JetBrains.Application.UI.PopupLayout;
 using JetBrains.DocumentManagers.impl;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Navigation.NavigationExtensions;
@@ -19,7 +20,6 @@ using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.TextControl;
-using JetBrains.UI.PopupWindowManager;
 using JetBrains.Util;
 
 namespace TestLinker.Utils
@@ -63,7 +63,7 @@ namespace TestLinker.Utils
             var linkedTypeProjectFolder = GetLinkedTypeFolder(linkedTypeNamespace, linkedTypeProject);
             var linkedTypeFile = GetLinkedTypeFile(linkedTypeName, linkedTypeNamespace, templateLinkedType);
             var linkedTypeProjectFile = AddNewItemHelper.AddFile(linkedTypeProjectFolder, linkedTypeName + ".cs", linkedTypeFile.GetText());
-            linkedTypeProjectFile.Navigate(Shell.Instance.GetComponent<MainWindowPopupWindowContext>().Source, transferFocus: true);
+            linkedTypeProjectFile.Navigate(Shell.Instance.GetComponent<IMainWindowPopupWindowContext>().Source, transferFocus: true);
         }
 
         [CanBeNull]

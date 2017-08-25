@@ -6,10 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using JetBrains.Application.ComponentModel;
+using JetBrains.Application;
+using JetBrains.Application.UI.TreeModels;
 using JetBrains.ReSharper.Feature.Services.Tree;
 using JetBrains.ReSharper.Feature.Services.Tree.SectionsManagement;
-using JetBrains.TreeModels;
 using JetBrains.Util;
 
 namespace TestLinker.Navigation

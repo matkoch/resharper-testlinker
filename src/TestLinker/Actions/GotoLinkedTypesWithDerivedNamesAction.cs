@@ -5,8 +5,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Application.UI.ActionsRevised.Menu;
 using JetBrains.ReSharper.Psi;
-using JetBrains.UI.ActionsRevised;
 using TestLinker.Utils;
 
 namespace TestLinker.Actions

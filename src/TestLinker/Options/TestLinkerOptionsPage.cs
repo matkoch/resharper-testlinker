@@ -4,11 +4,14 @@
 
 using System;
 using System.Linq;
+using JetBrains.Application.UI.Options;
+using JetBrains.Application.UI.Options.OptionsDialog;
+using JetBrains.Application.UI.Options.OptionsDialog.SimpleOptions;
+using JetBrains.Application.UI.Options.OptionsDialog.SimpleOptions.ViewModel;
 using JetBrains.DataFlow;
 using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.UI.Options;
 using JetBrains.UI.Options.OptionsDialog2.SimpleOptions;
-using JetBrains.UI.Options.OptionsDialog2.SimpleOptions.ViewModel;
 
 namespace TestLinker.Options
 {

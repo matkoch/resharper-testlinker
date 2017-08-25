@@ -14,7 +14,7 @@ namespace TestLinker.Navigation
     [RelatedFilesProvider(typeof(KnownProjectFileType))]
     public class LinkedTypesRelatedFilesProvider : IRelatedFilesProvider
     {
-        public IEnumerable<Tuple<IProjectFile, string, IProjectFile>> GetRelatedFiles (IProjectFile projectFile)
+        public IEnumerable<RelatedFileOccurence> GetRelatedFiles (IProjectFile projectFile)
         {
             var sourceFile = projectFile.ToSourceFile();
             if (sourceFile == null)
@@ -27,7 +27,7 @@ namespace TestLinker.Navigation
             foreach (var linkedType in linkedTypes)
             {
                 var linkedFile = linkedType.GetSingleOrDefaultSourceFile().ToProjectFile();
-                yield return Tuple.Create(linkedFile, "Linked", projectFile);
+                yield return new RelatedFileOccurence(linkedFile, "Linked", projectFile);
             }
         }
     }

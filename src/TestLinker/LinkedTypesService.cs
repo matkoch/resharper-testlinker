@@ -44,7 +44,17 @@ namespace TestLinker
                     if (!ReferenceEquals(sourceType, allSourceTypes[index: 0]))
                         continue;
 
-                    foreach (var derivedLinkedType in services.Finder.FindInheritors(linkedType, NullProgressIndicator.Create()))
+                    var derivedLinkedTypes = new List<ITypeElement>();
+                    services.Finder.FindInheritors(linkedType, new FindResultConsumer(x =>
+                    {
+                        var typeElement = (x as FindResultDeclaredElement)?.DeclaredElement as ITypeElement;
+                        if (typeElement != null)
+                            derivedLinkedTypes.Add(typeElement);
+
+                        return FindExecution.Continue;
+                    }), NullProgressIndicator.Create());
+
+                    foreach (var derivedLinkedType in derivedLinkedTypes)
                         yield return derivedLinkedType;
                 }
             }
@@ -74,7 +84,7 @@ namespace TestLinker
             var sourceTypesList = sourceTypes.ToList();
             var linkedTypes = GetLinkedTypes(sourceTypesList);
             var affectedTypes = sourceTypesList.Concat(linkedTypes);
-            return affectedTypes.Select(x => _unitTestElementStuff.GetElement(x)).WhereNotNull().ToHashSet();
+            return affectedTypes.Select(x => _unitTestElementStuff.GetElement(x)).WhereNotNull().ToJetHashSet();
         }
 
         #region Privates

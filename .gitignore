@@ -40,12 +40,4 @@ x64/
 _ReSharper*
 _dotTrace*
 
-# NCrunch
-*.ncrunch*
-.*crunch*.local.xml
-
-# NuGet Packages Directory
-packages
-
-# Cake tools
-tools
+.vs

@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("Matthias Koch")]
-[assembly: AssemblyProduct("TestLinker.ReSharper")]
+[assembly: AssemblyProduct("TestLinker")]
 [assembly: AssemblyDescription("Linking subject entities and tests through attributes.")]
 [assembly: AssemblyCopyright("Copyright © Matthias Koch, 2016 - Licensed under APACHE 2.0")]
 [assembly: AssemblyTrademark("")]

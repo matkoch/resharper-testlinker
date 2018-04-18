@@ -36,6 +36,9 @@ x64/
 *.vssscc
 .builds
 
+#Nuget packages Folders
+[Pp]ackages/
+
 # ReSharper is a .NET coding add-in
 _ReSharper*
 _dotTrace*

@@ -7,9 +7,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using JetBrains.Application;
 using JetBrains.Application.changes;
-using JetBrains.Application.Progress;
 using JetBrains.Application.Threading;
 using JetBrains.DataFlow;
 using JetBrains.DocumentManagers;
@@ -114,7 +112,7 @@ namespace TestLinker
 
                 TypesChanged.Fire(allChangedTypes);
             }
-            catch (ProcessCancelledException)
+            catch (OperationCanceledException)
             {
                 ReAddChanges(changes);
             }

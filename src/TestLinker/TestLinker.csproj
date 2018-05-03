@@ -15,15 +15,6 @@
      <InstallationHive>Exp</InstallationHive>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;NET45;JET_MODE_ASSERT</DefineConstants>
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="JetBrains.ReSharper.SDK" Version="2018.1.0" />
   </ItemGroup>

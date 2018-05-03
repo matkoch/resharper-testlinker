@@ -44,3 +44,4 @@ _ReSharper*
 _dotTrace*
 
 .vs
+.idea

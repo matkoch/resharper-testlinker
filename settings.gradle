@@ -1,0 +1,3 @@
+rootProject.name = 'testlinker'
+
+include ':protocol'

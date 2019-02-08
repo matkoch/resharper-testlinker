@@ -3,70 +3,73 @@
 // https://github.com/matkoch/Nuke/blob/master/LICENSE
 
 using System;
-using System.Linq;
+using System.Linq.Expressions;
+using JetBrains.Application.Settings;
 using JetBrains.Application.UI.Options;
 using JetBrains.Application.UI.Options.OptionsDialog;
-using JetBrains.Application.UI.Options.OptionsDialog.SimpleOptions;
-using JetBrains.Application.UI.Options.OptionsDialog.SimpleOptions.ViewModel;
 using JetBrains.DataFlow;
-using JetBrains.ReSharper.UnitTestFramework;
-using JetBrains.UI.Options;
-using JetBrains.UI.Options.OptionsDialog2.SimpleOptions;
+using JetBrains.IDE.UI.Extensions;
+using JetBrains.IDE.UI.Options;
+using JetBrains.Rider.Model.UIAutomation;
 
 namespace TestLinker.Options
 {
-    [OptionsPage(c_pageId, c_pageTitle, typeof(TestLinkerThemedIcons.TestLinker), ParentId = UnitTestingOptionsPageIdHolder.PID, Sequence = 0.1d)]
-    public class TestLinkerOptionsPage : SimpleOptionsPage
+    [OptionsPage(c_pageId, c_pageTitle, typeof(TestLinkerThemedIcons.TestLinker), ParentId = "UnitTesting", Sequence = 0.1d)]
+    public class TestLinkerOptionsPage : BeSimpleOptionsPage
     {
-        private const string c_pageId = "TestLinkerOptions";
+        private const string c_pageId = nameof(TestLinkerOptionsPage);
         private const string c_pageTitle = "Test Linker";
 
         private readonly Lifetime _lifetime;
 
-        public TestLinkerOptionsPage (Lifetime lifetime, OptionsSettingsSmartContext settings)
-            : base(lifetime, settings)
+        public TestLinkerOptionsPage(
+            Lifetime lifetime,
+            OptionsPageContext optionsPageContext,
+            OptionsSettingsSmartContext optionsSettingsSmartContext)
+            : base(lifetime, optionsPageContext, optionsSettingsSmartContext)
         {
             _lifetime = lifetime;
 
             AddSuffixSearchOptions();
             AddTypeofSearchOptions();
 
-            AddText(
-                "\nWarning: After changing these settings, " +
-                "cleaning the solution cache (see \"General\" options page) " +
-                "is necessary to update already analyzed code.");
-
-            FinishPage();
+            AddText("");
+            AddText("Warning: After changing these settings, cleaning the solution cache (see \"General\" options page)");
+            AddText("is necessary to update already analyzed code.");
         }
-
-        #region Privates
 
         private void AddSuffixSearchOptions ()
         {
-            var enableSuffixSearchOption = AddBoolOption((TestLinkerSettings x) => x.EnableSuffixSearch, "Enable Suffix Search:");
+            var enableSuffixSearchOption = (BeCheckbox) AddBoolOption((TestLinkerSettings x) => x.EnableSuffixSearch, "Enable Suffix Search:");
 
-            var testSuffixOption = AddStringOption((TestLinkerSettings x) => x.NamingSuffixes, "Naming Suffixes for Tests, separated by comma:");
-            var namingStyleOption = AddRadioOption(
-                (TestLinkerSettings x) => x.NamingStyle,
-                "Naming Style:",
-                null,
-                new RadioOptionPoint(NamingStyle.Postfix, "Postfix"),
-                new RadioOptionPoint(NamingStyle.Prefix, "Prefix"));
-            SetIndent(testSuffixOption, indent: 2);
-            SetIndent(namingStyleOption, indent: 2);
-            enableSuffixSearchOption.CheckedProperty.FlowInto(_lifetime, testSuffixOption.GetIsEnabledProperty());
-            enableSuffixSearchOption.CheckedProperty.FlowInto(_lifetime, namingStyleOption.GetIsEnabledProperty());
+            using (Indent())
+            {
+                var testSuffixOption = AddTextBox((TestLinkerSettings x) => x.NamingSuffixes, "Naming Suffixes for Tests (comma-separated):");
+                var namingStyleOption = AddComboEnum((TestLinkerSettings x) => x.NamingStyle, "Naming Style:");
+
+                enableSuffixSearchOption.Property.FlowIntoRd(_lifetime, s => s.Value, testSuffixOption.Enabled);
+                enableSuffixSearchOption.Property.FlowIntoRd(_lifetime, s => s.Value, namingStyleOption.Enabled);
+            }
         }
 
         private void AddTypeofSearchOptions ()
         {
-            var enableTypeofSearchOption = AddBoolOption((TestLinkerSettings x) => x.EnableTypeofSearch, "Enable Typeof Search:");
+            var enableTypeofSearchOption = (BeCheckbox) AddBoolOption((TestLinkerSettings x) => x.EnableTypeofSearch, "Enable Typeof Search:");
 
-            var attributeNameOption = AddStringOption((TestLinkerSettings x) => x.TypeofAttributeName, "Attribute name:");
-            SetIndent(attributeNameOption, indent: 2);
-            enableTypeofSearchOption.CheckedProperty.FlowInto(_lifetime, attributeNameOption.GetIsEnabledProperty());
+            using (Indent())
+            {
+                var attributeNameOption = AddTextBox((TestLinkerSettings x) => x.TypeofAttributeName, "Attribute name:");
+                enableTypeofSearchOption.Property.FlowIntoRd(_lifetime, s => s.Value, attributeNameOption.Enabled);
+            }
         }
 
-        #endregion
+        private BeTextBox AddTextBox<TKeyClass>(Expression<Func<TKeyClass, string>> lambdaExpression, string description)
+        {
+            var property = new Property<string>(description);
+            OptionsSettingsSmartContext.SetBinding(_lifetime, lambdaExpression, property);
+            var control = property.GetBeTextBox(_lifetime);
+            AddControl(control.WithDescription(description, _lifetime));
+            return control;
+        }
     }
 }

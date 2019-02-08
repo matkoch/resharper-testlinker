@@ -31,10 +31,6 @@ Link data is currently maintained via:
 
 <img src=https://raw.githubusercontent.com/matkoch/TestLinker/master/misc/OptionsPage.png width=600px />
 
-## Roadmap
-
-- Support for [Continuous Testing](https://blog.jetbrains.com/dotnet/2015/11/19/continuous-testing-in-dotcover-and-resharper-ultimate/) as alternative to initial coverage run
-
 ## Installation
 
 Open ReSharper`s Extension Manager (<kbd>Alt</kbd>+<kbd>R</kbd>,<kbd>X</kbd>) and search for [TestLinker](https://resharper-plugins.jetbrains.com/packages/ReSharper.TestLinker/).

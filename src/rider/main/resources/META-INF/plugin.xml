@@ -9,6 +9,15 @@
   <extensions defaultExtensionNs="com.intellij">
     <applicationConfigurable groupId="language" instance="com.jetbrains.rider.plugins.testlinker.options.TestLinkerOptionsPage" id="TestLinkerOptionsPage" />
   </extensions>
+
+  <actions>
+    <action id="GotoAllLinkedTypes" class="com.jetbrains.rider.plugins.testlinker.GotoAllLinkedTypesAction"
+            text="Goto All Linked Types" description="TODO">
+    </action>
+    <action id="GotoLinkedTypesWithDerivedName" class="com.jetbrains.rider.plugins.testlinker.GotoLinkedTypesWithDerivedNamesAction"
+            text="Goto Linked Types With Derived Names" description="TODO">
+    </action>
+  </actions>
   
   <description>
 <![CDATA[

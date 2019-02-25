@@ -68,17 +68,35 @@ namespace TestLinker.Actions
         {
             var typesInContext = _typesFromTextControlService.GetTypesFromCaretOrFile(_textControl, _solution).ToList();
             var linkedTypes = GetLinkedTypes(_linkedTypesService, typesInContext);
-            var occurrences = linkedTypes.Select(x => new LinkedTypesOccurrence(x, OccurrenceType.Occurrence)).ToList<IOccurrence>();
-
-            if (occurrences.Count == 0)
-                TryCreateProductionOrTestClass(typesInContext);
-            else if (occurrences.Count == 1)
-                NavigateToSingleOccurrence(occurrences.Single());
-            else
-                ShowOccurrencePopupMenu(typesInContext, occurrences);
+            ExecuteProlonged(_solution, linkedTypes, typesInContext, _textControl, _popupWindowContextSource);
         }
 
-        private void TryCreateProductionOrTestClass (IReadOnlyCollection<ITypeElement> typesInContext)
+        public static void ExecuteProlonged(
+            ISolution solution,
+            ISet<ITypeElement> linkedTypes,
+            List<ITypeElement> sourceTypes,
+            ITextControl textControl,
+            PopupWindowContextSource popupWindowContextSource)
+        {
+            solution.GetPsiServices().Files.CommitAllDocuments();
+
+            using (CompilationContextCookie.GetExplicitUniversalContextIfNotSet())
+            {
+                var occurrences = linkedTypes.Select(x => new LinkedTypesOccurrence(x, OccurrenceType.Occurrence))
+                    .ToList<IOccurrence>();
+                    
+                if (occurrences.Count == 0 && textControl != null)
+                    TryCreateProductionOrTestClass(sourceTypes, textControl);
+                else if (occurrences.Count == 1)
+                    NavigateToSingleOccurrence(solution, occurrences.Single(), popupWindowContextSource);
+                else
+                    ShowOccurrencePopupMenu(solution, sourceTypes, occurrences, popupWindowContextSource);
+            }
+        }
+
+        private static void TryCreateProductionOrTestClass (
+            IReadOnlyCollection<ITypeElement> typesInContext,
+            ITextControl textControl)
         {
             if (typesInContext.Count != 1)
             {
@@ -86,24 +104,31 @@ namespace TestLinker.Actions
                 return;
             }
 
-            ModificationUtility.TryCreateTestOrProductionClass(typesInContext.Single(), _textControl);
+            ModificationUtility.TryCreateTestOrProductionClass(typesInContext.Single(), textControl);
         }
 
-        private void NavigateToSingleOccurrence (IOccurrence occurrence)
+        private static void NavigateToSingleOccurrence (
+            ISolution solution,
+            IOccurrence occurrence,
+            PopupWindowContextSource popupWindowContextSource)
         {
-            occurrence.Navigate(_solution, _popupWindowContextSource, transferFocus: true);
+            occurrence.Navigate(solution, popupWindowContextSource, transferFocus: true);
         }
 
-        private void ShowOccurrencePopupMenu (ICollection<ITypeElement> typesInContext, ICollection<IOccurrence> occurrences)
+        private static void ShowOccurrencePopupMenu (
+            ISolution solution,
+            ICollection<ITypeElement> sourceTypes,
+            ICollection<IOccurrence> occurrences,
+            PopupWindowContextSource popupWindowContextSource)
         {
             Func<OccurrenceBrowserDescriptor> descriptorBuilder =
-                    () => new LinkedTypesOccurrenceBrowserDescriptor(_solution, typesInContext, occurrences);
-            var navigationExecutionHost = _solution.GetComponent<DefaultNavigationExecutionHost>();
+                    () => new LinkedTypesOccurrenceBrowserDescriptor(solution, sourceTypes, occurrences);
+            var navigationExecutionHost = solution.GetComponent<DefaultNavigationExecutionHost>();
             navigationExecutionHost.ShowGlobalPopupMenu(
-                _solution,
+                solution,
                 occurrences,
                 activate: true,
-                windowContext: _popupWindowContextSource,
+                windowContext: popupWindowContextSource,
                 descriptorBuilder: descriptorBuilder,
                 options: new OccurrencePresentationOptions(),
                 skipMenuIfSingleEnabled: true,
@@ -120,5 +145,5 @@ namespace TestLinker.Actions
         //      Rgc.Guarded,
         //      ExecuteProlongated);
         //}
-    }
+    } 
 }

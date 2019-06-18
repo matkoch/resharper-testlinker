@@ -2,12 +2,10 @@
 // Distributed under the MIT License.
 // https://github.com/matkoch/Nuke/blob/master/LICENSE
 
-using System;
-using System.Linq;
 using JetBrains.Application.Settings;
 using JetBrains.ReSharper.UnitTestFramework;
 
-namespace TestLinker.Options
+namespace ReSharperPlugin.TestLinker.Options
 {
     [SettingsKey(typeof(UnitTestingSettings), "Settings for TestLinker")]
     public class TestLinkerSettings

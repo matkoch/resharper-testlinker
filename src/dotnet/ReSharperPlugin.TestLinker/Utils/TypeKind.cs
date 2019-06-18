@@ -2,10 +2,7 @@
 // Distributed under the MIT License.
 // https://github.com/matkoch/Nuke/blob/master/LICENSE
 
-using System;
-using System.Linq;
-
-namespace TestLinker.Utils
+namespace ReSharperPlugin.TestLinker.Utils
 {
     public enum TypeKind
     {

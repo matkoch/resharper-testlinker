@@ -2,14 +2,13 @@
 // Distributed under the MIT License.
 // https://github.com/matkoch/Nuke/blob/master/LICENSE
 
-using System;
-using System.Linq;
+using JetBrains.Diagnostics;
 using JetBrains.ProjectModel;
 using JetBrains.ProjectModel.Properties.Managed;
 using JetBrains.ReSharper.Psi;
 using JetBrains.Util;
 
-namespace TestLinker.Utils
+namespace ReSharperPlugin.TestLinker.Utils
 {
     public static class DerivedNameUtility
     {

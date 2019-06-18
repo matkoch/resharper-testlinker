@@ -9,26 +9,17 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Application.changes;
 using JetBrains.Application.Threading;
-using JetBrains.Application.UI.PopupLayout;
 using JetBrains.DataFlow;
 using JetBrains.DocumentManagers;
 using JetBrains.DocumentManagers.impl;
+using JetBrains.Lifetimes;
 using JetBrains.ProjectModel;
-using JetBrains.ReSharper.Daemon.CodeInsights;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Tree;
-using JetBrains.ReSharper.Psi.VB.Tree;
-using JetBrains.Rider.Model;
-using JetBrains.Rider.Model.Refactorings;
 using JetBrains.Threading;
 using JetBrains.Util;
-using TestLinker.Actions;
-using IClassLikeDeclaration = JetBrains.ReSharper.Psi.CSharp.Tree.IClassLikeDeclaration;
-#if RIDER
-using JetBrains.ReSharper.Psi.Resources;
-#endif
 
-namespace TestLinker
+namespace ReSharperPlugin.TestLinker.UnitTesting
 {
     [PsiComponent]
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "TypesChanged is disposed via ")]
@@ -69,8 +60,6 @@ namespace TestLinker
         }
 
         public ISignal<IReadOnlyCollection<ITypeElement>> TypesChanged { get; }
-
-        #region Privates
 
         private void OnChange (ChangeEventArgs e)
         {
@@ -148,7 +137,5 @@ namespace TestLinker
                     _myChangedRanges.AddOrUpdate(pair.Key, pair.Value, (file, range) => pair.Value.Join(range));
             }
         }
-
-        #endregion
     }
 }

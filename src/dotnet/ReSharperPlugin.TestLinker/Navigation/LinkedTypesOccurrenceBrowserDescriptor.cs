@@ -2,7 +2,6 @@
 // Distributed under the MIT License.
 // https://github.com/matkoch/Nuke/blob/master/LICENSE
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Application.Progress;
@@ -15,7 +14,7 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.Util;
 
-namespace TestLinker.Navigation
+namespace ReSharperPlugin.TestLinker.Navigation
 {
     public sealed class LinkedTypesOccurrenceBrowserDescriptor : OccurrenceBrowserDescriptor
     {
@@ -32,7 +31,7 @@ namespace TestLinker.Navigation
 
             DrawElementExtensions = true;
             Title.Value =
-                    $"Linked types for {typesInContext.Take(count: 3).Select(x => x.GetClrName().ShortName).Join(", ")}{(typesInContext.Count > 3 ? "..." : string.Empty)}";
+                    $"LinkedTypesOccurrenceBrowserDescriptor: Linked types for {typesInContext.Take(count: 3).Select(x => x.GetClrName().ShortName).Join(", ")}{(typesInContext.Count > 3 ? "..." : string.Empty)}";
 
             using (ReadLockCookie.Create())
             {

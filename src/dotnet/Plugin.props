@@ -1,14 +1,11 @@
 <Project>
   <PropertyGroup>
-    <SdkVersion>2018.3.0-*</SdkVersion>
-    
+    <SdkVersion>2019.2.0-*</SdkVersion>
     <Title>TestLinker</Title>
     <Description>Semantically linking production and test code</Description>
-  
     <Authors>Matthias Koch</Authors>
     <Copyright>Copyright 2016-$([System.DateTime]::Now.Year) Matthias Koch</Copyright>
     <PackageTags>nunit xunit mspec mstest linker test code production testcop</PackageTags>
-  
     <PackageProjectUrl>https://github.com/matkoch/TestLinker</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/matkoch/TestLinker/blob/master/LICENSE</PackageLicenseUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/matkoch/TestLinker/master/TestLinker.ico</PackageIconUrl>

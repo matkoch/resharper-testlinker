@@ -2,9 +2,9 @@
 // Distributed under the MIT License.
 // https://github.com/matkoch/Nuke/blob/master/LICENSE
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Diagnostics;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Util;
 using JetBrains.ReSharper.Psi;
@@ -13,7 +13,7 @@ using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl;
 using JetBrains.Util;
 
-namespace TestLinker.Utils
+namespace ReSharperPlugin.TestLinker.Utils
 {
     public interface ITypesFromTextControlService
     {

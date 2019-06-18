@@ -2,14 +2,14 @@
 // Distributed under the MIT License.
 // https://github.com/matkoch/Nuke/blob/master/LICENSE
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Navigation;
 using JetBrains.ReSharper.Psi;
+using ReSharperPlugin.TestLinker.Utils;
 
-namespace TestLinker.Navigation
+namespace ReSharperPlugin.TestLinker.Navigation
 {
     [RelatedFilesProvider(typeof(KnownProjectFileType))]
     public class LinkedTypesRelatedFilesProvider : IRelatedFilesProvider
@@ -21,9 +21,8 @@ namespace TestLinker.Navigation
                 yield break;
 
             var services = sourceFile.GetPsiServices();
-            var linkedTypesService = services.GetComponent<LinkedTypesService>();
             var sourceTypes = services.Symbols.GetTypesAndNamespacesInFile(sourceFile).OfType<ITypeElement>();
-            var linkedTypes = linkedTypesService.GetLinkedTypes(sourceTypes);
+            var linkedTypes = sourceTypes.SelectMany(LinkedTypesUtil.GetLinkedTypes);
             foreach (var linkedType in linkedTypes)
             {
                 var linkedFile = linkedType.GetSingleOrDefaultSourceFile().ToProjectFile();

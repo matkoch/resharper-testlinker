@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.Application.UI.PopupLayout;
+using JetBrains.Diagnostics;
 using JetBrains.DocumentManagers.impl;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Navigation.NavigationExtensions;
@@ -22,17 +23,16 @@ using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.TextControl;
 using JetBrains.Util;
 
-namespace TestLinker.Utils
+namespace ReSharperPlugin.TestLinker.Utils
 {
     public static class ModificationUtility
     {
         public static void TryCreateTestOrProductionClass (ITypeElement sourceType, ITextControl textControl)
         {
             var solution = sourceType.GetSolution();
-            var linkedTypesService = solution.GetComponent<LinkedTypesService>();
 
             var typesNearCaretOrFile = solution.GetComponent<ITypesFromTextControlService>().GetTypesNearCaretOrFile(textControl, solution);
-            var templateTypes = typesNearCaretOrFile.Select(x => GetLinkedTypeWithDerivedName(linkedTypesService, x)).WhereNotNull().FirstOrDefault();
+            var templateTypes = typesNearCaretOrFile.Select(GetLinkedTypeWithDerivedName).WhereNotNull().FirstOrDefault();
 
             if (templateTypes == null)
             {
@@ -47,7 +47,8 @@ namespace TestLinker.Utils
 
             var linkedTypeName = DerivedNameUtility.GetDerivedName(sourceType.ShortName, templateSourceType.ShortName, templateLinkedType.ShortName);
             var linkedTypeNamespace = DerivedNameUtility.GetDerivedNamespace(sourceType, templateLinkedType);
-            var linkedTypeProject = templateLinkedType.GetSingleOrDefaultSourceFile().GetProject().NotNull();
+            var linkedTypeSourceFile = templateLinkedType.GetSingleOrDefaultSourceFile().NotNull("linkedTypeSourceFile != null");
+            var linkedTypeProject = linkedTypeSourceFile.GetProject().NotNull("linkedTypeProject != null");
             var linkedTypeKind = !solution.GetComponent<IUnitTestElementStuff>()
                     .IsElementOfKind(templateLinkedType, UnitTestElementKind.TestContainer)
                 ? TypeKind.Production
@@ -67,9 +68,9 @@ namespace TestLinker.Utils
         }
 
         [CanBeNull]
-        private static Tuple<ITypeElement, ITypeElement> GetLinkedTypeWithDerivedName (LinkedTypesService linkedTypesService, ITypeElement sourceType)
+        private static Tuple<ITypeElement, ITypeElement> GetLinkedTypeWithDerivedName (ITypeElement sourceType)
         {
-            return linkedTypesService.GetLinkedTypes(sourceType)
+            return LinkedTypesUtil.GetLinkedTypes(sourceType)
                     .Where(x => DerivedNameUtility.IsDerivedNameAny(sourceType.ShortName, x.ShortName))
                     .Select(x => Tuple.Create(sourceType, x))
                     .FirstOrDefault();
@@ -78,7 +79,8 @@ namespace TestLinker.Utils
         private static ICSharpFile GetLinkedTypeFile (string linkedTypeName, string linkedTypeNamespace, ITypeElement templateLinkedType)
         {
             var elementFactory = CSharpElementFactory.GetInstance(templateLinkedType.GetFirstDeclaration<IDeclaration>().NotNull());
-            var templateFile = templateLinkedType.GetSingleOrDefaultSourceFile().GetPrimaryPsiFile().NotNull();
+            var templateLinkedTypeSourceFile = templateLinkedType.GetSingleOrDefaultSourceFile().NotNull("templateLinkedTypeSourceFile != null");
+            var templateFile = templateLinkedTypeSourceFile.GetPrimaryPsiFile().NotNull("templateFile != null");
 
             var fileText = templateFile.GetText()
                     .Replace(templateLinkedType.GetContainingNamespace().QualifiedName, linkedTypeNamespace)

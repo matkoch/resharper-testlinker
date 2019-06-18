@@ -2,12 +2,14 @@
 // Distributed under the MIT License.
 // https://github.com/matkoch/Nuke/blob/master/LICENSE
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using JetBrains.Application.Progress;
+using JetBrains.ReSharper.Feature.Services.Actions;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Caches;
+using JetBrains.ReSharper.Psi.CSharp.Util;
 using JetBrains.ReSharper.Psi.Search;
 using JetBrains.ReSharper.Psi.Util;
 using JetBrains.ReSharper.UnitTestFramework;
@@ -17,7 +19,7 @@ using TestLinker.Caching;
 namespace TestLinker
 {
     [PsiComponent]
-    public class LinkedTypesService
+    public partial class LinkedTypesService
     {
         private readonly LinkedNamesCache _linkedNamesCache;
         private readonly IUnitTestElementStuff _unitTestElementStuff;

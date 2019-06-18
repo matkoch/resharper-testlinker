@@ -11,6 +11,9 @@
   </extensions>
 
   <actions>
+    <action id="GotoCustomTypes" class="com.jetbrains.rider.plugins.testlinker.GotoCustomTypesAction"
+            text="Goto Custom Types" description="TODO">
+    </action>
     <action id="GotoAllLinkedTypes" class="com.jetbrains.rider.plugins.testlinker.GotoAllLinkedTypesAction"
             text="Goto All Linked Types" description="TODO">
     </action>
@@ -18,7 +21,7 @@
             text="Goto Linked Types With Derived Names" description="TODO">
     </action>
   </actions>
-  
+
   <description>
 <![CDATA[
 <p>Semantically linking production and test code</p>

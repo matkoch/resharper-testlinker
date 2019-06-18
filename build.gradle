@@ -124,7 +124,7 @@ buildPlugin {
 
 intellij {
     type = 'RD'
-    version = "$sdkVersion-SNAPSHOT"
+    version = "$sdkVersion"
     downloadSources = false
 }
 

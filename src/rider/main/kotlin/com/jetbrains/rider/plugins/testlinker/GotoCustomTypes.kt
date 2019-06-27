@@ -4,7 +4,7 @@ import com.jetbrains.rider.actions.base.RiderAnAction
 import com.jetbrains.rider.icons.ReSharperUnitTestingIcons
 
 class GotoCustomTypesAction : RiderAnAction(
-        "Goto_CustomTypes",
+        "NavigateToLinkedTypes",
         "Goto Custom Types",
         null,
         ReSharperUnitTestingIcons.TestFixtureToolWindow)

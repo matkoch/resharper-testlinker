@@ -1,56 +1,56 @@
-//using System.Collections.Generic;
-//using System.Linq;
-//using JetBrains.Application.UI.PopupLayout;
-//using JetBrains.ProjectModel;
-//using JetBrains.ReSharper.Daemon.CodeInsights;
-//using JetBrains.ReSharper.Feature.Services.Daemon;
-//using JetBrains.ReSharper.Host.Platform.Icons;
-//using JetBrains.ReSharper.Psi;
-//using JetBrains.ReSharper.Psi.CSharp.Tree;
-//using JetBrains.ReSharper.Psi.Tree;
-//using JetBrains.ReSharper.UnitTestFramework.Resources;
-//using JetBrains.Rider.Model;
-//using TestLinker.Actions;
-//
-//namespace TestLinker
-//{
-//    [ElementProblemAnalyzer(typeof(IClassLikeDeclaration))]
-//    public class CodeInsightsHighlighter : ElementProblemAnalyzer<IClassLikeDeclaration>
-//    {
-//        private readonly LinkedTypesService _linkedTypesService;
-//        private readonly TestLinkerCodeInsightsProvider _provider;
-//        private readonly IconHost _iconHost;
-//
-//        public CodeInsightsHighlighter(
-//            LinkedTypesService linkedTypesService,
-//            TestLinkerCodeInsightsProvider provider,
-//            IconHost iconHost)
-//        {
-//            _linkedTypesService = linkedTypesService;
-//            _provider = provider;
-//            _iconHost = iconHost;
-//        }
-//        
-//        protected override void Run(IClassLikeDeclaration element, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
-//        {
-//            if (element.DeclaredElement == null)
-//                return;
-//            
-//            var linkedTypes = _linkedTypesService.GetLinkedTypes(element.DeclaredElement).ToList();
-//            if (linkedTypes.Count == 0)
-//                return;
-//            
-//            consumer.AddHighlighting(
-//                new CodeInsightsHighlighting(
-//                    element.GetNameDocumentRange(),
-//                    linkedTypes.Count + " linked types",
-//                    "Cognitive complexity value of ",
-//                    _provider,
-//                    element.DeclaredElement,
-//                    _iconHost.Transform(UnitTestingThemedIcons.TestFixtureToolWindow.Id))
-//            );
-//        }
-//    }
+using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Application.UI.PopupLayout;
+using JetBrains.ProjectModel;
+using JetBrains.ReSharper.Daemon.CodeInsights;
+using JetBrains.ReSharper.Feature.Services.Daemon;
+using JetBrains.ReSharper.Host.Platform.Icons;
+using JetBrains.ReSharper.Psi;
+using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Tree;
+using JetBrains.ReSharper.UnitTestFramework.Resources;
+using JetBrains.Rider.Model;
+using TestLinker.Actions;
+
+namespace TestLinker
+{
+    [ElementProblemAnalyzer(typeof(IClassLikeDeclaration))]
+    public class CodeInsightsHighlighter : ElementProblemAnalyzer<IClassLikeDeclaration>
+    {
+        private readonly LinkedTypesService _linkedTypesService;
+        private readonly CustomTypesCodeInsightsProvider _provider;
+        private readonly IconHost _iconHost;
+
+        public CodeInsightsHighlighter(
+            LinkedTypesService linkedTypesService,
+            CustomTypesCodeInsightsProvider provider,
+            IconHost iconHost)
+        {
+            _linkedTypesService = linkedTypesService;
+            _provider = provider;
+            _iconHost = iconHost;
+        }
+
+        protected override void Run(IClassLikeDeclaration element, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
+        {
+            if (element.DeclaredElement == null)
+                return;
+
+            var linkedTypes = _linkedTypesService.GetLinkedTypes(element.DeclaredElement).ToList();
+            if (linkedTypes.Count == 0)
+                return;
+
+            consumer.AddHighlighting(
+                new CodeInsightsHighlighting(
+                    element.GetNameDocumentRange(),
+                    linkedTypes.Count + " linked types7",
+                    "Cognitive complexity value of ",
+                    _provider,
+                    element.DeclaredElement,
+                    _iconHost.Transform(UnitTestingThemedIcons.TestFixtureToolWindow.Id))
+            );
+        }
+    }
 //    [SolutionComponent]
 //    public class TestLinkerCodeInsightsProvider : ICodeInsightsProvider
 //    {
@@ -64,7 +64,7 @@
 //            _linkedTypesService = linkedTypesService;
 //            _mainWindowPopupWindowContext = mainWindowPopupWindowContext;
 //        }
-//        
+//
 //        public void OnClick(CodeInsightsHighlighting highlighting)
 //        {
 //            var typeElement = highlighting.DeclaredElement as ITypeElement;
@@ -93,4 +93,4 @@
 //        public ICollection<CodeLensRelativeOrdering> RelativeOrderings => new CodeLensRelativeOrdering[]
 //            {new CodeLensRelativeOrderingFirst()};
 //    }
-//}
+}

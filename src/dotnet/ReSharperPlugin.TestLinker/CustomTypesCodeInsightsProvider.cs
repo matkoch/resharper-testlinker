@@ -22,7 +22,7 @@ using JetBrains.Util;
 namespace TestLinker
 {
     [SolutionComponent]
-    public class CustomTypesCodeInsightsProvider : ContextNavigationCodeInsightsProviderBase<GotoCustomsAction, CustomProvider>
+    public class CustomTypesCodeInsightsProvider : ContextNavigationCodeInsightsProviderBase<GotoLinkedTypesAction, CustomProvider>
     {
         public const string Id = "Custom Types";
 
@@ -43,7 +43,7 @@ namespace TestLinker
 
         protected override string Noun(IDeclaredElement element, int count)
         {
-            return "custom types" + this.Arity(count);
+            return "custom types2" + this.Arity(count);
         }
 
         protected override string FormatLong(IDeclaredElement elt, int ownCount, int inheritorsCount)

@@ -9,6 +9,7 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Conversions;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.DataContext;
 using JetBrains.ReSharper.Psi.Modules;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl.DataContext;
@@ -32,25 +33,18 @@ namespace TestLinker
 
         public CustomSearchRequest CreateSearchRequest(IDataContext dataContext)
         {
-            var node = dataContext.GetSelectedTreeNode<ITreeNode>();
-            if (node == null)
-                return null;
-
+            var selectedTreeNode = dataContext.GetSelectedTreeNode<ITreeNode>();
             var typesFromTextControlService = dataContext.GetComponent<ITypesFromTextControlService>().NotNull();
-            var textControl = dataContext.GetData(TextControlDataConstants.TEXT_CONTROL).NotNull();
-            var solution = dataContext.GetData(ProjectModelDataConstants.SOLUTION).NotNull();
+            var textControl = dataContext.GetData(TextControlDataConstants.TEXT_CONTROL);
+            var solution = dataContext.GetData(ProjectModelDataConstants.SOLUTION);
 
-            var type = typesFromTextControlService.GetTypesFromCaretOrFile(textControl, solution).SingleOrDefault();
+            var declaredElements = dataContext.GetData(PsiDataConstants.DECLARED_ELEMENTS_FROM_ALL_CONTEXTS);
+            var type = declaredElements?.SingleOrDefault() as ITypeElement
+                       ?? typesFromTextControlService.GetTypesFromCaretOrFile(textControl.NotNull(), solution.NotNull()).SingleOrDefault();
             if (type == null)
                 return null;
 
-            var context = new CustomContext(type, solution, node.GetTypeConversionRule(), node.Language, node);
-            return new CustomSearchRequest(dataContext.GetComponent<LinkedTypesService>(), context);
-        }
-
-        private static bool IsTypeMember(ITreeNode node)
-        {
-            return node.GetContainingNode<IClassBody>() != null;
+            return new CustomSearchRequest(type);
         }
     }
 }

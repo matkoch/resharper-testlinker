@@ -5,22 +5,23 @@ using JetBrains.ReSharper.Host.Platform.Icons;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.UnitTestFramework.Resources;
+using JetBrains.Util;
 using ReSharperPlugin.TestLinker.Navigation;
 using ReSharperPlugin.TestLinker.Utils;
 
-namespace ReSharperPlugin.TestLinker
+namespace ReSharperPlugin.TestLinker.Daemon
 {
     [ElementProblemAnalyzer(typeof(IClassLikeDeclaration))]
-    public class CodeInsightsHighlighter : ElementProblemAnalyzer<IClassLikeDeclaration>
+    public class LinkedTypesHighlighter : ElementProblemAnalyzer<IClassLikeDeclaration>
     {
-        private readonly CustomTypesCodeInsightsProvider _provider;
+        private readonly LinkedTypesCodeInsightsProvider _provider2;
         private readonly IconHost _iconHost;
 
-        public CodeInsightsHighlighter(
-            CustomTypesCodeInsightsProvider provider,
+        public LinkedTypesHighlighter(
+            LinkedTypesCodeInsightsProvider provider2,
             IconHost iconHost)
         {
-            _provider = provider;
+            _provider2 = provider2;
             _iconHost = iconHost;
         }
 
@@ -36,9 +37,9 @@ namespace ReSharperPlugin.TestLinker
             consumer.AddHighlighting(
                 new CodeInsightsHighlighting(
                     element.GetNameDocumentRange(),
-                    linkedTypes.Count + " linked types7",
-                    "Cognitive complexity value of ",
-                    _provider,
+                    $"{linkedTypes.Count} linked {NounUtil.ToPluralOrSingular("type", linkedTypes.Count)}",
+                    "Links between production and test code",
+                    _provider2,
                     element.DeclaredElement,
                     _iconHost.Transform(UnitTestingThemedIcons.TestFixtureToolWindow.Id))
             );

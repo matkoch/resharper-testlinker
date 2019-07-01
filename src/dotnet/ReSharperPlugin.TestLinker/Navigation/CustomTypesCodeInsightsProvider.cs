@@ -1,28 +1,16 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using JetBrains.Application.Settings;
 using JetBrains.ProjectModel;
-using JetBrains.ReSharper.Daemon;
-using JetBrains.ReSharper.Daemon.UsageChecking;
-using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Host.Features.CodeInsights.Providers;
-using JetBrains.ReSharper.Host.Features.CodeInsights.Stages;
 using JetBrains.ReSharper.Psi;
-using JetBrains.ReSharper.Psi.CSharp.Tree;
-using JetBrains.ReSharper.Psi.Files;
-using JetBrains.ReSharper.Psi.Search;
-using JetBrains.ReSharper.Psi.Tree;
-using JetBrains.ReSharper.Psi.Util;
 using JetBrains.ReSharper.UnitTestFramework.Resources;
 using JetBrains.Rider.Model;
 using JetBrains.UI.Icons;
-using JetBrains.Util;
+using ReSharperPlugin.TestLinker.Actions;
 
-namespace TestLinker
+namespace ReSharperPlugin.TestLinker.Navigation
 {
     [SolutionComponent]
-    public class CustomTypesCodeInsightsProvider : ContextNavigationCodeInsightsProviderBase<GotoLinkedTypesAction, CustomProvider>
+    public class CustomTypesCodeInsightsProvider : ContextNavigationCodeInsightsProviderBase<GotoLinkedTypesAction, LinkedTypesNavigationProvider>
     {
         public const string Id = "Custom Types";
 
@@ -36,7 +24,7 @@ namespace TestLinker
         }
 
         public override ICollection<CodeLensRelativeOrdering> RelativeOrderings =>
-            (ICollection<CodeLensRelativeOrdering>) new CodeLensRelativeOrderingAfter[1]
+            new[]
             {
                 new CodeLensRelativeOrderingAfter("Extension methods")
             };

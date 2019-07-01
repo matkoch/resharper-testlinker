@@ -2,43 +2,43 @@
 // Distributed under the MIT License.
 // https://github.com/matkoch/Nuke/blob/master/LICENSE
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.DataFlow;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.UnitTestFramework;
-using TestLinker.Utils;
+using JetBrains.Util;
+using ReSharperPlugin.TestLinker.Utils;
 
-namespace TestLinker.UnitTesting
+namespace ReSharperPlugin.TestLinker.UnitTesting
 {
     [PsiComponent]
     internal class LinkedTestInvalidator
     {
-        private readonly LinkedTypesService _linkedTypesService;
+        private readonly IUnitTestElementStuff _unitTestElementStuff;
         private readonly IUnitTestResultManager _unitTestResultManager;
 
         public LinkedTestInvalidator (
             Lifetime lifetime,
             ChangedTypesProvider changedTypesProvider,
-            LinkedTypesService linkedTypesService,
+            IUnitTestElementStuff unitTestElementStuff,
             IUnitTestResultManager unitTestResultManager)
         {
-            _linkedTypesService = linkedTypesService;
+            _unitTestElementStuff = unitTestElementStuff;
             _unitTestResultManager = unitTestResultManager;
 
             changedTypesProvider.TypesChanged.Advise(lifetime, OnChanged);
         }
 
-        #region Privates
-
         private void OnChanged (IReadOnlyCollection<ITypeElement> changedTypes)
         {
-            var testElements = _linkedTypesService.GetUnitTestElementsFrom(changedTypes).SelectMany(x => x.DescendantsAndSelf(y => y.Children));
-            foreach (var x in testElements)
-                _unitTestResultManager.MarkOutdated(x);
+            using (CompilationContextCookie.GetExplicitUniversalContextIfNotSet())
+            {
+                var linkedTypes = changedTypes.SelectMany(LinkedTypesUtil.GetLinkedTypes).ToList();
+                var relevantTests = linkedTypes.Select(x => _unitTestElementStuff.GetElement(x)).WhereNotNull();
+                foreach (var relevantTest in relevantTests)
+                    _unitTestResultManager.MarkOutdated(relevantTest);
+            }
         }
-
-        #endregion
     }
 }

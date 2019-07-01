@@ -2,13 +2,11 @@
 // Distributed under the MIT License.
 // https://github.com/matkoch/Nuke/blob/master/LICENSE
 
-using System;
-using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Feature.Services.Occurrences;
 using JetBrains.ReSharper.Psi;
 
-namespace TestLinker.Navigation
+namespace ReSharperPlugin.TestLinker.Navigation
 {
     public class LinkedTypesOccurrence : DeclaredElementOccurrence
     {

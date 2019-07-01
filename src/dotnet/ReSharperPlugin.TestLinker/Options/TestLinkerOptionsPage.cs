@@ -11,8 +11,9 @@ using JetBrains.DataFlow;
 using JetBrains.IDE.UI.Extensions;
 using JetBrains.IDE.UI.Options;
 using JetBrains.Rider.Model.UIAutomation;
+using ReSharperPlugin.TestLinker.TestLinkerIcons;
 
-namespace TestLinker.Options
+namespace ReSharperPlugin.TestLinker.Options
 {
     [OptionsPage(c_pageId, c_pageTitle, typeof(TestLinkerThemedIcons.TestLinker), ParentId = "UnitTesting", Sequence = 0.1d)]
     public class TestLinkerOptionsPage : BeSimpleOptionsPage

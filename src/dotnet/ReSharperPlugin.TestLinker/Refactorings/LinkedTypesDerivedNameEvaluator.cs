@@ -2,17 +2,15 @@
 // Distributed under the MIT License.
 // https://github.com/matkoch/Nuke/blob/master/LICENSE
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Refactorings.Rename;
-using JetBrains.Util;
+using ReSharperPlugin.TestLinker.Utils;
 
-namespace TestLinker.Refactorings
+namespace ReSharperPlugin.TestLinker.Refactorings
 {
     [DerivedRenamesEvaluator]
     public class LinkedTypesDerivedNameEvaluator : IDerivedRenamesEvaluator
@@ -37,11 +35,9 @@ namespace TestLinker.Refactorings
             if (typeElement == null)
                 return Enumerable.Empty<IDeclaredElement>();
 
-            var solution = declaredElement.GetSolution().NotNull();
-            var linkedTypesService = solution.GetComponent<LinkedTypesService>();
-            var relatedTypes = linkedTypesService.GetLinkedTypes(typeElement);
-
-            return relatedTypes.Where(x => typeElement.ShortName.Contains(x.ShortName) || x.ShortName.Contains(typeElement.ShortName));
+            // TODO get linked types by name
+            var linkedTypes = LinkedTypesUtil.GetLinkedTypes(typeElement);
+            return linkedTypes.Where(x => typeElement.ShortName.Contains(x.ShortName) || x.ShortName.Contains(typeElement.ShortName));
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
 
-namespace TestLinker.Utils
+namespace ReSharperPlugin.TestLinker.Utils
 {
     public static class EnumerableExtensions
     {

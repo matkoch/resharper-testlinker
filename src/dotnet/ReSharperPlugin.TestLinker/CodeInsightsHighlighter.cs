@@ -1,32 +1,25 @@
-using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Application.UI.PopupLayout;
-using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Daemon.CodeInsights;
 using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Host.Platform.Icons;
-using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.UnitTestFramework.Resources;
-using JetBrains.Rider.Model;
-using TestLinker.Actions;
+using ReSharperPlugin.TestLinker.Navigation;
+using ReSharperPlugin.TestLinker.Utils;
 
-namespace TestLinker
+namespace ReSharperPlugin.TestLinker
 {
     [ElementProblemAnalyzer(typeof(IClassLikeDeclaration))]
     public class CodeInsightsHighlighter : ElementProblemAnalyzer<IClassLikeDeclaration>
     {
-        private readonly LinkedTypesService _linkedTypesService;
         private readonly CustomTypesCodeInsightsProvider _provider;
         private readonly IconHost _iconHost;
 
         public CodeInsightsHighlighter(
-            LinkedTypesService linkedTypesService,
             CustomTypesCodeInsightsProvider provider,
             IconHost iconHost)
         {
-            _linkedTypesService = linkedTypesService;
             _provider = provider;
             _iconHost = iconHost;
         }
@@ -36,7 +29,7 @@ namespace TestLinker
             if (element.DeclaredElement == null)
                 return;
 
-            var linkedTypes = _linkedTypesService.GetLinkedTypes(element.DeclaredElement).ToList();
+            var linkedTypes = LinkedTypesUtil.GetLinkedTypes(element.DeclaredElement).ToList();
             if (linkedTypes.Count == 0)
                 return;
 

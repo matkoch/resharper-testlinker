@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Application;
@@ -13,18 +12,21 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.TextControl;
 using JetBrains.TextControl.DataContext;
 using JetBrains.Util;
+using ReSharperPlugin.TestLinker.Actions;
 
-namespace TestLinker
+namespace ReSharperPlugin.TestLinker.Navigation
 {
     [ContextNavigationProvider]
-    public sealed class CustomProvider : ContextNavigationProviderBase<ICustomContextSearch>, INavigateFromHereProvider
+    public sealed class LinkedTypesNavigationProvider : ContextNavigationProviderBase<LinkedTypesContextSearch>, INavigateFromHereProvider
     {
         private readonly IShellLocks myLocks;
         private readonly ITooltipManager myTooltipManager;
 
-        private const string NO_EXPOSING_APIES_FOUND = "No linked types found";
+        // TODO: LABEL
+        private const string NavigationMenuTitle = "Linked Types";
+        private const string NoResultsFoundText = "No linked types found";
 
-        public CustomProvider(IShellLocks locks, ITooltipManager tooltipManager, IFeaturePartsContainer manager)
+        public LinkedTypesNavigationProvider(IShellLocks locks, ITooltipManager tooltipManager, IFeaturePartsContainer manager)
             : base(manager)
         {
             myLocks = locks;
@@ -33,7 +35,7 @@ namespace TestLinker
 
         protected override string GetNavigationMenuTitle(IDataContext dataContext)
         {
-            return "Linked Types";
+            return NavigationMenuTitle;
         }
 
         protected override string GetActionId(IDataContext dataContext)
@@ -43,7 +45,7 @@ namespace TestLinker
 
         protected override NavigationActionGroup ActionGroup => NavigationActionGroup.Important;
 
-        protected override void Execute(IDataContext dataContext, IEnumerable<ICustomContextSearch> searches,
+        protected override void Execute(IDataContext dataContext, IEnumerable<LinkedTypesContextSearch> searches,
             INavigationExecutionHost host)
         {
             var request = searches.SelectNotNull(item => item.CreateSearchRequest(dataContext)).SingleOrDefault();
@@ -53,14 +55,17 @@ namespace TestLinker
 
             if (occurrences.IsEmpty())
             {
-                ShowToolTip(dataContext, NO_EXPOSING_APIES_FOUND);
+                ShowToolTip(dataContext, NoResultsFoundText);
                 return;
             }
+
+            if (host.ProcessImmediateResultHierarchy(dataContext, occurrences))
+                return;
 
             host.ShowContextPopupMenu(
                 dataContext,
                 occurrences,
-                () => new CustomSearchDescriptor(request, occurrences),
+                () => new LinkedTypesSearchDescriptor(request, occurrences),
                 OccurrencePresentationOptions.DefaultOptions,
                 skipMenuIfSingleEnabled: true,
                 request.Title,
@@ -78,13 +83,9 @@ namespace TestLinker
         {
             var textControl = dataContext.GetData(TextControlDataConstants.TEXT_CONTROL);
             if (textControl != null)
-            {
                 myTooltipManager.ShowAtCaret(Lifetime.Eternal, tooltip, textControl, myLocks);
-            }
             else
-            {
                 myTooltipManager.ShowIfPopupWindowContext(tooltip, dataContext);
-            }
         }
     }
 }

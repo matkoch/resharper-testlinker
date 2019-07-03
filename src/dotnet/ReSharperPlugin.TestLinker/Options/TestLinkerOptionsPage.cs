@@ -35,37 +35,10 @@ namespace ReSharperPlugin.TestLinker.Options
         {
             _lifetime = lifetime;
 
-            AddSuffixSearchOptions();
-            AddTypeofSearchOptions();
+            AddHeader("Navigation");
 
-            AddText("");
-            AddText("Warning: After changing these settings, cleaning the solution cache (see \"General\" options page)");
-            AddText("is necessary to update already analyzed code.");
-        }
-
-        private void AddSuffixSearchOptions ()
-        {
-            var enableSuffixSearchOption = (BeCheckbox) AddBoolOption((TestLinkerSettings x) => x.EnableSuffixSearch, "Enable Suffix Search:");
-
-            using (Indent())
-            {
-                var testSuffixOption = AddTextBox((TestLinkerSettings x) => x.NamingSuffixes, "Naming Suffixes for Tests (comma-separated):");
-                var namingStyleOption = AddComboEnum((TestLinkerSettings x) => x.NamingStyle, "Naming Style:");
-
-                enableSuffixSearchOption.Property.FlowIntoRd(_lifetime, s => s.Value, testSuffixOption.Enabled);
-                enableSuffixSearchOption.Property.FlowIntoRd(_lifetime, s => s.Value, namingStyleOption.Enabled);
-            }
-        }
-
-        private void AddTypeofSearchOptions ()
-        {
-            var enableTypeofSearchOption = (BeCheckbox) AddBoolOption((TestLinkerSettings x) => x.EnableTypeofSearch, "Enable Typeof Search:");
-
-            using (Indent())
-            {
-                var attributeNameOption = AddTextBox((TestLinkerSettings x) => x.TypeofAttributeName, "Attribute name:");
-                enableTypeofSearchOption.Property.FlowIntoRd(_lifetime, s => s.Value, attributeNameOption.Enabled);
-            }
+            AddTextBox((TestLinkerSettings x) => x.NamingSuffixes, "Name suffixes for tests (comma-separated):");
+            AddTextBox((TestLinkerSettings x) => x.TypeofAttributeName, "Attribute name for typeof mentions:");
         }
 
         private BeTextBox AddTextBox<TKeyClass>(Expression<Func<TKeyClass, string>> lambdaExpression, string description)

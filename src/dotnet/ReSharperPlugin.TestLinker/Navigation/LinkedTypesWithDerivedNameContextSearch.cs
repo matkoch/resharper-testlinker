@@ -5,11 +5,11 @@ using JetBrains.TextControl;
 namespace ReSharperPlugin.TestLinker.Navigation
 {
     [ShellFeaturePart]
-    public class LinkedTypesContextSearch : LinkedTypesContextSearchBase
+    public class LinkedTypesWithDerivedNameContextSearch : LinkedTypesContextSearchBase
     {
         protected override LinkedTypesSearchRequest CreateSearchRequest(ITypeElement type, ITextControl textControl)
         {
-            return new LinkedTypesSearchRequest(type, textControl, derivedNamesOnly: false);
+            return new LinkedTypesSearchRequest(type, textControl, derivedNamesOnly: true);
         }
     }
 }

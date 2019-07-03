@@ -13,7 +13,7 @@ namespace ReSharperPlugin.TestLinker.Navigation
     [SolutionComponent]
     public class LinkedTypesCodeInsightsProvider : ContextNavigationCodeInsightsProviderBase<GotoLinkedTypesAction, LinkedTypesNavigationProvider>
     {
-        public override string ProviderId => "CustomTypes";
+        public override string ProviderId => "LinkedTypes";
 
         protected override IconId IconId => UnitTestingThemedIcons.TestFixtureToolWindow.Id;
 

@@ -11,14 +11,11 @@
   </extensions>
 
   <actions>
-    <action id="GotoCustomTypes" class="com.jetbrains.rider.plugins.testlinker.GotoCustomTypesAction"
-            text="Goto Custom Types" description="TODO">
+    <action id="GotoLinkedTypes" class="com.jetbrains.rider.plugins.testlinker.GotoLinkedTypesAction"
+            text="Goto Linked Types" description="TODO">
     </action>
-    <action id="GotoAllLinkedTypes" class="com.jetbrains.rider.plugins.testlinker.GotoAllLinkedTypesAction"
-            text="Goto All Linked Types" description="TODO">
-    </action>
-    <action id="GotoLinkedTypesWithDerivedName" class="com.jetbrains.rider.plugins.testlinker.GotoLinkedTypesWithDerivedNamesAction"
-            text="Goto Linked Types With Derived Names" description="TODO">
+    <action id="GotoLinkedTypesWithDerivedName" class="com.jetbrains.rider.plugins.testlinker.GotoLinkedTypesWithDerivedNameAction"
+            text="Goto Linked Types With Derived Name" description="TODO">
     </action>
   </actions>
 

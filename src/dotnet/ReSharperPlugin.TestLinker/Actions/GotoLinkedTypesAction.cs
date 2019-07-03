@@ -4,9 +4,10 @@ using ReSharperPlugin.TestLinker.Navigation;
 
 namespace ReSharperPlugin.TestLinker.Actions
 {
-    [Action(ID, "Linked Types", Id = 170)]
-    public class GotoLinkedTypesAction : ContextNavigationActionBase<LinkedTypesNavigationProvider>
+    [Action(Id, "Goto Linked Types", Id = 170)]
+    public class GotoLinkedTypesAction
+        : ContextNavigationActionBase<LinkedTypesNavigationProvider>
     {
-        public const string ID = "NavigateToLinkedTypes";
+        public const string Id = nameof(GotoLinkedTypesAction);
     }
 }

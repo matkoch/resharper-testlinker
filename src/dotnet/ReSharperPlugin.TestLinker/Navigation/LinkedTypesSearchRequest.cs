@@ -6,6 +6,7 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Navigation.Requests;
 using JetBrains.ReSharper.Feature.Services.Occurrences;
 using JetBrains.ReSharper.Psi;
+using JetBrains.TextControl;
 using JetBrains.Util;
 using ReSharperPlugin.TestLinker.Utils;
 
@@ -14,10 +15,14 @@ namespace ReSharperPlugin.TestLinker.Navigation
     public sealed class LinkedTypesSearchRequest : SearchRequest
     {
         private readonly ITypeElement _typeElement;
+        private readonly ITextControl _textControl;
+        private readonly bool _derivedNamesOnly;
 
-        public LinkedTypesSearchRequest(ITypeElement typeElement)
+        public LinkedTypesSearchRequest(ITypeElement typeElement, ITextControl textControl, bool derivedNamesOnly)
         {
             _typeElement = typeElement;
+            _textControl = textControl;
+            _derivedNamesOnly = derivedNamesOnly;
         }
 
         // TODO: LABEL
@@ -33,8 +38,17 @@ namespace ReSharperPlugin.TestLinker.Navigation
             if (!_typeElement.IsValid())
                 return EmptyList<IOccurrence>.InstanceList;
 
-            return LinkedTypesUtil.GetLinkedTypes(_typeElement)
-                .Select(x => new LinkedTypesOccurrence(x, OccurrenceType.Occurrence))
+            var linkedTypes = LinkedTypesUtil.GetLinkedTypes(_typeElement);
+            if (linkedTypes.Count == 0)
+                ModificationUtility.TryCreateTestOrProductionClass(_typeElement, _textControl);
+
+            bool IsDerivedName(ITypeElement typeElement) =>
+                _typeElement.ShortName.Contains(typeElement.ShortName) ||
+                typeElement.ShortName.Contains(_typeElement.ShortName);
+
+            return linkedTypes
+                .Select(x => new LinkedTypesOccurrence(x, OccurrenceType.Occurrence, IsDerivedName(x)))
+                .Where(x => !_derivedNamesOnly || x.HasNameDerived)
                 .ToArray();
         }
     }

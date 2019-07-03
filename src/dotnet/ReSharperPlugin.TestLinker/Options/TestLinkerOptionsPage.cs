@@ -15,11 +15,15 @@ using ReSharperPlugin.TestLinker.TestLinkerIcons;
 
 namespace ReSharperPlugin.TestLinker.Options
 {
-    [OptionsPage(c_pageId, c_pageTitle, typeof(TestLinkerThemedIcons.TestLinker), ParentId = "UnitTesting", Sequence = 0.1d)]
+    [OptionsPage(Id, PageTitle, typeof(TestLinkerThemedIcons.TestLinker),
+        ParentId = "General",
+        NestingType = OptionPageNestingType.Inline,
+        IsAlignedWithParent = true,
+        Sequence = 0.1d)]
     public class TestLinkerOptionsPage : BeSimpleOptionsPage
     {
-        private const string c_pageId = nameof(TestLinkerOptionsPage);
-        private const string c_pageTitle = "Test Linker";
+        private const string Id = nameof(TestLinkerOptionsPage);
+        private const string PageTitle = "Test Linker";
 
         private readonly Lifetime _lifetime;
 

@@ -4,6 +4,7 @@ using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Host.Platform.Icons;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
+using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.ReSharper.UnitTestFramework.Resources;
 using JetBrains.Util;
 using ReSharperPlugin.TestLinker.Navigation;
@@ -16,18 +17,22 @@ namespace ReSharperPlugin.TestLinker.Daemon
     {
         private readonly LinkedTypesCodeInsightsProvider _provider2;
         private readonly IconHost _iconHost;
+        private readonly IUnitTestElementStuff _unitTestElementStuff;
 
         public LinkedTypesHighlighter(
             LinkedTypesCodeInsightsProvider provider2,
-            IconHost iconHost)
+            IconHost iconHost,
+            IUnitTestElementStuff unitTestElementStuff)
         {
             _provider2 = provider2;
             _iconHost = iconHost;
+            _unitTestElementStuff = unitTestElementStuff;
         }
 
         protected override void Run(IClassLikeDeclaration element, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
         {
-            if (element.DeclaredElement == null)
+            if (element.DeclaredElement == null ||
+                _unitTestElementStuff.GetElement(element.DeclaredElement) != null)
                 return;
 
             var linkedTypes = LinkedTypesUtil.GetLinkedTypes(element.DeclaredElement).ToList();
@@ -37,7 +42,7 @@ namespace ReSharperPlugin.TestLinker.Daemon
             consumer.AddHighlighting(
                 new CodeInsightsHighlighting(
                     element.GetNameDocumentRange(),
-                    $"{linkedTypes.Count} linked {NounUtil.ToPluralOrSingular("type", linkedTypes.Count)}",
+                    $"{linkedTypes.Count} linked {NounUtil.ToPluralOrSingular("test", linkedTypes.Count)}",
                     "Links between production and test code",
                     _provider2,
                     element.DeclaredElement,

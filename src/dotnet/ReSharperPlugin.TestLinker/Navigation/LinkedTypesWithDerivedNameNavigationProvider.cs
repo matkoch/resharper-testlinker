@@ -3,6 +3,7 @@ using JetBrains.Application.DataContext;
 using JetBrains.Application.Threading;
 using JetBrains.Application.UI.Tooltips;
 using JetBrains.ReSharper.Feature.Services.Navigation.ContextNavigation;
+using ReSharperPlugin.TestLinker.Actions;
 
 namespace ReSharperPlugin.TestLinker.Navigation
 {
@@ -17,7 +18,12 @@ namespace ReSharperPlugin.TestLinker.Navigation
             : base(locks, tooltipManager, manager)
         {
         }
-
+        
+        protected override string GetActionId(IDataContext dataContext)
+        {
+            return GotoLinkedTypesWithDerivedNameAction.Id;
+        }
+        
         protected override string GetNavigationMenuTitle(IDataContext dataContext)
         {
             return "Linked Types With Derived Name";

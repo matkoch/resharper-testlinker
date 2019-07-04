@@ -35,11 +35,6 @@ namespace ReSharperPlugin.TestLinker.Navigation
             myTooltipManager = tooltipManager;
         }
 
-        protected override string GetActionId(IDataContext dataContext)
-        {
-            return GotoLinkedTypesAction.Id;
-        }
-
         protected override NavigationActionGroup ActionGroup => NavigationActionGroup.Important;
 
         protected override void Execute(IDataContext dataContext, IEnumerable<T> searches,

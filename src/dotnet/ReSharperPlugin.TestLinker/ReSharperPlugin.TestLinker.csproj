@@ -6,7 +6,6 @@
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
-    <PackageId>ReSharper.TestLinker</PackageId>
     <IsPackable>True</IsPackable>
     <DefineConstants>$(DefineConstants);RESHARPER</DefineConstants>
     <IncludeBuildOutput>false</IncludeBuildOutput>

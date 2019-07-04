@@ -4,7 +4,7 @@ using JetBrains.Application;
 using JetBrains.Application.DataContext;
 using JetBrains.Application.Threading;
 using JetBrains.Application.UI.Tooltips;
-using JetBrains.DataFlow;
+using JetBrains.Lifetimes;
 using JetBrains.ReSharper.Feature.Services.Diagrams;
 using JetBrains.ReSharper.Feature.Services.Navigation.ContextNavigation;
 using JetBrains.ReSharper.Feature.Services.Occurrences;
@@ -23,7 +23,6 @@ namespace ReSharperPlugin.TestLinker.Navigation
         private readonly ITooltipManager myTooltipManager;
 
         // TODO: LABEL
-        private const string NavigationMenuTitle = "Linked Types";
         private const string NoResultsFoundText = "No linked types found";
 
         protected LinkedTypesNavigationProviderBase(
@@ -34,11 +33,6 @@ namespace ReSharperPlugin.TestLinker.Navigation
         {
             myLocks = locks;
             myTooltipManager = tooltipManager;
-        }
-
-        protected override string GetNavigationMenuTitle(IDataContext dataContext)
-        {
-            return NavigationMenuTitle;
         }
 
         protected override string GetActionId(IDataContext dataContext)

@@ -12,14 +12,14 @@ buildscript {
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.2.50'
-    id 'org.jetbrains.intellij' version '0.3.2'
+    id 'org.jetbrains.intellij' version '0.3.4'
 }
 
 ext {
-    repoRoot = new File(".").canonicalFile
+    repoRoot = projectDir
     isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
-    sdkVersion = "2018.3"
-    rdLibDirectory = new File(repoRoot, "build/riderRD-$sdkVersion-SNAPSHOT/lib/rd")
+    sdkVersion = "2019.1"
+    rdLibDirectory = new File(repoRoot, "build/riderRD-$sdkVersion/lib/rd")
     dotNetDir = new File(repoRoot, "src/dotnet")
     dotNetPluginId = "ReSharperPlugin.TestLinker"
     dotnetSolution = new File(repoRoot, "TestLinker.sln")

@@ -2,10 +2,8 @@
 // Distributed under the MIT License.
 // https://github.com/matkoch/Nuke/blob/master/LICENSE
 
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using JetBrains.Application.UI.PopupLayout;
-using JetBrains.Diagnostics;
 using JetBrains.IDE;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Navigation.NavigationExtensions;

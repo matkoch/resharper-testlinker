@@ -4,7 +4,7 @@ using JetBrains.Application;
 using JetBrains.Application.DataContext;
 using JetBrains.Application.Threading;
 using JetBrains.Application.UI.Tooltips;
-using JetBrains.Lifetimes;
+using JetBrains.DataFlow;
 using JetBrains.ReSharper.Feature.Services.Diagrams;
 using JetBrains.ReSharper.Feature.Services.Navigation.ContextNavigation;
 using JetBrains.ReSharper.Feature.Services.Occurrences;
@@ -12,7 +12,6 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.TextControl;
 using JetBrains.TextControl.DataContext;
 using JetBrains.Util;
-using ReSharperPlugin.TestLinker.Actions;
 
 namespace ReSharperPlugin.TestLinker.Navigation
 {

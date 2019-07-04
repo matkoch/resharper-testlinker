@@ -10,7 +10,6 @@ using JetBrains.Application.UI.Options.OptionsDialog;
 using JetBrains.DataFlow;
 using JetBrains.IDE.UI.Extensions;
 using JetBrains.IDE.UI.Options;
-using JetBrains.Lifetimes;
 using JetBrains.Rider.Model.UIAutomation;
 
 namespace ReSharperPlugin.TestLinker.Options

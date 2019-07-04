@@ -1,6 +1,5 @@
 using System.Linq;
 using JetBrains.Application.DataContext;
-using JetBrains.Diagnostics;
 using JetBrains.ProjectModel.DataContext;
 using JetBrains.ReSharper.Feature.Services.Navigation;
 using JetBrains.ReSharper.Feature.Services.Navigation.ContextNavigation;

@@ -5,7 +5,6 @@
 using System.Linq;
 using JetBrains.Application.DataContext;
 using JetBrains.DataFlow;
-using JetBrains.Lifetimes;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.ReSharper.UnitTestFramework.Common;

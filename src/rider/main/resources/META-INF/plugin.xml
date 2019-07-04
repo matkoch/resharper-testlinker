@@ -9,9 +9,13 @@
   <actions>
     <action id="GotoLinkedTypes" class="com.jetbrains.rider.plugins.testlinker.GotoLinkedTypesAction"
             text="Goto Linked Types" description="TODO">
+      <keyboard-shortcut keymap="Visual Studio" first-keystroke="shift control I"/>
+      <keyboard-shortcut keymap="Visual Studio OSX" first-keystroke="shift meta I"/>
     </action>
     <action id="GotoLinkedTypesWithDerivedName" class="com.jetbrains.rider.plugins.testlinker.GotoLinkedTypesWithDerivedNameAction"
             text="Goto Linked Types With Derived Name" description="TODO">
+      <keyboard-shortcut keymap="Visual Studio" first-keystroke="shift control O"/>
+      <keyboard-shortcut keymap="Visual Studio OSX" first-keystroke="shift meta O"/>
     </action>
   </actions>
 

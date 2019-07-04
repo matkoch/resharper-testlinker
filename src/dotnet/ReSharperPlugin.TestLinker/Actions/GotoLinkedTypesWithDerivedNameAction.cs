@@ -4,7 +4,7 @@ using ReSharperPlugin.TestLinker.Navigation;
 
 namespace ReSharperPlugin.TestLinker.Actions
 {
-    [Action(Id, "Goto Linked Types With Derived Name", Id = 171)]
+    [Action(Id, "Goto Linked Types With Derived Name", Id = 171, IdeaShortcuts = new[] {"Shift+Control+O"}, VsShortcuts = new[] {"Shift+Control+O"})]
     public class GotoLinkedTypesWithDerivedNameAction
         : ContextNavigationActionBase<LinkedTypesWithDerivedNameNavigationProvider>
     {

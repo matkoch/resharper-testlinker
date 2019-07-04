@@ -6,6 +6,7 @@ using JetBrains.ReSharper.Feature.Services.Navigation.ContextNavigation;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.DataContext;
+using JetBrains.ReSharper.Psi.ExtensionsAPI.Caches2;
 using JetBrains.TextControl;
 using JetBrains.TextControl.DataContext;
 using JetBrains.Util;
@@ -32,8 +33,9 @@ namespace ReSharperPlugin.TestLinker.Navigation
             var solution = dataContext.GetData(ProjectModelDataConstants.SOLUTION);
 
             var declaredElements = dataContext.GetData(PsiDataConstants.DECLARED_ELEMENTS_FROM_ALL_CONTEXTS);
-            var type = declaredElements?.SingleOrDefault() as ITypeElement
-                       ?? typesFromTextControlService.GetTypesFromCaretOrFile(textControl.NotNull(), solution.NotNull()).SingleOrDefault();
+            // TODO: static classes appear twice
+            var type = declaredElements?.OfType<ClassLikeTypeElement>().Distinct(x => x.ToString()).SingleOrFirstOrDefaultErr()
+                       ?? typesFromTextControlService.GetTypesFromCaretOrFile(textControl.NotNull(), solution.NotNull()).SingleOrFirstOrDefaultErr();
 
             return type != null ? CreateSearchRequest(type, textControl) : null;
         }

@@ -11,7 +11,6 @@ using JetBrains.DataFlow;
 using JetBrains.IDE.UI.Extensions;
 using JetBrains.IDE.UI.Options;
 using JetBrains.Rider.Model.UIAutomation;
-using ReSharperPlugin.TestLinker.TestLinkerIcons;
 
 namespace ReSharperPlugin.TestLinker.Options
 {

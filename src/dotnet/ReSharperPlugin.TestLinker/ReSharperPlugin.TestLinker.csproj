@@ -28,9 +28,6 @@
     <Content Include="bin\ReSharperPlugin.TestLinker\$(Configuration)\ReSharperPlugin.TestLinker.*" PackagePath="dotFiles" Pack="true" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="JetBrains.ReSharper.Host, Version=777.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325">
-      <HintPath>..\..\..\..\..\.nuget\packages\jetbrains.resharperautomationtools.src.resharperhost\183.0.20181217.122241\DotFiles\JetBrains.ReSharper.Host.exe</HintPath>
-    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>

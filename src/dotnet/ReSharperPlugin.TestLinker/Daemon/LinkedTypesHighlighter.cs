@@ -1,3 +1,4 @@
+#if RIDER
 using System.Linq;
 using JetBrains.ReSharper.Daemon.CodeInsights;
 using JetBrains.ReSharper.Feature.Services.Daemon;
@@ -93,3 +94,4 @@ namespace ReSharperPlugin.TestLinker.Daemon
 //            {new CodeLensRelativeOrderingFirst()};
 //    }
 }
+#endif

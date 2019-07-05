@@ -26,10 +26,8 @@ ext {
 }
 
 repositories {
-    maven { url 'https://repo.labs.intellij.net/central-proxy' }
-    maven { url 'https://repo.labs.intellij.net/rd-snapshots-maven' }
-//  maven { url 'https://repo.labs.intellij.net/jitpack.io' }
-//  mavenLocal()
+    maven { url 'https://cache-redirector.jetbrains.com/intellij-repository/snapshots' }
+    maven { url 'https://cache-redirector.jetbrains.com/maven-central' }
     flatDir { dirs rdLibDirectory.absolutePath }
 }
 

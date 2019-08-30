@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using JetBrains.Application.DataContext;
 using JetBrains.Application.Progress;
 using JetBrains.Application.Settings;
+using JetBrains.Diagnostics;
 using JetBrains.ProjectModel;
 using JetBrains.ProjectModel.DataContext;
 using JetBrains.ReSharper.Psi;

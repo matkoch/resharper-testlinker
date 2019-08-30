@@ -4,6 +4,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Diagnostics;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Util;
 using JetBrains.ReSharper.Psi;

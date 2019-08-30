@@ -12,7 +12,7 @@ $UserProjectXmlFile = "$SourceBasePath\$PluginId\$PluginId.csproj.user"
 
 if (!(Test-Path "$UserProjectXmlFile")) {
     # Determine download link
-    $ReleaseUrl = "https://data.services.jetbrains.com/products/releases?code=RSU&type=release"
+    $ReleaseUrl = "https://data.services.jetbrains.com/products/releases?code=RSU&type=eap&type=release"
     $DownloadLink = [uri] $(Invoke-WebRequest -UseBasicParsing $ReleaseUrl | ConvertFrom-Json).RSU[0].downloads.windows.link
 
     # Download installer
@@ -30,7 +30,7 @@ if (!(Test-Path "$UserProjectXmlFile")) {
     Invoke-Exe $InstallerFile "/VsVersion=$VisualStudioMajorVersion.0" "/SpecificProductNames=ReSharper" "/Hive=$RootSuffix" "/Silent=True"
 
     $PluginRepository = "$env:LOCALAPPDATA\JetBrains\plugins"
-    $InstallationDirectory = $(Get-ChildItem "$env:APPDATA\JetBrains\ReSharperPlatformVs$VisualStudioMajorVersion\v*_$VisualStudioInstanceId$RootSuffix\NuGet.Config").Directory
+    $InstallationDirectory = $(Get-ChildItem "$env:APPDATA\JetBrains\ReSharperPlatformVs$VisualStudioMajorVersion\v*_$VisualStudioInstanceId$RootSuffix\NuGet.Config")[-1].Directory
 
     # Adapt packages.config
     if (Test-Path "$InstallationDirectory\packages.config") {
@@ -46,7 +46,7 @@ if (!(Test-Path "$UserProjectXmlFile")) {
 
         $PackagesNode = $PackagesXml.SelectSingleNode("//packages")
         $PackagesNode.AppendChild($PluginNode) > $null
-
+        Write-Host $InstallationDirectory
         $PackagesXml.Save("$InstallationDirectory\packages.config")
     }
 

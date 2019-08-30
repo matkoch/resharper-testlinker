@@ -4,6 +4,7 @@
 
 using JetBrains.Annotations;
 using JetBrains.Application.UI.PopupLayout;
+using JetBrains.Diagnostics;
 using JetBrains.IDE;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Navigation.NavigationExtensions;

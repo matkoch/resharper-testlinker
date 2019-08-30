@@ -5,6 +5,7 @@ using JetBrains.Application.DataContext;
 using JetBrains.Application.Threading;
 using JetBrains.Application.UI.Tooltips;
 using JetBrains.DataFlow;
+using JetBrains.Lifetimes;
 using JetBrains.ReSharper.Feature.Services.Diagrams;
 using JetBrains.ReSharper.Feature.Services.Navigation.ContextNavigation;
 using JetBrains.ReSharper.Feature.Services.Occurrences;

@@ -1,6 +1,6 @@
 Param(
     $RootSuffix = "TestLinker",
-    $Version = "1.0.0"
+    $Version = "1337.0.0"
 )
 
 Set-StrictMode -Version Latest
@@ -30,7 +30,7 @@ if (!(Test-Path "$UserProjectXmlFile")) {
     Invoke-Exe $InstallerFile "/VsVersion=$VisualStudioMajorVersion.0" "/SpecificProductNames=ReSharper" "/Hive=$RootSuffix" "/Silent=True"
 
     $PluginRepository = "$env:LOCALAPPDATA\JetBrains\plugins"
-    $InstallationDirectory = $(Get-ChildItem "$env:APPDATA\JetBrains\ReSharperPlatformVs$VisualStudioMajorVersion\v*_$VisualStudioInstanceId$RootSuffix\NuGet.Config")[-1].Directory
+    $InstallationDirectory = $(Get-ChildItem "$env:APPDATA\JetBrains\ReSharperPlatformVs$VisualStudioMajorVersion\v*_$VisualStudioInstanceId$RootSuffix\NuGet.Config").Directory
 
     # Adapt packages.config
     if (Test-Path "$InstallationDirectory\packages.config") {
@@ -46,7 +46,7 @@ if (!(Test-Path "$UserProjectXmlFile")) {
 
         $PackagesNode = $PackagesXml.SelectSingleNode("//packages")
         $PackagesNode.AppendChild($PluginNode) > $null
-        Write-Host $InstallationDirectory
+
         $PackagesXml.Save("$InstallationDirectory\packages.config")
     }
 

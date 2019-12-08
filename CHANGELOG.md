@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## 2019.3.0
 - Support for ReSharper/Rider 2019.3
 
+## 2019.2.0
+- Support for ReSharper and Rider 2019.2
+- Change cache-based search to context-search
+
 ## 2018.3.1
 - Support for ReSharper 2018.3
 - Support for Rider 2018.3

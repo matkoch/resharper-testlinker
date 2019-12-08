@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup>
-    <SdkVersion>2019.2.0-*</SdkVersion>
+    <SdkVersion>2019.3.0-eap07</SdkVersion>
+
     <Title>TestLinker</Title>
     <Description>Semantically linking production and test code</Description>
     <Authors>Matthias Koch</Authors>

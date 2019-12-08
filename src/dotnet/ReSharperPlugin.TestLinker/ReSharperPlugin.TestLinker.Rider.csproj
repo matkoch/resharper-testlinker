@@ -1,9 +1,12 @@
 ﻿<Project>
+
   <PropertyGroup>
     <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <AssemblyName>ReSharperPlugin.TestLinker</AssemblyName>
@@ -11,6 +14,7 @@
     <IsPackable>false</IsPackable>
     <DefineConstants>$(DefineConstants);RIDER</DefineConstants>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="JetBrains.Rider.SDK" Version="$(SdkVersion)" />
   </ItemGroup>
@@ -35,4 +39,5 @@
     <!--</ThemedIconsXamlV3>-->
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+
 </Project>

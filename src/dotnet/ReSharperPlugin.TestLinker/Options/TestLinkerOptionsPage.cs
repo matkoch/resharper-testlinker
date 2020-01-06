@@ -11,12 +11,13 @@ using JetBrains.DataFlow;
 using JetBrains.IDE.UI.Extensions;
 using JetBrains.IDE.UI.Options;
 using JetBrains.Lifetimes;
+using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.Rider.Model.UIAutomation;
 
 namespace ReSharperPlugin.TestLinker.Options
 {
     [OptionsPage(Id, PageTitle, typeof(TestLinkerThemedIcons.TestLinker),
-        ParentId = "General",
+        ParentId = UnitTestingPages.General,
         NestingType = OptionPageNestingType.Inline,
         IsAlignedWithParent = true,
         Sequence = 0.1d)]

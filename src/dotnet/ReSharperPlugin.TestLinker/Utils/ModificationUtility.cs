@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using JetBrains.Application.Threading;
 using JetBrains.Application.UI.PopupLayout;
 using JetBrains.Diagnostics;
 using JetBrains.DocumentManagers.impl;
@@ -61,10 +62,18 @@ namespace ReSharperPlugin.TestLinker.Utils
                 return;
             }
 
-            var linkedTypeProjectFolder = GetLinkedTypeFolder(linkedTypeNamespace, linkedTypeProject);
-            var linkedTypeFile = GetLinkedTypeFile(linkedTypeName, linkedTypeNamespace, templateLinkedType);
-            var linkedTypeProjectFile = AddNewItemHelper.AddFile(linkedTypeProjectFolder, linkedTypeName + ".cs", linkedTypeFile.GetText());
-            linkedTypeProjectFile.Navigate(Shell.Instance.GetComponent<IMainWindowPopupWindowContext>().Source, transferFocus: true);
+            var threading = solution.GetComponent<IThreading>();
+            threading.ExecuteOrQueueEx(
+                nameof(TryCreateTestOrProductionClass),
+                () =>
+                {
+                    var linkedTypeProjectFolder = GetLinkedTypeFolder(linkedTypeNamespace, linkedTypeProject);
+                    var linkedTypeFile = GetLinkedTypeFile(linkedTypeName, linkedTypeNamespace, templateLinkedType);
+                    var linkedTypeProjectFile = AddNewItemHelper.AddFile(linkedTypeProjectFolder,
+                        linkedTypeName + ".cs", linkedTypeFile.GetText());
+                    linkedTypeProjectFile.Navigate(Shell.Instance.GetComponent<IMainWindowPopupWindowContext>().Source,
+                        transferFocus: true);
+                });
         }
 
         [CanBeNull]

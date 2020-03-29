@@ -28,96 +28,96 @@ using ReSharperPlugin.TestLinker.Utils;
 
 namespace ReSharperPlugin.TestLinker.Daemon
 {
-    public class LinkedTypesContextNavigationCodeInsightsProvider : ContextNavigationCodeInsightsProviderBase<GotoLinkedTypesAction, LinkedTypesNavigationProvider>
-    {
-        public LinkedTypesContextNavigationCodeInsightsProvider(Shell shell) 
-            : base(shell)
-        {
-        }
-
-        protected override string Noun(IDeclaredElement element, int count)
-        {
-            return "linked " + NounUtil.ToPluralOrSingular("type", count);
-        }
-
-        protected override int GetBaseCount(
-            SolutionAnalysisService swa,
-            IGlobalUsageChecker usageChecker,
-            IDeclaredElement element,
-            ElementId? elementId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override int GetOwnCount(
-            SolutionAnalysisService swa,
-            IGlobalUsageChecker usageChecker,
-            IDeclaredElement element,
-            ElementId? elementId)
-        {
-            return 0;
-        }
-
-        public override string ProviderId => nameof(LinkedTypesContextNavigationCodeInsightsProvider);
-        
-        protected override IconId IconId => UnitTestingThemedIcons.TestFixtureToolWindow.Id;
-
-        public override ICollection<CodeLensRelativeOrdering> RelativeOrderings =>
-            new[] {new CodeLensRelativeOrderingFirst()};
-    }
-    
-    [PolymorphicMarshaller()]
-    public class LinkedTypesDataElement : ISwaExtensionData, ISwaExtensionInfo
-    {
-        [UsedImplicitly]
-        public static UnsafeReader.ReadDelegate<object> ReadDelegate = CallGraphInfo.Read;
-        
-        [UsedImplicitly]
-        public static UnsafeWriter.WriteDelegate<object> WriteDelegate = (w, o) => CallGraphInfo.Write(w, o as CallGraphInfo);
-
-        public ISwaExtensionInfo ToInfo(CollectUsagesStagePersistentData persistentData)
-        {
-            return this;
-        }
-
-        public void AddData(ISwaExtensionData data)
-        {
-        }
-
-        public void ProcessBeforeInterior(ITreeNode element, IParameters parameters)
-        {
-        }
-
-        public void ProcessAfterInterior(ITreeNode element, IParameters parameters)
-        {
-        }
-
-        public void ProcessNode(ITreeNode element, IParameters parameters)
-        {
-        }
-    }
-    
-    public class LinkedTypesSwaExtensionProvider : SwaExtensionProviderBase
-    {
-        public LinkedTypesSwaExtensionProvider(string name, bool isEnabled = true) : base(name, isEnabled)
-        {
-        }
-
-        public override ISwaExtensionData CreateUsageDataElement(UsageData owner)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Merge(ISwaExtensionInfo oldData, ISwaExtensionInfo newData)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Clear()
-        {
-            throw new System.NotImplementedException();
-        }
-    }
+    // public class LinkedTypesContextNavigationCodeInsightsProvider : ContextNavigationCodeInsightsProviderBase<GotoLinkedTypesAction, LinkedTypesNavigationProvider>
+    // {
+    //     public LinkedTypesContextNavigationCodeInsightsProvider(Shell shell) 
+    //         : base(shell)
+    //     {
+    //     }
+    //
+    //     protected override string Noun(IDeclaredElement element, int count)
+    //     {
+    //         return "linked " + NounUtil.ToPluralOrSingular("type", count);
+    //     }
+    //
+    //     protected override int GetBaseCount(
+    //         SolutionAnalysisService swa,
+    //         IGlobalUsageChecker usageChecker,
+    //         IDeclaredElement element,
+    //         ElementId? elementId)
+    //     {
+    //         throw new System.NotImplementedException();
+    //     }
+    //
+    //     protected override int GetOwnCount(
+    //         SolutionAnalysisService swa,
+    //         IGlobalUsageChecker usageChecker,
+    //         IDeclaredElement element,
+    //         ElementId? elementId)
+    //     {
+    //         return 0;
+    //     }
+    //
+    //     public override string ProviderId => nameof(LinkedTypesContextNavigationCodeInsightsProvider);
+    //     
+    //     protected override IconId IconId => UnitTestingThemedIcons.TestFixtureToolWindow.Id;
+    //
+    //     public override ICollection<CodeLensRelativeOrdering> RelativeOrderings =>
+    //         new[] {new CodeLensRelativeOrderingFirst()};
+    // }
+    //
+    // [PolymorphicMarshaller()]
+    // public class LinkedTypesDataElement : ISwaExtensionData, ISwaExtensionInfo
+    // {
+    //     [UsedImplicitly]
+    //     public static UnsafeReader.ReadDelegate<object> ReadDelegate = CallGraphInfo.Read;
+    //     
+    //     [UsedImplicitly]
+    //     public static UnsafeWriter.WriteDelegate<object> WriteDelegate = (w, o) => CallGraphInfo.Write(w, o as CallGraphInfo);
+    //
+    //     public ISwaExtensionInfo ToInfo(CollectUsagesStagePersistentData persistentData)
+    //     {
+    //         return this;
+    //     }
+    //
+    //     public void AddData(ISwaExtensionData data)
+    //     {
+    //     }
+    //
+    //     public void ProcessBeforeInterior(ITreeNode element, IParameters parameters)
+    //     {
+    //     }
+    //
+    //     public void ProcessAfterInterior(ITreeNode element, IParameters parameters)
+    //     {
+    //     }
+    //
+    //     public void ProcessNode(ITreeNode element, IParameters parameters)
+    //     {
+    //     }
+    // }
+    //
+    // public class LinkedTypesSwaExtensionProvider : SwaExtensionProviderBase
+    // {
+    //     public LinkedTypesSwaExtensionProvider(string name, bool isEnabled = true) : base(name, isEnabled)
+    //     {
+    //     }
+    //
+    //     public override ISwaExtensionData CreateUsageDataElement(UsageData owner)
+    //     {
+    //         throw new System.NotImplementedException();
+    //     }
+    //
+    //     public override void Merge(ISwaExtensionInfo oldData, ISwaExtensionInfo newData)
+    //     {
+    //         throw new System.NotImplementedException();
+    //     }
+    //
+    //     public override void Clear()
+    //     {
+    //         throw new System.NotImplementedException();
+    //     }
+    // }
 
 //    [ElementProblemAnalyzer(typeof(IClassLikeDeclaration))]
 //    public class LinkedTypesHighlighter : ElementProblemAnalyzer<IClassLikeDeclaration>

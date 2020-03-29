@@ -51,7 +51,7 @@ namespace ReSharperPlugin.TestLinker.Navigation
                 return;
             }
 
-            if (host.ProcessImmediateResultHierarchy(dataContext, occurrences))
+            if (host.ProcessImmediateResultHighlightUsages(dataContext, occurrences))
                 return;
 
             host.ShowContextPopupMenu(

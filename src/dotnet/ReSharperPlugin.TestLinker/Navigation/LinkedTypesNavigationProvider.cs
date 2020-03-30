@@ -1,5 +1,4 @@
 using JetBrains.Application;
-using JetBrains.Application.DataContext;
 using JetBrains.Application.Threading;
 using JetBrains.Application.UI.Tooltips;
 using JetBrains.ReSharper.Feature.Services.Navigation.ContextNavigation;
@@ -15,18 +14,18 @@ namespace ReSharperPlugin.TestLinker.Navigation
             IShellLocks locks,
             ITooltipManager tooltipManager,
             IFeaturePartsContainer manager)
-            : base(locks, tooltipManager, manager)
+            : base(manager)
         {
         }
 
-        protected override string GetActionId(IDataContext dataContext)
+        protected override string ActionId
         {
-            return GotoLinkedTypesAction.Id;
+            get { return GotoLinkedTypesAction.Id; }
         }
 
-        protected override string GetNavigationMenuTitle(IDataContext dataContext)
+        protected override string NavigationMenuTitle
         {
-            return "Linked Types";
+            get { return "Linked Types"; }
         }
     }
 }

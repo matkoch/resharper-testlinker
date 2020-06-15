@@ -6,10 +6,11 @@ using JetBrains.ReSharper.Feature.Services.Navigation.ContextNavigation;
 using JetBrains.ReSharper.Feature.Services.Navigation.ExecutionHosting;
 using JetBrains.ReSharper.Feature.Services.Navigation.Requests;
 using JetBrains.ReSharper.Feature.Services.Occurrences;
+using JetBrains.ReSharper.Features.Navigation.Features.FindHierarchy;
 
 namespace ReSharperPlugin.TestLinker.Navigation
 {
-    public abstract class LinkedTypesNavigationProviderBase<T> : RequestContextSearchProvider<T, LinkedTypesSearchRequest, LinkedTypesSearchDescriptor>, INavigateFromHereProvider where T : class, IRequestContextSearch
+    public abstract class LinkedTypesNavigationProviderBase<T> : HierarchyProviderBase<T, LinkedTypesSearchRequest, LinkedTypesSearchDescriptor>, INavigateFromHereProvider where T : class, IRequestContextSearch
     {
         protected LinkedTypesNavigationProviderBase(IFeaturePartsContainer manager)
             : base(manager)
@@ -20,6 +21,11 @@ namespace ReSharperPlugin.TestLinker.Navigation
 
         protected abstract string ActionId { get; }
         protected abstract string NavigationMenuTitle { get; }
+
+        protected override OccurrencePresentationOptions ProvideFeatureSpecificPresentationOptions(LinkedTypesSearchRequest searchRequest)
+        {
+            return new OccurrencePresentationOptions();
+        }
 
         protected override LinkedTypesSearchDescriptor CreateSearchDescriptor(LinkedTypesSearchRequest searchRequest, ICollection<IOccurrence> results)
         {

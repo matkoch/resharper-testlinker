@@ -1,83 +1,45 @@
 using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Application;
 using JetBrains.Application.DataContext;
-using JetBrains.Application.Threading;
-using JetBrains.Application.UI.Tooltips;
-using JetBrains.DataFlow;
-using JetBrains.Lifetimes;
-using JetBrains.ReSharper.Feature.Services.Diagrams;
+using JetBrains.ProjectModel.DataContext;
 using JetBrains.ReSharper.Feature.Services.Navigation.ContextNavigation;
+using JetBrains.ReSharper.Feature.Services.Navigation.ExecutionHosting;
+using JetBrains.ReSharper.Feature.Services.Navigation.Requests;
 using JetBrains.ReSharper.Feature.Services.Occurrences;
-using JetBrains.ReSharper.Psi;
-using JetBrains.TextControl;
-using JetBrains.TextControl.DataContext;
-using JetBrains.Util;
 
 namespace ReSharperPlugin.TestLinker.Navigation
 {
-    public abstract class LinkedTypesNavigationProviderBase<T> : ContextNavigationProviderBase<T>, INavigateFromHereProvider
-        where T : LinkedTypesContextSearchBase
+    public abstract class LinkedTypesNavigationProviderBase<T> : RequestContextSearchProvider<T, LinkedTypesSearchRequest, LinkedTypesSearchDescriptor>, INavigateFromHereProvider where T : class, IRequestContextSearch
     {
-        private readonly IShellLocks myLocks;
-        private readonly ITooltipManager myTooltipManager;
-
-        // TODO: LABEL
-        private const string NoResultsFoundText = "No linked types found";
-
-        protected LinkedTypesNavigationProviderBase(
-            IShellLocks locks,
-            ITooltipManager tooltipManager,
-            IFeaturePartsContainer manager)
+        protected LinkedTypesNavigationProviderBase(IFeaturePartsContainer manager)
             : base(manager)
         {
-            myLocks = locks;
-            myTooltipManager = tooltipManager;
         }
 
-        protected override NavigationActionGroup ActionGroup => NavigationActionGroup.Important;
+        public override string GetNotFoundMessage(SearchRequest request) => "No linked types found";
 
-        protected override void Execute(IDataContext dataContext, IEnumerable<T> searches,
-            INavigationExecutionHost host)
+        protected abstract string ActionId { get; }
+        protected abstract string NavigationMenuTitle { get; }
+
+        protected override LinkedTypesSearchDescriptor CreateSearchDescriptor(LinkedTypesSearchRequest searchRequest, ICollection<IOccurrence> results)
         {
-            var request = searches.SelectNotNull(item => item.CreateSearchRequest(dataContext)).SingleOrDefault();
-            var occurrences = request?.Search();
-            if (occurrences == null)
-                return;
+            return new LinkedTypesSearchDescriptor(searchRequest, results);
+        }
 
-            if (occurrences.IsEmpty())
+        public IEnumerable<ContextNavigation> CreateWorkflow(IDataContext dataContext)
+        {
+            var solution = dataContext.GetData(ProjectModelDataConstants.SOLUTION);
+            var navigationExecutionHost = DefaultNavigationExecutionHost.GetInstance(solution);
+
+            var execution = GetSearchesExecution(dataContext, navigationExecutionHost);
+            if (execution != null)
             {
-                ShowToolTip(dataContext, NoResultsFoundText);
-                return;
+                yield return new ContextNavigation(
+                    NavigationMenuTitle,
+                    ActionId,
+                    NavigationActionGroup.Important,
+                    execution);
             }
-
-            if (host.ProcessImmediateResultHighlightUsages(dataContext, occurrences))
-                return;
-
-            host.ShowContextPopupMenu(
-                dataContext,
-                occurrences,
-                () => new LinkedTypesSearchDescriptor(request, occurrences),
-                OccurrencePresentationOptions.DefaultOptions,
-                skipMenuIfSingleEnabled: true,
-                request.Title,
-                () =>
-                {
-                    var typeElementsForDiagram =
-                        OccurrenceUtil.GetTypeElementsForDiagram(request, occurrences).ToList();
-                    return new Pair<ICollection<ITypeElement>, TypeDependenciesOptions>(typeElementsForDiagram,
-                        new TypeDependenciesOptions(new[] {TypeElementDependencyType.ReturnType},
-                            TypeDependenciesOptions.CollapseBigFoldersFunc));
-                });
-        }
-
-        private void ShowToolTip(IDataContext dataContext, string tooltip)
-        {
-            var textControl = dataContext.GetData(TextControlDataConstants.TEXT_CONTROL);
-            if (textControl != null)
-                myTooltipManager.ShowAtCaret(Lifetime.Eternal, tooltip, textControl, myLocks);
-            else
-                myTooltipManager.ShowIfPopupWindowContext(tooltip, dataContext);
         }
     }
 }

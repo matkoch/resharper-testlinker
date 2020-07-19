@@ -26,7 +26,7 @@ namespace ReSharperPlugin.TestLinker.UnitTesting
             IUnitTestElementStuff unitTestElementStuff)
         {
             _unitTestElementStuff = unitTestElementStuff;
-            
+
             var dataRule = new DataRule<UnitTestElements>.DesperateDataRule(
                 "ProjectModelToUnitTestElements",
                 UnitTestDataConstants.UnitTestElements.SELECTED,

@@ -67,17 +67,17 @@ namespace ReSharperPlugin.TestLinker.Utils
             var psiServices = source.GetPsiServices();
 
             var symbolCache = psiServices.Symbols.GetSymbolScope(LibrarySymbolScope.NONE, caseSensitive: true);
-            var linkedTypes = derivedNames.SelectMany(x => symbolCache.GetElementsByShortName(x)).ToList();
+            var linkedTypes = derivedNames.SelectMany(x => symbolCache.GetElementsByShortName(x)).OfType<ITypeElement>().ToList();
 
             var wordIndex = psiServices.WordIndex;
             var sourceFiles = wordIndex.GetFilesContainingAllWords(new[] {source.ShortName});
             var typesInFiles = sourceFiles
-                .SelectMany(x => psiServices.Symbols.GetTypesAndNamespacesInFile(x))
+                .SelectMany(psiServices.Symbols.GetTypesAndNamespacesInFile)
                 .OfType<ClassLikeTypeElement>()
                 .Where(x => GetAttributeLinkedTypes(x, attributeName)?.Contains(source) ?? false);
             linkedTypes.AddRange(typesInFiles);
 
-            return linkedTypes.Where(x => !x.Equals(source)).Cast<ITypeElement>().ToList();
+            return linkedTypes.Where(x => !x.Equals(source)).ToList();
         }
 
         [CanBeNull]

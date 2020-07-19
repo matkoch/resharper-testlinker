@@ -36,7 +36,7 @@ namespace ReSharperPlugin.TestLinker.UnitTesting
             using (CompilationContextCookie.GetExplicitUniversalContextIfNotSet())
             {
                 var linkedTypes = changedTypes.SelectMany(LinkedTypesUtil.GetLinkedTypes).ToList();
-                var relevantTests = linkedTypes.Select(x => _unitTestElementStuff.GetElement(x)).WhereNotNull();
+                var relevantTests = linkedTypes.Select(_unitTestElementStuff.GetElement).WhereNotNull();
                 foreach (var relevantTest in relevantTests)
                     _unitTestResultManager.MarkOutdated(relevantTest);
             }

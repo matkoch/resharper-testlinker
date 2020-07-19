@@ -17,7 +17,7 @@ namespace ReSharperPlugin.TestLinker.Actions
         : ContextNavigationActionBase<LinkedTypesWithDerivedNameNavigationProvider>
     {
         public const string Id = nameof(GotoLinkedTypesWithDerivedNameAction);
-        
+
         public override IActionRequirement GetRequirement(IDataContext dataContext)
         {
             return CurrentPsiFileRequirementNoCaches.FromDataContext(dataContext);
